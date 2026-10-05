@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; media-src 'self' data: blob:; font-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="{{DESCRIPTION}}">
+  <title>{{TITLE}}</title>
+  <style>{{STYLE_CSS}}</style>
+  {{LICENSE_NOTICE}}
+</head>
+<body class="note theme-{{THEME}}">
+<div class="reading-progress" aria-hidden="true"><div id="progress-fill"></div></div>
+<div class="page-shell">
+  <aside class="side-navigation" aria-label="笔记目录">
+    <a class="wordmark" href="#top">FIELDNOTES <span>文献伴读</span></a>
+    <p class="side-caption">从结论到证据，再回到问题。</p>
+    <nav>{{TOC_HTML}}</nav>
+    <div class="side-footer">{{SOURCE_LINK_HTML}}<p>本地阅读 · {{THEME_LABEL}}</p></div>
+  </aside>
+  <main id="top">
+    <div class="tools" aria-label="阅读工具">
+      <label class="find-label">定位段落 <input id="note-search" type="search" placeholder="关键词 / section" autocomplete="off"></label>
+      <button id="focus-toggle" type="button" aria-pressed="false">专注阅读</button>
+      <button id="theme-toggle" type="button" aria-pressed="false">深色模式</button>
+      <button id="print-note" type="button">打印 / PDF</button>
+    </div>
+    <p id="search-status" class="search-status" aria-live="polite"></p>
+    <header class="note-header">
+      <p class="eyebrow">{{KICKER}}</p>
+      <h1>{{TITLE}}</h1>
+      <p class="subtitle">{{SUBTITLE}}</p>
+      <div class="metadata">{{META_HTML}}</div>
+    </header>
+    <article class="reading-content markdown-body" id="reading-content">{{BODY_HTML}}</article>
+    <footer class="page-footer"><p>结论应与阅读范围、证据和不确定性一起保存。</p>{{SOURCE_LINK_HTML}}</footer>
+  </main>
+</div>
+<script type="application/json" id="note-data">{{DATA_JSON}}</script>
+<script>{{BEHAVIOR_JS}}</script>
+</body>
+</html>

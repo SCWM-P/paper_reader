@@ -1,0 +1,28 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1: The Transformer - model architecture.",
+    "page": 3,
+    "bbox": [
+      188.5590057373047,
+      64.00198364257812,
+      423.43902587890625,
+      401.7454528808594
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  },
+  {
+    "id": "figure-2",
+    "file": "figure-2.png",
+    "caption": "Figure 2: (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several",
+    "page": 4,
+    "bbox": [
+      139.7830047607422,
+      63.19947814941406,
+      475.0119934082031,
+      271.3883056640625
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

@@ -1,0 +1,345 @@
+{
+  "metadata": {
+    "itemType": "conferencePaper",
+    "title": "Attention Is All You Need",
+    "date": "2017",
+    "language": "en",
+    "url": "https://papers.nips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html",
+    "accessDate": "2026-10-05",
+    "extra": "arXiv: 1706.03762\nPublication version: NIPS 2017 proceedings PDF",
+    "volume": "30",
+    "publisher": "Curran Associates, Inc.",
+    "pages": "5998-6008",
+    "proceedingsTitle": "Advances in Neural Information Processing Systems",
+    "conferenceName": "31st Conference on Neural Information Processing Systems (NIPS 2017)",
+    "creators": [
+      {
+        "firstName": "Ashish",
+        "lastName": "Vaswani",
+        "creatorType": "author"
+      },
+      {
+        "firstName": "Noam",
+        "lastName": "Shazeer",
+        "creatorType": "author"
+      },
+      {
+        "firstName": "Niki",
+        "lastName": "Parmar",
+        "creatorType": "author"
+      },
+      {
+        "firstName": "Jakob",
+        "lastName": "Uszkoreit",
+        "creatorType": "author"
+      },
+      {
+        "firstName": "Llion",
+        "lastName": "Jones",
+        "creatorType": "author"
+      },
+      {
+        "firstName": "Aidan N.",
+        "lastName": "Gomez",
+        "creatorType": "author"
+      },
+      {
+        "firstName": "Łukasz",
+        "lastName": "Kaiser",
+        "creatorType": "author"
+      },
+      {
+        "firstName": "Illia",
+        "lastName": "Polosukhin",
+        "creatorType": "author"
+      }
+    ],
+    "author": [
+      "Ashish Vaswani",
+      "Noam Shazeer",
+      "Niki Parmar",
+      "Jakob Uszkoreit",
+      "Llion Jones",
+      "Aidan N. Gomez",
+      "Łukasz Kaiser",
+      "Illia Polosukhin"
+    ],
+    "sources": [
+      "https://export.arxiv.org/api/query?id_list=1706.03762",
+      "https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Metadata.json",
+      "https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Bibtex.bib"
+    ]
+  },
+  "summary": "Transformer 通过自注意力和交叉注意力交换序列信息，多头机制在多个投影空间并行匹配与汇总。训练可并行处理各位置；生成仍按自回归顺序进行。",
+  "highlights": [
+    {
+      "title": "以注意力组织完整序列模型",
+      "content": "提出以注意力为核心的编码器—解码器架构，结合位置编码、逐位置 FFN、残差与 LayerNorm，提供可并行训练的序列变换路径。",
+      "evidence": [
+        {
+          "claim": "架构：编码器包含自注意力与 FFN，解码器额外包含编码器—解码器注意力。基础模型两侧各有 6 层，d_model = 512；原论文子层采用 LayerNorm(x + Sublayer(x))。",
+          "locator": "§3.1 · Figure 1 · PDF p.3",
+          "attachment_key": "47MK4RGA",
+          "page": 3
+        }
+      ]
+    },
+    {
+      "title": "多头投影与缩放点积",
+      "content": "让信息匹配在多个可学习的投影空间中进行，再拼接并投影输出；缩放点积控制分数的量级，便于计算与训练。",
+      "evidence": [
+        {
+          "claim": "缩放点积：Attention(Q,K,V) = softmax(QKᵀ / √d_k)V。先计算相似度，再按行归一化，最后汇总 V。作者在独立、零均值、单位方差假设下说明点积方差随 d_k 增长，缩放有助于保持 softmax 的梯度。",
+          "locator": "§3.2.1 · Eq.(1) · Figure 2 · PDF p.4",
+          "attachment_key": "47MK4RGA",
+          "page": 4
+        },
+        {
+          "claim": "多头注意力：分别投影 Q、K、V，在各个头中计算注意力，再拼接并作输出投影。基础配置为 8 个头，每头 d_k = d_v = 64；投影由训练学习。",
+          "locator": "§3.2.2 · PDF pp.4–5",
+          "attachment_key": "47MK4RGA",
+          "page": 5
+        }
+      ]
+    },
+    {
+      "title": "全局交互与翻译实证",
+      "content": "全局自注意力缩短序列位置之间的信息路径。论文通过机器翻译结果与组件消融展示架构价值，并给出训练成本和复杂度分析。",
+      "evidence": [
+        {
+          "claim": "位置与复杂度：正弦/余弦位置编码与词嵌入相加；全局自注意力每层复杂度为 O(n²d)，串行操作数量和最大路径长度在表中均为 O(1)。长序列的二次增长是后续高效注意力研究的阅读入口。",
+          "locator": "§3.5 / §4 · Table 1 · PDF p.6",
+          "attachment_key": "47MK4RGA",
+          "page": 6
+        },
+        {
+          "claim": "翻译结果：会议 PDF 的 Table 2 给出 base 的 EN-DE/EN-FR BLEU 为 27.3/38.1，big 为 28.4/41.0。EN-DE 的 big 结果超过表中已有系统；EN-FR 的结论针对既有单模型，表中另列有集成模型结果。",
+          "locator": "§6.1 · Table 2 · PDF p.8",
+          "attachment_key": "47MK4RGA",
+          "page": 8
+        },
+        {
+          "claim": "消融：Table 3 在 newstest2013 开发集比较组件，base 为 25.8 BLEU，单头为 24.9，学习式位置嵌入为 25.7。开发集消融与 Table 2 的 newstest2014 测试结果分别用于组件分析和系统比较。",
+          "locator": "§6.2 · Table 3 · PDF p.9",
+          "attachment_key": "47MK4RGA",
+          "page": 9
+        }
+      ]
+    }
+  ],
+  "Q & A": [
+    {
+      "question": "注意力机制怎样计算？",
+      "answer": "用户在视频需求中提出这一问题。计算按 Q/K/V 投影、QKᵀ 点积、除以 √dₖ、按需 mask、逐行 softmax、加权汇总 V 展开。本页 3-token 示例得到权重 [0.401,0.198,0.401] 与输出 [1.203,0.797]，可在交互实验和最小代码中核对。",
+      "origin": "用户讨论 · 视频讲解需求",
+      "evidence": [
+        {
+          "claim": "缩放点积：Attention(Q,K,V) = softmax(QKᵀ / √d_k)V。先计算相似度，再按行归一化，最后汇总 V。作者在独立、零均值、单位方差假设下说明点积方差随 d_k 增长，缩放有助于保持 softmax 的梯度。",
+          "locator": "§3.2.1 · Eq.(1) · Figure 2 · PDF p.4",
+          "attachment_key": "47MK4RGA",
+          "page": 4
+        }
+      ]
+    },
+    {
+      "question": "多头注意力怎样计算，为什么使用多个头？",
+      "answer": "每个头使用各自的 Q/K/V 投影矩阵，独立计算注意力，然后拼接并乘输出矩阵 Wᴼ。头的分工由训练形成；base 使用 8 头，每头 64 维，总模型维度为 512。教学演示用两个头显示不同投影对应的不同权重与输出。",
+      "origin": "用户讨论 · 视频讲解需求",
+      "evidence": [
+        {
+          "claim": "多头注意力：分别投影 Q、K、V，在各个头中计算注意力，再拼接并作输出投影。基础配置为 8 个头，每头 d_k = d_v = 64；投影由训练学习。",
+          "locator": "§3.2.2 · PDF pp.4–5",
+          "attachment_key": "47MK4RGA",
+          "page": 5
+        }
+      ]
+    },
+    {
+      "question": "它与前人的 RNN、CNN 计算模型有什么区别？",
+      "answer": "RNN 沿时间顺序传递状态；CNN 在局部窗口中聚合，并通过更多层或扩张卷积连接远处位置；全局自注意力让各位置在一层内直接交互。此前的序列模型已有注意力机制。本论文将注意力作为完整序列架构的核心；训练并行性和逐词生成要分别理解。",
+      "origin": "用户讨论 · 视频讲解需求",
+      "evidence": [
+        {
+          "claim": "位置与复杂度：正弦/余弦位置编码与词嵌入相加；全局自注意力每层复杂度为 O(n²d)，串行操作数量和最大路径长度在表中均为 O(1)。长序列的二次增长是后续高效注意力研究的阅读入口。",
+          "locator": "§3.5 / §4 · Table 1 · PDF p.6",
+          "attachment_key": "47MK4RGA",
+          "page": 6
+        }
+      ]
+    },
+    {
+      "question": "论文中的插图可以直接放入 HTML，如何从 PDF 中提取？",
+      "answer": "本次用 PyMuPDF 识别图注及矢量边界，对物理页 3、4 的 Figure 1/2 作区域渲染。查看图像后内嵌进 HTML，保留图号、标签和来源页序。复杂版面可采用 Docling 的图片对象及图注关联管线。",
+      "origin": "用户讨论 · 原图阅读需求"
+    },
+    {
+      "question": "怎样从 Zotero 一键进入 HTML，并在后续会话找到上次结论？",
+      "answer": "完整页面作为文献的 stored HTML attachment 保存，原生摘要保留结论、贡献、问答与打开链接。之后通过 recall 检索原生摘要，再回读完整记录；附件在本机保存完成，远端同步随 Zotero 同步状态更新。",
+      "origin": "用户讨论 · 伴读与跨会话需求"
+    }
+  ],
+  "others": [
+    {
+      "id": "figures",
+      "title": "论文原图",
+      "figures": [
+        {
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1 · Transformer 主架构",
+          "alt": "论文原图：左侧编码器、右侧解码器与跨注意力连接",
+          "attachment_key": "47MK4RGA",
+          "page": 3,
+          "explanation": "从下向上读数据流。编码器输出供解码器的交叉注意力读取；右移目标与 masked self-attention 配合。原图展示各子层的残差连接、Add & Norm 和重复层。点击图片可放大。"
+        },
+        {
+          "file": "figures/figure-2.png",
+          "caption": "Figure 2 · 缩放点积与多头注意力",
+          "alt": "论文原图：点积、缩放、mask、softmax、乘 V，以及多头投影与拼接",
+          "attachment_key": "47MK4RGA",
+          "page": 4,
+          "explanation": "左图从 Q/K 开始，经 MatMul、Scale、可选 Mask 和 SoftMax，再与 V 相乘。右图在多个投影空间执行同一计算，拼接各头输出后做 Linear。提取自 NIPS 2017 会议 PDF；保留原图结构。"
+        }
+      ]
+    },
+    {
+      "id": "equations",
+      "title": "公式与张量",
+      "equations": [
+        {
+          "title": "① 投影：同一表示的三个角色",
+          "latex": "Q=XW^Q,\\quad K=XW^K,\\quad V=XW^V",
+          "explanation": "若输入 \\(X\\in\\mathbb{R}^{n\\times d_{model}}\\)，则 \\(W^Q,W^K\\in\\mathbb{R}^{d_{model}\\times d_k}\\)，\\(W^V\\in\\mathbb{R}^{d_{model}\\times d_v}\\)。Q/K 的列数相等才能做点积；V 的列数决定每头输出维度。"
+        },
+        {
+          "title": "② 缩放点积注意力 · Eq.(1)",
+          "latex": "\\operatorname{Attention}(Q,K,V)=\\operatorname{softmax}\\left(\\frac{QK^{\\mathsf T}}{\\sqrt{d_k}}+M\\right)V",
+          "explanation": "\\(QK^{\\mathsf T}\\in\\mathbb{R}^{n_q\\times n_k}\\)；softmax 沿键的位置逐行计算。\\(M\\) 是可选的加性 mask：可见位置为 0、屏蔽位置为 \\(-\\infty\\)。自注意力通常 \\(n_q=n_k\\)；交叉注意力的两种序列长度可以不同。"
+        },
+        {
+          "title": "③ 多头：独立投影、拼接与输出投影",
+          "latex": "\\begin{aligned}\\mathrm{head}_i&=\\operatorname{Attention}(QW_i^Q,KW_i^K,VW_i^V)\\\\[0.45em]\\operatorname{MultiHead}(Q,K,V)&=\\operatorname{Concat}(\\mathrm{head}_1,\\ldots,\\mathrm{head}_h)W^O\\end{aligned}",
+          "explanation": "此式采用论文 §3.2.2 的记号：Q/K/V 表示待投影的输入；上一式的 Q/K/V 表示单头投影后的张量。base：\\(h=8\\)，\\(d_{model}=512\\)，\\(d_k=d_v=64\\)，拼接后为 512 维，再由 \\(W^O\\) 混合各头。"
+        },
+        {
+          "title": "④ 位置、前馈与原论文归一化",
+          "latex": "\\begin{aligned}PE_{(\\mathrm{pos},2i)}&=\\sin(\\mathrm{pos}/10000^{2i/d_{\\mathrm{model}}})\\\\[0.45em]PE_{(\\mathrm{pos},2i+1)}&=\\cos(\\mathrm{pos}/10000^{2i/d_{\\mathrm{model}}})\\\\[0.45em]\\operatorname{FFN}(x)&=\\max(0,xW_1+b_1)W_2+b_2\\\\[0.45em]\\operatorname{Output}_{\\mathrm{sublayer}}&=\\operatorname{LayerNorm}(x+\\operatorname{Sublayer}(x))\\end{aligned}",
+          "explanation": "原论文使用正弦/余弦位置编码，前馈层逐位置共享参数，并采用残差相加后的 LayerNorm。对照后续模型时，应核对位置编码、激活函数和归一化位置的具体选择。"
+        }
+      ]
+    },
+    {
+      "id": "visual-lab",
+      "title": "交互计算与主架构",
+      "visualizations": [
+        "attention",
+        "transformer"
+      ]
+    },
+    {
+      "id": "teaching-video",
+      "title": "数学动画 · 注意力与多头注意力",
+      "content": "约 5 分钟，中文合成旁白，按计算过程讲解。视频内嵌在本页，可随 HTML 附件携带。",
+      "videos": [
+        {
+          "file": "videos/attention-explained.mp4",
+          "caption": "Manim 数学动画 · Q/K/V、点积、softmax、多头、因果 mask 与 RNN/CNN 对比"
+        }
+      ]
+    },
+    {
+      "id": "minimal-code",
+      "title": "最小计算复现",
+      "content": "使用 Python 标准库即可运行；教学投影和输入与本页交互模块一致。执行后核对两个头的第一位置输出及因果 mask。",
+      "language": "Python",
+      "code": "import math\nimport json\n\nX = [[1, 0, 1, 0], [0, 1, 0, 2], [1, 1, 2, 1]]\n\ndef attention(x, head=0, causal=False):\n    # 教学投影：第一头的 Q/K 取前两维、V 取后两维；第二头交换。\n    qk_cols, v_cols = ((0, 1), (2, 3)) if head == 0 else ((2, 3), (0, 1))\n    q = [[row[j] for j in qk_cols] for row in x]\n    k = q\n    v = [[row[j] for j in v_cols] for row in x]\n    weights, output = [], []\n    for i, query in enumerate(q):\n        scores = [sum(a*b for a,b in zip(query,key))/math.sqrt(2) for key in k]\n        scores = [s if not causal or j <= i else -math.inf for j,s in enumerate(scores)]\n        exps = [math.exp(s-max(scores)) for s in scores]\n        alpha = [e/sum(exps) for e in exps]\n        weights.append(alpha)\n        output.append([sum(alpha[j]*v[j][d] for j in range(len(x))) for d in range(2)])\n    return weights, output\n\nfor head in (0, 1):\n    weights, z = attention(X, head=head)\n    print(json.dumps({\"head\":head+1,\"first_weights\":[round(a,6) for a in weights[0]],\n                      \"first_output\":[round(a,6) for a in z[0]]}))\nprint(\"causal first output:\", attention(X, causal=True)[1][0])\n"
+    },
+    {
+      "id": "evidence",
+      "title": "原文证据与版本",
+      "content": "阅读 NIPS 2017 官方会议 PDF 的 §1–7（物理页 1–9），核对 Figure 1、Figure 2 和 Table 1–3。参考文献位于物理页 10–11，留作后续追踪。此次阅读聚焦架构、计算方式和机器翻译实验，代码复现列入下一步。",
+      "evidence": [
+        {
+          "claim": "架构：编码器包含自注意力与 FFN，解码器额外包含编码器—解码器注意力。基础模型两侧各有 6 层，d_model = 512；原论文子层采用 LayerNorm(x + Sublayer(x))。",
+          "locator": "§3.1 · Figure 1 · PDF p.3",
+          "attachment_key": "47MK4RGA",
+          "page": 3
+        },
+        {
+          "claim": "缩放点积：Attention(Q,K,V) = softmax(QKᵀ / √d_k)V。先计算相似度，再按行归一化，最后汇总 V。作者在独立、零均值、单位方差假设下说明点积方差随 d_k 增长，缩放有助于保持 softmax 的梯度。",
+          "locator": "§3.2.1 · Eq.(1) · Figure 2 · PDF p.4",
+          "attachment_key": "47MK4RGA",
+          "page": 4
+        },
+        {
+          "claim": "多头注意力：分别投影 Q、K、V，在各个头中计算注意力，再拼接并作输出投影。基础配置为 8 个头，每头 d_k = d_v = 64；投影由训练学习。",
+          "locator": "§3.2.2 · PDF pp.4–5",
+          "attachment_key": "47MK4RGA",
+          "page": 5
+        },
+        {
+          "claim": "可见性：编码器自注意力读取输入序列，解码器自注意力用因果 mask 限定可见位置，交叉注意力的 Q 来自解码器、K/V 来自编码器。右移目标输入配合 mask，保持下一词预测的自回归条件。",
+          "locator": "§3.1 / §3.2.3 · PDF pp.3,5",
+          "attachment_key": "47MK4RGA",
+          "page": 5
+        },
+        {
+          "claim": "位置与复杂度：正弦/余弦位置编码与词嵌入相加；全局自注意力每层复杂度为 O(n²d)，串行操作数量和最大路径长度在表中均为 O(1)。长序列的二次增长是后续高效注意力研究的阅读入口。",
+          "locator": "§3.5 / §4 · Table 1 · PDF p.6",
+          "attachment_key": "47MK4RGA",
+          "page": 6
+        },
+        {
+          "claim": "训练：基础模型使用 8 张 P100、100K steps，论文报告约 12 小时；big 模型训练 300K steps，约 3.5 天。学习率先 warmup 4000 步，再按步数的平方根倒数下降；基础配置 dropout 与 label smoothing 均为 0.1。",
+          "locator": "§5.2–5.4 · Eq.(3) · PDF pp.7–8",
+          "attachment_key": "47MK4RGA",
+          "page": 7
+        },
+        {
+          "claim": "翻译结果：会议 PDF 的 Table 2 给出 base 的 EN-DE/EN-FR BLEU 为 27.3/38.1，big 为 28.4/41.0。EN-DE 的 big 结果超过表中已有系统；EN-FR 的结论针对既有单模型，表中另列有集成模型结果。",
+          "locator": "§6.1 · Table 2 · PDF p.8",
+          "attachment_key": "47MK4RGA",
+          "page": 8
+        },
+        {
+          "claim": "消融：Table 3 在 newstest2013 开发集比较组件，base 为 25.8 BLEU，单头为 24.9，学习式位置嵌入为 25.7。开发集消融与 Table 2 的 newstest2014 测试结果分别用于组件分析和系统比较。",
+          "locator": "§6.2 · Table 3 · PDF p.9",
+          "attachment_key": "47MK4RGA",
+          "page": 9
+        }
+      ]
+    },
+    {
+      "id": "next-steps",
+      "title": "继续阅读与复现",
+      "content": [
+        "用本页交互演示修改 X、选择查询与注意力头，核对 Q/K/V、权重和输出；再用 Python 复现相同数值。",
+        "实现单头 scaled dot-product attention 与 causal mask，再扩展到多头并检查张量形状。",
+        "对照 Figure 1 整理 encoder、decoder、cross-attention 的调用链。",
+        "下次会话检索本篇结论，从因果 mask 和训练并行性的关系继续。"
+      ]
+    },
+    {
+      "id": "reading-notes",
+      "title": "实验条件与版本备注",
+      "content": [
+        "实验结论对应论文给定的数据、分词、搜索与训练设置；复现时需要逐项记录这些条件。",
+        "此次采用会议 PDF 的 EN-FR 41.0 BLEU；arXiv v7 摘要记录 41.8，两种版本的数据应随出处分别引用。",
+        "每层并行计算与逐词自回归生成涉及不同执行过程，讨论速度时需明确所指阶段。",
+        "当前阅读覆盖正文与关键图表，训练实现、完整评测流程和参考文献算法留待下一轮复现。"
+      ]
+    }
+  ],
+  "title": "Attention Is All You Need · 第一轮精读",
+  "subtitle": "从 Q、K、V 理解 Transformer，再把结构与实验连接起来",
+  "recorded_at": "2026-10-05",
+  "note_author": "AI 伴读",
+  "paper": {
+    "key": "8L6QDD53",
+    "library": "users/0",
+    "title": "Attention Is All You Need",
+    "url": "https://papers.nips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html",
+    "select_uri": "zotero://select/library/items/8L6QDD53",
+    "file": "../attention-is-all-you-need.pdf",
+    "pdf_key": "47MK4RGA"
+  }
+}

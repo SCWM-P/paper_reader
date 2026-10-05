@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paper-reader-workspace"
+version = "0.1.0"
+description = "Literature reading, PDF translation and portable paper archives"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "pdf2zh==1.9.11",
+  "PyMuPDF==1.25.2",
+  # PDFMathTranslate issue #1167: later Tencent SDK releases remove TextTranslate.
+  "tencentcloud-sdk-python-tmt==3.1.70",
+  # Follow the upstream compatibility bounds for the published CLI and its UI.
+  "azure-ai-translation-text<=1.0.1",
+  "gradio<5.36",
+  "babeldoc>=0.1.22,<0.3.0",
+]
+
+[project.optional-dependencies]
+video = ["manim==0.21.0"]
+
+[tool.setuptools]
+packages = []
+
+[tool.paper-reader.translation]
+service = "deepseek"
+model = "deepseek-flash"
+api-key-env = "DEEPSEEK_API_KEY"
+target-language = "zh"
+fallback-service = "google"
+
+[tool.paper-reader.archive]
+root = "papers"
+note = "note.html"
+record = "assets/reading-record.json"
