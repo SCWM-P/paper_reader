@@ -12,10 +12,6 @@ dependencies = [
   "PyMuPDF==1.25.2",
   # PDFMathTranslate issue #1167: later Tencent SDK releases remove TextTranslate.
   "tencentcloud-sdk-python-tmt==3.1.70",
-  # Follow the upstream compatibility bounds for the published CLI and its UI.
-  "azure-ai-translation-text<=1.0.1",
-  "gradio<5.36",
-  "babeldoc>=0.1.22,<0.3.0",
 ]
 
 [project.optional-dependencies]
