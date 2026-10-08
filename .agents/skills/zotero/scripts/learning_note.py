@@ -44,14 +44,20 @@ def learning_content(learning, paper_url=None, compact=False):
     unresolved = list(dict.fromkeys(learning["unresolved"] + learning["issues"]))
     if unresolved:
         parts.append('<aside class="learning-unresolved"><h4>待确认与未解决项</h4><ul>' +
-                     ''.join('<li>' + _text(x) + '</li>' for x in unresolved) + '</ul></aside>')
+                     ''.join('<li>' + _text(x) + '</li>' for x in unresolved[:16]) + '</ul>')
+        if len(unresolved) > 16:
+            parts.append(f'<p class="learning-budget">另有 {len(unresolved) - 16} 条，完整内容保留在阅读记录 JSON。</p>')
+        parts.append('</aside>')
     names = {c["id"]: c["term"] for c in learning["concepts"]}
     for concept in learning["concepts"][:budget["max_nodes"]]:
         state = concept["state"]
         parts.append('<article class="learning-concept"><h4>' + _text(concept["term"]) + '</h4>' +
                      '<p class="learning-state" data-state="' + state + '">' + STATES[state] + '</p>')
         if concept["depends_on"]:
-            parts.append('<p><strong>必要先修：</strong>' + _text('、'.join(names.get(k, k + '（待补）') for k in concept["depends_on"])) + '</p>')
+            dependencies = concept["depends_on"][:budget["max_nodes"]]
+            parts.append('<p><strong>必要先修：</strong>' + _text('、'.join(names.get(k, k + '（待补）') for k in dependencies)) + '</p>')
+            if len(concept["depends_on"]) > len(dependencies):
+                parts.append('<p class="learning-budget">其余先修超出本轮节点预算，尚未展开。</p>')
         if concept.get("revision"):
             parts.append('<p><strong>状态修正：</strong>' + _text(concept["revision"]) + '</p>')
         for block in concept["lesson"]:

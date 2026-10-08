@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / '.agents/skills/zotero/scripts'
 sys.path.insert(0, str(SCRIPTS))
 from html_note import render, THEMES
-from learning_record import normalize_learning
+from learning_record import normalize_learning, _route_issues
 from learning_note import learning_content
 from reading_record import normalize_record
 from zotero_workflow import reading_note_html
@@ -230,7 +230,55 @@ class LearningTests(unittest.TestCase):
         source['concepts'] = [{'id': key, 'term': key, 'state': 'unknown', 'depends_on': ids} for key in ids]
         normalized = normalize_learning(source)
         self.assertTrue(any('循环' in x for x in normalized['issues']))
-        self.assertIn('返回原文', learning_content(normalized))
+        self.assertLessEqual(len(normalized['issues']), len(ids) + 5)
+        page = learning_content(normalized)
+        self.assertLess(len(page.encode('utf-8')), 12000)
+        self.assertIn('返回原文', page)
+
+    def test_dense_route_work_is_bounded_by_nodes_edges_and_depth(self):
+        counter = {'edges': 0}
+
+        class CountedEdges(list):
+            def __iter__(self):
+                for value in super().__iter__():
+                    counter['edges'] += 1
+                    yield value
+
+            def __getitem__(self, key):
+                value = super().__getitem__(key)
+                return CountedEdges(value) if isinstance(key, slice) else value
+
+        ids = [f'node-{i}' for i in range(8)]
+        concepts = [{'id': key, 'term': key, 'state': 'unknown', 'depends_on': CountedEdges(ids)} for key in ids]
+        budget = {'max_nodes': 8, 'max_depth': 3}
+        issues = _route_issues(concepts, budget)
+        self.assertTrue(any('循环' in x for x in issues))
+        # Count actual edge inspections rather than a timing threshold or hidden output.
+        self.assertLessEqual(counter['edges'], len(ids) ** 2 * (budget['max_depth'] + 4))
+
+    def test_depth_check_reuses_shared_prerequisites_without_losing_longer_routes(self):
+        source = learning()
+        source['budget'] = {'max_nodes': 4, 'max_depth': 2}
+        source['concepts'] = [
+            {'id': 'base', 'term': '基础', 'state': 'unknown', 'depends_on': []},
+            {'id': 'shared', 'term': '共用先修', 'state': 'unknown', 'depends_on': ['base']},
+            {'id': 'middle', 'term': '中间概念', 'state': 'unknown', 'depends_on': ['shared']},
+            {'id': 'target', 'term': '当前概念', 'state': 'unknown', 'depends_on': ['middle', 'shared']},
+        ]
+        shallow = normalize_learning(source)
+        self.assertEqual(sum('深度预算' in x for x in shallow['issues']), 1)
+        source['budget']['max_depth'] = 3
+        self.assertFalse(any('深度预算' in x for x in normalize_learning(source)['issues']))
+
+    def test_large_manual_unresolved_list_has_bounded_presentation(self):
+        source = learning()
+        source['unresolved'] = [f'人工未解决项 {i}' for i in range(100)]
+        normalized = normalize_learning(source)
+        page = learning_content(normalized)
+        doc = Document(page)
+        self.assertLessEqual(sum(tag == 'li' for tag, _ in doc.tags), 16)
+        self.assertIn('另有', page)
+        self.assertEqual(len(normalized['unresolved']), 100)
 
     def test_sources_stay_attributed_in_page_and_searchable_summary(self):
         source = learning()
@@ -290,6 +338,23 @@ class LearningTests(unittest.TestCase):
         source['anchor']['url'] = 'zotero://open-pdf/library/items/PAPER001?page=1'
         page = learning_content(normalize_learning(source))
         self.assertIn('href="zotero://open-pdf/library/items/PAPER001?page=4"', page)
+
+    def test_summary_and_page_share_paper_pdf_fallback_without_anchor_url(self):
+        cases = (
+            ('zotero://open-pdf/library/items/ABC12345', 'zotero://open-pdf/library/items/ABC12345?page=4'),
+            ('https://example.org/paper.pdf', 'https://example.org/paper.pdf#page=4'),
+        )
+        for pdf_url, expected in cases:
+            with self.subTest(pdf_url=pdf_url):
+                source = record()
+                source['others'][0]['learning']['anchor'].pop('url')
+                source['paper'] = {'pdf_url': pdf_url}
+                original = deepcopy(source)
+                page = Document(render(source))
+                summary = Document(reading_note_html(ReadOnlyZotero(), 'PAPER001', source))
+                for document in (page, summary):
+                    self.assertEqual(sum(tag == 'a' and attrs.get('href') == expected for tag, attrs in document.tags), 2)
+                self.assertEqual(source, original)
 
     def test_cli_failure_and_repeated_input_preserve_existing_output(self):
         with tempfile.TemporaryDirectory() as name:

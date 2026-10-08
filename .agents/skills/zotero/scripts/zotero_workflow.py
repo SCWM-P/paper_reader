@@ -110,7 +110,7 @@ def reading_note_html(z, parent_key, record):
         if isinstance(content,list): body.append('<ul>'+''.join('<li>'+esc(x)+'</li>' for x in content)+'</ul>')
         elif content: body.append('<p>'+esc(content)+'</p>')
         if 'learning' in entry:
-            body.append(learning_content(entry['learning'], compact=True))
+            body.append(learning_content(entry['learning'], record.get('paper', {}).get('pdf_url'), compact=True))
         if entry.get('code'): body.append('<pre>'+esc(entry['code'])+'</pre>')
         for figure in entry.get('figures',[]): body.append('<p>'+esc(figure.get('caption',''))+' '+esc(figure.get('explanation',''))+'</p>')
         for equation in entry.get('equations',[]): body.append('<p>'+esc(equation.get('title',''))+' '+esc(equation.get('latex',''))+' '+esc(equation.get('explanation',''))+'</p>')

@@ -45,34 +45,56 @@ def _texts(value, field):
 
 
 def _route_issues(concepts, budget):
-    """Stop at cycles, missing nodes and small depth/node limits, preserving the record."""
+    """Inspect each bounded node/edge once; keep representative diagnostics, not all paths."""
     visible = concepts[:budget["max_nodes"]]
     nodes = {c["id"]: c for c in visible}
+    edges = {c["id"]: c["depends_on"][:budget["max_nodes"]] for c in visible}
     issues = []
     if len(concepts) > len(visible):
         issues.append(f"节点预算已耗尽：{len(concepts)} 个概念中只展开前 {len(visible)} 个。")
+    oversized = [c["id"] for c in visible if len(c["depends_on"]) > budget["max_nodes"]]
+    if oversized:
+        issues.append("先修列表超过节点预算：" + "、".join(oversized))
+    colors, longest, active, missing, cycle = {}, {}, [], [], []
 
-    def walk(key, path):
-        if key in path:
-            issues.append("先修存在循环：" + " → ".join(path + [key]))
-            return
-        if key not in nodes:
-            issues.append("先修依赖未闭合：" + " → ".join(path + [key]))
-            return
-        if len(path) > budget["max_depth"]:
-            issues.append("先修深度预算已耗尽：" + " → ".join(path + [key]))
-            return
-        dependencies = nodes[key]["depends_on"]
-        if len(dependencies) > budget["max_nodes"]:
-            issues.append("先修列表超过节点预算：" + key)
-        for dependency in dependencies[:budget["max_nodes"]]:
-            walk(dependency, path + [key])
+    def visit(key):
+        colors[key] = 1
+        active.append(key)
+        best = [key]
+        for dependency in edges[key]:
+            if dependency not in nodes:
+                missing.append(key + " → " + dependency)
+                continue
+            if colors.get(dependency) == 1:
+                if not cycle:
+                    cycle.extend(active[active.index(dependency):] + [dependency])
+                continue
+            # Memoize one longest route. Back edges stop here; cycles are reported separately.
+            tail = longest[dependency] if colors.get(dependency) == 2 else visit(dependency)
+            if len(tail) + 1 > len(best):
+                best = [key] + tail
+        active.pop()
+        colors[key] = 2
+        longest[key] = best
+        return best
 
+    for key in nodes:
+        if key not in colors:
+            visit(key)
+    if missing:
+        sample = "；".join(missing[:3])
+        suffix = f"（共 {len(missing)} 处，仅列前三处）" if len(missing) > 3 else ""
+        issues.append("先修依赖未闭合：" + sample + suffix)
+    if cycle:
+        issues.append("先修存在循环，例如：" + " → ".join(cycle) + "（停止循环展开）。")
+    deepest = max(longest.values(), key=len, default=[])
+    if len(deepest) - 1 > budget["max_depth"]:
+        issues.append("先修深度预算已耗尽，例如：" + " → ".join(deepest) +
+                      f"（最多追溯 {budget['max_depth']} 层）。")
     for concept in visible:
-        walk(concept["id"], [])
         if concept["state"] != "confirmed":
             issues.append(f"理解尚未确认：{concept['term']}（{STATES[concept['state']]}）。")
-    return list(dict.fromkeys(issues))
+    return issues
 
 
 def normalize_learning(value):
