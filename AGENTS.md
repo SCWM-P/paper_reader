@@ -161,7 +161,7 @@ python -B .agents/skills/zotero/scripts/pdf_figures.py "path/to/your/paper.pdf" 
 - metadata 尽量保留采集管线产出的字段，至少包含 title 和 author；note_author 表示记录者。
 - summary 简短表达核心结论和文献的理解，必须由伴读AI与用户交流后得出，伴读AI仅可草拟内容并标注为**降级**；
 - highlights 说明主要价值和贡献，可由用户/伴读AI形成；
-- Q & A 持续精简记录用户与伴读AI的问答/讨论，尚未讨论的问答填空数组；
+- Q & A 持续精简记录用户与伴读AI的问答/讨论，讨论和交流往往多轮进行，请考虑在记录时合并相近话题、问题与追问、问题与拓展，尚未讨论的问答填空数组；
 
 JSON 的 `others` 根据交流扩展代码、视频、原图、交互图、证据和阅读计划。区分原文结论与自己的推论，写明阅读范围和证据位置。默认 modern 模板提供元数据卡片、贡献卡片、问答检索与折叠、KaTeX 公式、图像放大和交互模块；也支持替换 HTML/CSS 与 AI 编写的新模块。数学字体使用随模板分发的 KaTeX 衬线字体；保持字形度量、上下标与根号定位，独立公式放大显示，多行公式适当增加行间距，长公式在手机端横向滚动。
 
@@ -178,5 +178,5 @@ python -B .agents/skills/zotero/scripts/zotero_ops.py html-note PAPER_KEY --file
 ## Git 跟踪规范
 
 - 版本库跟踪 `AGENTS.md`、`pyproject.toml`、运行用 Zotero skill 和 `papers/` 中的阅读产物及必要源码。
-- `.gitignore`维护工作目录的忽略规则，如果不存在请重建。`.gitignore`应该包含自身，包含(各级)缓存文件如`__pycache__`, `.vscode`, `.codex`, `.claude`, `.dsh`, `.DS_Store` 等等。
+- `.gitignore`维护工作目录的忽略规则，如果不存在请重建。`.gitignore`应该包含自身，包含所有(各级)缓存文件如`__pycache__`, `.vscode`, `.DS_Store`等, 包含 harness 配置目录如 `.codex`, `.claude`, `.dsh`等。
 - 新增阅读产物可检查后暂存；提交、推送同步到远端仓库按用户本次授权执行。
