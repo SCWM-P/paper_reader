@@ -1,5 +1,6 @@
 """Shared reading content for HTML pages and searchable Zotero notes."""
 from __future__ import annotations
+from learning_record import normalize_learning
 
 
 def author_names(metadata):
@@ -66,7 +67,10 @@ def normalize_record(record, parent_metadata=None):
                   else {"title":key,"content":value} for key,value in others.items()]
     if not isinstance(others, list) or not all(isinstance(x, dict) for x in others):
         raise ValueError("others must be optional text, named sections, or a list of section objects")
-    others = list(others)
+    others = [dict(entry) for entry in others]
+    for entry in others:
+        if "learning" in entry:
+            entry["learning"] = normalize_learning(entry["learning"])
     # Existing records remain readable while new sessions use the four core fields.
     for key, title in (("figures","论文原图"),("equations","公式与张量"),("visualizations","交互计算与架构"),
                        ("evidence","证据与出处")):

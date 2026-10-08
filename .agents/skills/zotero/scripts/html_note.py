@@ -10,6 +10,7 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 from reading_record import normalize_record, author_names
+from learning_note import learning_content
 
 ASSETS = Path(__file__).resolve().parents[1] / "assets"
 THEMES = {"modern": "现代伴读", "tufte": "Tufte 旁注", "latex": "LaTeX 学术", "github": "GitHub 简洁"}
@@ -179,6 +180,8 @@ def build_body(record, theme, asset_base=None, output_base=None):
         used.add(key)
         title = str(entry.get('title','扩展阅读'))
         content = text_content(entry.get('content',''))
+        if 'learning' in entry:
+            content += learning_content(entry['learning'], record.get('paper', {}).get('pdf_url'))
         figures, equations, visuals = visual_content(dict(entry,paper=record.get('paper',{})),asset_base,output_base)
         content += figures+equations+visuals+evidence_content(record,entry.get('evidence',[]),theme)
         if entry.get('code'):
@@ -201,7 +204,7 @@ def build_body(record, theme, asset_base=None, output_base=None):
             content += path.read_text(encoding='utf-8-sig')
         content += str(entry.get('html',''))
         # Preserve new, named extension data even without a predefined renderer.
-        extra={k:v for k,v in entry.items() if k not in {'id','title','content','figures','equations','visualizations','evidence','code','language','videos','links','html_file','html'}}
+        extra={k:v for k,v in entry.items() if k not in {'id','title','content','learning','figures','equations','visualizations','evidence','code','language','videos','links','html_file','html'}}
         if extra: content += text_content(extra)
         extensions.append('<section class="extension-panel" id="'+key+'"><h3>'+html.escape(title)+'</h3>'+content+'</section>')
         anchors.append(f'<a class="extension-nav" href="#{key}">{html.escape(title)}</a>')
@@ -217,6 +220,7 @@ def render(record, theme="modern", template_file=None, css_file=None, body_file=
     if theme not in THEMES:
         raise ValueError("Unknown theme")
     record = normalize_record(record)
+    record['paper'] = dict(record.get('paper', {}))
     if output_base is not None and record.get('paper', {}).get('file'):
         record['paper']['pdf_url'] = asset_uri(Path(asset_base or '.') / record['paper']['file'], 'application/pdf', output_base)
     body, toc = build_body(record, theme, asset_base, output_base)

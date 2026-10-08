@@ -11,7 +11,7 @@
 如果是一段新的会话，请依次完成以下初始化：
 
 ### 初始化 skills
-检查 harness 是否支持加载`.agent`目录，是则直接加载`.agent/skills`下所有技能；否则将`.agent/skills/`下所有内容移动合并到使用的 harness 所支持的配置目录（没有则创建，有则跳过），例如
+本项目的技能位于 `.agents/skills/`。检查 harness 是否能发现该目录；可以则直接加载并阅读相关 `SKILL.md`。否则将需要的技能复制到 harness 支持的配置目录，保留项目内的原始技能；已有配置先合并而不覆盖。例如
 ```plaintext
 Codex -> .codex
 Claude Code -> .claude
@@ -111,6 +111,14 @@ python -m pip install -e ".[video]"
 - 视频字体可通过 ATTENTION_FONT 指定；默认探测 Windows Microsoft YaHei、macOS PingFang SC 和 Linux Noto Sans CJK SC。
 
 ## 工作流工具
+
+### 原文卡点伴读
+
+科研初学者或跨领域读者遇到陌生概念、公式和前置知识缺口时，读
+[Paper Tutor SKILL](.agents/skills/paper-tutor/SKILL.md)。默认从当前卡点直接解释，复用已知起点，
+用有限先修和短算例回到原句；简短自测可跳过，不以答对为继续阅读的条件。
+保存时在现有记录的 `others` 中使用 `learning` 模块，保留原文锚点、来源类别、实际作答和未解决项。
+“已讲解”“已跳过”“经作答确认”分别记录，用户可以纠正或撤回。
 
 ### Zotero SKILL
 

@@ -34,3 +34,24 @@ body.focus .page-shell{grid-template-columns:minmax(0,1fr);max-width:920px}body.
 .note .math-block .katex-display{margin:.8em 0;width:max-content;min-width:100%}
 .note .math-block .katex-display>.katex{font-size:1.15em;text-align:center}
 @media(max-width:700px){.note .math-block{font-size:17px;padding:16px 2px}.note .equation-card{padding:18px 16px}}
+
+/* A short prerequisite route with explicit sources and optional checks. */
+.learning-session{overflow-wrap:anywhere}
+.learning-anchor,.learning-resume{padding:16px 20px;border-left:3px solid var(--accent);background:var(--soft);border-radius:8px}
+.learning-anchor h4,.learning-unresolved h4,.learning-concept h4{margin:0 0 10px;font-size:17px}
+.learning-anchor blockquote{margin:12px 0 0;padding:0;border:0;font-size:15px}
+.learning-budget,.learning-source,.learning-locator{color:var(--muted);font-size:12px!important}
+.learning-unresolved{padding:16px 20px;margin:20px 0;border:1px solid var(--line);border-radius:8px}
+.learning-unresolved ul{margin-bottom:0}
+.learning-concept{margin:24px 0;padding-top:20px;border-top:1px solid var(--line)}
+.learning-state{display:inline-block;font-size:12px!important;margin:0 0 12px!important;padding:3px 9px;border-radius:6px;background:var(--soft);color:var(--muted)}
+.learning-state[data-state="confirmed"]{color:var(--accent)}
+.learning-block{margin:16px 0}
+.learning-block p{margin:6px 0!important}
+.learning-source{letter-spacing:.04em}
+.learning-check{margin:16px 0;padding:14px 18px;background:var(--soft);border-radius:8px}
+.learning-check details{margin:10px 0}
+.learning-reference>summary{cursor:pointer}
+.learning-resume p{margin:6px 0!important}
+@media(max-width:700px){.learning-anchor,.learning-resume,.learning-unresolved,.learning-check{padding:14px 12px}}
+@media print{.learning-check,.learning-anchor{break-inside:avoid}}

@@ -21,7 +21,7 @@
     catch(_){const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);status.textContent=document.execCommand('copy')?'已复制':'代码已选中，可手动复制';}
   }));
   let printState=[];
-  window.addEventListener('beforeprint',()=>{printState=[...document.querySelectorAll('.qa-card')].map(c=>[c,c.open]);printState.forEach(([c])=>c.open=true);});
+  window.addEventListener('beforeprint',()=>{printState=[...document.querySelectorAll('.qa-card,.learning-reference')].map(c=>[c,c.open]);printState.forEach(([c])=>c.open=true);});
   window.addEventListener('afterprint',()=>{printState.forEach(([c,open])=>c.open=open);printState=[];});
   if (!search || !darkButton || !focusButton || !status) return;
   function setDark(value) {

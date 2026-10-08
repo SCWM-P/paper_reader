@@ -197,6 +197,11 @@ BEHAVIOR_JS 已包含 KaTeX、公式初始化和交互模块；整页模板在�
 
 ### others：按讨论需要拓展
 
+当前原文存在前置知识卡点时，可在模块中加入 `learning` 对象。参见
+[原文卡点伴读](../paper-tutor/SKILL.md) 和 [记录格式](../paper-tutor/references/learning-record.md)。
+校验器保留原文锚点、实际作答与未知状态，按小预算标出未闭合/循环的先修；
+HTML 与原生摘要共享展示，旧记录保持兼容。自测可以跳过，返回原文不会自动确认理解。
+
 others 可省略，推荐使用按阅读顺序排列的模块数组；也支持文字或“名称 → 内容”对象。
 每个模块用 title 命名，可填 id 供目录跳转，content 写文字或条目列表。
 常用前端资源按字段选择：code/language 为带复制按钮的代码；videos 为视频播放器；
