@@ -96,7 +96,9 @@ conda create -n paper_reader python=3.11
 # 每次工作先激活，再按 pyproject.toml 安装运行依赖。
 conda activate paper_reader
 python -m pip install -e .
-# 检查 CLI 和依赖是否可用
+# 安装后可直接使用统一入口；保持在工作空间根目录运行。
+paper --help
+paper check "papers/EXAMPLE/Attention Is All You Need"
 pdf2zh --help
 ```
 
@@ -127,9 +129,9 @@ python -m pip install -e ".[video]"
 
 ```bash
 # 从工作空间根目录检查正在运行的本机 Zotero。
-python -B .agents/skills/zotero/scripts/zotero_ops.py doctor
+paper zotero doctor
 # 查文献和历史结论，再回读完整条目或笔记。
-python -B .agents/skills/zotero/scripts/zotero_ops.py recall "multi-head attention" --limit 5
+paper zotero recall "multi-head attention" --limit 5
 ```
 
 用户提出保存、归档或整理时完成相应写入。归档先检索重复条目，优先保留 Zotero Connector 采集的完整元数据；新文献采集官方 DOI、arXiv 或出版网页信息，核对作者顺序、版本、期刊/会议、卷期页和标识符。需要补齐时可按宿主能力派出只读采集 sub-agent，主 Agent 合并登记；缺项至少留资源 URL 和待补全说明。
@@ -158,7 +160,7 @@ pdf2zh "path/to/your/paper.pdf" -s google -li en -lo zh -o "path/to/your/transla
 
 ```bash
 # 在 paper_reader 环境执行，输出本篇论文的原图与位置记录。
-python -B .agents/skills/zotero/scripts/pdf_figures.py "path/to/your/paper.pdf" --out "path/to/your/<paper>/assets/figures" --pages 3 4
+paper figures "path/to/your/paper.pdf" --out "path/to/your/<paper>/assets/figures" --pages 3 4
 ```
 
 打开图片确认分图、标签和边界；关键原图直接插入笔记。复杂多栏或扫描件可在独立环境按需选用 Docling、Marker 或 MinerU，先用该论文检查质量和资源需求。
@@ -172,14 +174,44 @@ python -B .agents/skills/zotero/scripts/pdf_figures.py "path/to/your/paper.pdf" 
 - highlights 说明主要价值和贡献，可由用户/伴读AI形成；
 - Q & A 持续精简记录用户与伴读AI的问答/讨论，讨论和交流往往多轮进行，请考虑在记录时合并相近话题、问题与追问、问题与拓展，尚未讨论的问答填空数组；
 
+完整性由四个必要模块分别检查，`others` 不参与检查：
+
+| 模块 | 必要性与检查 |
+| --- | --- |
+| `metadata` | 必要，非空 |
+| `summary` | 必要，非空；标记降级时输出 WARNING |
+| `highlights` | 必要，非空 |
+| `Q & A` | 必要，空数组输出 WARNING；非空通过 |
+| `others` | 非必要，不检查 |
+
+降级使用独立的 `completeness` 状态表，保留模块现有内容格式。例如：
+
+```json
+"completeness": {"summary": {"status": "degraded"}}
+```
+
+状态表中每个模块仅有 `status`，值为 `complete` 或 `degraded`；模块名与记录一致，包括 `Q & A`。
+省略状态时按内容检查；状态不能覆盖缺失或空内容。任何必要模块显式标记 `degraded` 都会输出 WARNING。
+缺少必要模块或必要内容为空输出 ERROR；`Q & A` 字段存在但为空时只输出 WARNING。
+检查结果由各模块汇总，优先级为 ERROR、WARNING、OK；不依据正文中的“降级”等词猜测状态。
+
+```bash
+paper check "papers/EXAMPLE/Attention Is All You Need"
+paper check "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json" --json
+```
+
+报告只列四个模块。退出码 0 表示无错误（可有 WARNING），1 表示必要模块错误，2 表示文件、JSON 或命令错误。
+WARNING 会在阅读页面和 Zotero 摘要中提示，不阻止导出。`check` 不检查 PDF、图片或 `others` 中的扩展内容。
+只维护当前规范：SKILL 或约定改变时同步更新 EXAMPLE 的记录及页面，其他实例由伴读 AI 按最新规范整理。
+
 JSON 的 `others` 根据交流扩展代码、视频、原图、交互图、证据和阅读计划。区分原文结论与自己的推论，写明阅读范围和证据位置。默认 modern 模板提供元数据卡片、贡献卡片、问答检索与折叠、KaTeX 公式、图像放大和交互模块；也支持替换 HTML/CSS 与 AI 编写的新模块。数学字体使用随模板分发的 KaTeX 衬线字体；保持字形度量、上下标与根号定位，独立公式放大显示，多行公式适当增加行间距，长公式在手机端横向滚动。
 
 ```bash
 # 以EXAMPLE最佳实践为例
 # 导出论文主入口；图片和视频按实例内部相对路径加载。
-python -B .agents/skills/zotero/scripts/html_note.py --file "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json" --out "papers/Attention Is All You Need/note.html" --asset-mode relative --force
+paper render --file "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json" --out "papers/EXAMPLE/Attention Is All You Need/note.html" --asset-mode relative --force
 # 用户要求登记到正常 Zotero 条目时，生成资源内嵌版并保存附件与原生摘要。
-python -B .agents/skills/zotero/scripts/zotero_ops.py html-note PAPER_KEY --file "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json" --out "papers/EXAMPLE/Attention Is All You Need/tmp/zotero-note.html" --apply
+paper zotero html-note PAPER_KEY --file "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json" --out "papers/EXAMPLE/Attention Is All You Need/tmp/zotero-note.html" --apply
 ```
 
 两种页面共享记录与模板。本地入口引用本篇资产；Zotero 附件内嵌公式字体、图片和视频，原生摘要提供一键打开链接并支持跨会话 recall。更大视频按用户选择保留观看入口。保存后用真实页面检查公式、原图、问答、交互和视频；移动论文目录后资源继续加载。

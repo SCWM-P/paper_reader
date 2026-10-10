@@ -13,9 +13,8 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / '.agents/skills/zotero/scripts'
-sys.path.insert(0, str(SCRIPTS))
-from zotero_client import Zotero, config_dir, key_path
-from zotero_index import LiteratureIndex, index_path, index_status
+from paper_reader.scripts.zotero_client import Zotero, config_dir, key_path
+from paper_reader.scripts.zotero_index import LiteratureIndex, index_path, index_status
 
 
 @contextmanager
@@ -51,7 +50,7 @@ class RuntimeTests(unittest.TestCase):
         self.addCleanup(self.env.stop)
         self.fake_home = self.root / 'fake-user'
         self.fake_home.mkdir()
-        home = patch('zotero_client.Path.home', return_value=self.fake_home)
+        home = patch('paper_reader.scripts.zotero_client.Path.home', return_value=self.fake_home)
         home.start()
         self.addCleanup(home.stop)
 
@@ -61,7 +60,7 @@ class RuntimeTests(unittest.TestCase):
 
     def test_default_runtime_is_created_in_working_directory_on_every_platform(self):
         for platform in ('darwin', 'win32', 'linux'):
-            with self.subTest(platform=platform), working_directory(self.project), patch('zotero_client.sys.platform', platform):
+            with self.subTest(platform=platform), working_directory(self.project), patch('paper_reader.scripts.zotero_client.sys.platform', platform):
                 runtime = config_dir()
                 self.assertEqual(runtime, self.project / '.zotero_agent')
                 self.assertTrue(runtime.is_dir())
@@ -100,7 +99,7 @@ class RuntimeTests(unittest.TestCase):
         old_key = legacy / 'local_api_key.json'
         original = json.dumps({'format': 2, 'servers': {'test-server': {'key': 'legacy-fake-key', 'remember': True}}})
         old_key.write_text(original)
-        with working_directory(self.project), patch('zotero_client.Path.home', return_value=legacy_home):
+        with working_directory(self.project), patch('paper_reader.scripts.zotero_client.Path.home', return_value=legacy_home):
             self.assertIsNone(self.client()._key)
             self.assertEqual(config_dir(), self.project / '.zotero_agent')
         self.assertEqual(old_key.read_text(), original)
@@ -173,12 +172,12 @@ class RuntimeTests(unittest.TestCase):
 
     def test_index_status_cli_reuses_working_directory_across_processes(self):
         wrapper = ('import runpy, sys; from pathlib import Path; from unittest.mock import patch; '
-                   'fake_home = Path(sys.argv.pop(1)); sys.argv = sys.argv[1:]; '
-                   'sys.path.insert(0, str(Path(sys.argv[0]).parent)); '
+                   'fake_home = Path(sys.argv.pop(1)); sys.argv = ["paper", *sys.argv[1:]]; '
+                   ''
                    'patcher = patch("pathlib.Path.home", return_value=fake_home); patcher.start(); '
-                   'runpy.run_path(sys.argv[0], run_name="__main__")')
+                   'runpy.run_module("paper_reader", run_name="__main__")')
         command = [sys.executable, '-B', '-c', wrapper, str(self.fake_home),
-                   str(SCRIPTS / 'zotero_ops.py'), 'index', 'status']
+                   'zotero', 'index', 'status']
         for _ in range(2):
             result = subprocess.run(command, cwd=self.project, env=os.environ.copy(), check=True,
                                     capture_output=True, text=True)

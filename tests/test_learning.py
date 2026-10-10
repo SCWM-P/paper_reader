@@ -10,12 +10,11 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / '.agents/skills/zotero/scripts'
-sys.path.insert(0, str(SCRIPTS))
-from html_note import render, THEMES
-from learning_record import normalize_learning, _route_issues
-from learning_note import learning_content
-from reading_record import normalize_record
-from zotero_workflow import reading_note_html
+from paper_reader.scripts.html_note import render, THEMES
+from paper_reader.scripts.learning_record import normalize_learning, _route_issues
+from paper_reader.scripts.learning_note import learning_content
+from paper_reader.scripts.reading_record import normalize_record
+from paper_reader.scripts.zotero_workflow import reading_note_html
 
 
 def learning():
@@ -33,7 +32,8 @@ def learning():
 
 def record(value=None):
     return {'metadata': {'title': 'Demo paper', 'author': ['Demo author']},
-            'summary': '降级：教学测试记录。', 'highlights': [], 'Q & A': [],
+            'summary': '教学测试记录。', 'highlights': ['教学测试'], 'Q & A': [],
+            'completeness': {'summary': {'status': 'degraded'}},
             'others': [{'id': 'lesson', 'title': '原文卡点', 'learning': value or learning()}]}
 
 
@@ -81,13 +81,14 @@ class LearningTests(unittest.TestCase):
         self.assertEqual(normalize_record(first), first)
         self.assertEqual(first['others'][0]['learning']['concepts'][0]['state'], 'explained')
 
-    def test_legacy_record_and_named_extensions_remain_readable(self):
+    def test_current_named_extensions_render_without_legacy_field_fallbacks(self):
         for extensions in ('一句补充', {'补充': '内容'}, [{'title': '已有模块', 'custom': {'x': 1}}]):
-            source = {'title': '旧笔记', 'paper': {'title': '旧论文'}, 'summary': '旧结论', 'others': extensions}
-            normalized = normalize_record(source)
-            self.assertEqual(normalized['Q & A'], [])
-            self.assertNotIn('learning', normalized['others'][0])
-            self.assertIn('旧结论', render(source))
+            source = record()
+            source['others'] = extensions
+            self.assertEqual(normalize_record(source)['Q & A'], [])
+            self.assertIn('教学测试记录', render(source))
+        with self.assertRaises(ValueError):
+            normalize_record({'title': '旧笔记', 'paper': {'title': '旧论文'}, 'summary': '旧结论'})
 
     def test_existing_attention_record_renders_without_learning(self):
         path = ROOT / 'papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json'
@@ -361,7 +362,7 @@ class LearningTests(unittest.TestCase):
             root = Path(name)
             src, out = root / 'record.json', root / 'note.html'
             src.write_text(json.dumps(record(), ensure_ascii=False))
-            cmd = [sys.executable, '-B', str(SCRIPTS / 'html_note.py'), '--file', str(src), '--out', str(out)]
+            cmd = [sys.executable, '-B', '-m', 'paper_reader', 'render', '--file', str(src), '--out', str(out)]
             first = subprocess.run(cmd, capture_output=True, text=True)
             self.assertEqual(first.returncode, 0, first.stdout + first.stderr)
             expected = out.read_bytes()

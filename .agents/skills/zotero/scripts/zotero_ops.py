@@ -7,9 +7,9 @@ import json
 import sqlite3
 import sys
 from pathlib import Path
-from zotero_client import Zotero, ZoteroError, zotero_paths
-from zotero_index import LiteratureIndex, index_status
-from zotero_workflow import attach_pdf, import_item, upsert_reading_note, save_html_note
+from .zotero_client import Zotero, ZoteroError, zotero_paths
+from .zotero_index import LiteratureIndex, index_status
+from .zotero_workflow import attach_pdf, import_item, upsert_reading_note, save_html_note
 
 
 def emit(obj):
@@ -41,8 +41,8 @@ def write_flags(p):
     p.add_argument("--apply", action="store_true", help="perform write; otherwise preview")
 
 
-def build_parser():
-    ap = argparse.ArgumentParser(description=__doc__)
+def build_parser(prog=None):
+    ap = argparse.ArgumentParser(prog=prog, description=__doc__)
     ap.add_argument("--library", default="users/0", help="users/0 or groups/GROUP_ID")
     ap.add_argument("--base", help="HTTP loopback origin, optionally ending in /api")
     ap.add_argument("--timeout", type=positive, default=None)
@@ -234,11 +234,11 @@ def dispatch(z, a):
     raise ValueError("Unknown command")
 
 
-def main():
+def main(argv=None, *, prog=None):
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stderr.reconfigure(encoding="utf-8")
-    a = build_parser().parse_args()
+    a = build_parser(prog).parse_args(argv)
     try:
         if a.cmd == "index" and a.action == "status":
             emit(index_status())

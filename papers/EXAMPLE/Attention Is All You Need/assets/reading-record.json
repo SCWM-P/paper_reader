@@ -178,6 +178,20 @@
       "origin": "用户讨论 · 伴读与跨会话需求"
     }
   ],
+  "completeness": {
+    "metadata": {
+      "status": "complete"
+    },
+    "summary": {
+      "status": "complete"
+    },
+    "highlights": {
+      "status": "complete"
+    },
+    "Q & A": {
+      "status": "complete"
+    }
+  },
   "others": [
     {
       "id": "figures",

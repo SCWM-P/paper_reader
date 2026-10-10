@@ -3,19 +3,19 @@
 import argparse
 import json
 import sys
-from zotero_client import Zotero, ZoteroError
+from .zotero_client import Zotero, ZoteroError
 
 
-def main():
+def main(argv=None, *, prog=None):
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    p = argparse.ArgumentParser(description=__doc__)
+    p = argparse.ArgumentParser(prog=prog, description=__doc__)
     p.add_argument("app_name", nargs="?", default="Literature Reading Agent")
     p.add_argument("--status", action="store_true", help="cached key status; no dialog/write test")
     p.add_argument("--timeout", type=int, default=60)
     p.add_argument("--force", action="store_true")
     p.add_argument("--base")
-    a = p.parse_args()
+    a = p.parse_args(argv)
     if a.timeout <= 0:
         p.error("timeout must be positive")
     try:

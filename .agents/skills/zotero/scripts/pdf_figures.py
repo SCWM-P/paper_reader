@@ -68,14 +68,14 @@ def extract(pdf, out, pages=None, crops=None, dpi=180):
     return results
 
 
-if __name__ == "__main__":
-    p = argparse.ArgumentParser(description=__doc__)
+def main(argv=None, *, prog=None):
+    p = argparse.ArgumentParser(prog=prog, description=__doc__)
     p.add_argument("pdf")
     p.add_argument("--out", required=True)
     p.add_argument("--pages", type=int, nargs="+")
     p.add_argument("--dpi", type=int, default=180)
     p.add_argument("--crop", action="append", default=[], help="figure-1:3:x0,y0,x1,y1; repeat to correct crops")
-    a = p.parse_args()
+    a = p.parse_args(argv)
     if not 36 <= a.dpi <= 600:
         p.error("Choose DPI between 36 and 600")
     crops = {}
@@ -85,3 +85,9 @@ if __name__ == "__main__":
         if not re.fullmatch(r"figure-\d+", identifier) or len(crops[identifier]) != 5:
             p.error("Crop format: figure-1:3:x0,y0,x1,y1")
     print(json.dumps(extract(a.pdf, a.out, a.pages, crops, a.dpi), ensure_ascii=False, indent=2))
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

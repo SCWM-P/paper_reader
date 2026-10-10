@@ -55,3 +55,5 @@ body.focus .page-shell{grid-template-columns:minmax(0,1fr);max-width:920px}body.
 .learning-resume p{margin:6px 0!important}
 @media(max-width:700px){.learning-anchor,.learning-resume,.learning-unresolved,.learning-check{padding:14px 12px}}
 @media print{.learning-check,.learning-anchor{break-inside:avoid}}
+
+.module-warning { padding: .65rem .9rem; border-inline-start: 3px solid #b7791f; background: rgba(183,121,31,.10); border-radius: .35rem; font-size: .92rem; }

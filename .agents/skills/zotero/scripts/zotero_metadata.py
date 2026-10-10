@@ -44,7 +44,7 @@ def fetch(url, timeout=20, data=None, local=False):
     # Remote acquisition respects environment/OS proxy settings. Local translators bypass proxies.
     handlers = [ur.ProxyHandler({})] if local else [CheckedRedirect()]
     if local:
-        from zotero_client import _NoRedirect
+        from .zotero_client import _NoRedirect
         handlers.append(_NoRedirect())
     opener = ur.build_opener(*handlers)
     req = ur.Request(url, data=data, headers={"User-Agent": "Zotero-Agent-Skill/1.0 (metadata acquisition)",
@@ -229,7 +229,7 @@ def collect(source, translator=None, timeout=20):
     resource = "https://doi.org/" + up.quote(doi, safe="/") if doi else "https://arxiv.org/abs/" + aid if aid else public_url(source)
     attempts, item, method, retrieval = [], None, "link-only", resource
     if translator:
-        from zotero_client import normalize_base
+        from .zotero_client import normalize_base
         if up.urlsplit(translator).port is None:
             raise ValueError("Specify the translation-server port explicitly (usually 1969)")
         origin = normalize_base(translator)
@@ -301,8 +301,8 @@ def write_json(path, value, force):
         f.write("\n")
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
+def main(argv=None, *, prog=None):
+    parser = argparse.ArgumentParser(prog=prog, description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     acquire = sub.add_parser("collect")
     acquire.add_argument("source", help="DOI, arXiv ID or public literature webpage URL")
@@ -313,7 +313,7 @@ def main():
     acquire.add_argument("--force", action="store_true")
     check = sub.add_parser("audit")
     check.add_argument("--file", required=True)
-    a = parser.parse_args()
+    a = parser.parse_args(argv)
     try:
         if a.command == "audit":
             item = json.loads(Path(a.file).read_text(encoding="utf-8-sig"))

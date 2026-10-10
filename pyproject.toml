@@ -17,8 +17,23 @@ dependencies = [
 [project.optional-dependencies]
 video = ["manim==0.21.0"]
 
+[project.scripts]
+paper = "paper_reader.scripts.cli:main"
+
 [tool.setuptools]
-packages = []
+packages = ["paper_reader", "paper_reader.scripts"]
+
+[tool.setuptools.package-dir]
+paper_reader = ".agents/skills/zotero"
+
+[tool.setuptools.package-data]
+paper_reader = [
+  "SKILL.md",
+  "assets/templates/*",
+  "assets/vendor/*/*",
+  "assets/vendor/katex/contrib/*",
+  "assets/vendor/katex/fonts/*",
+]
 
 [tool.paper-reader.translation]
 service = "deepseek"

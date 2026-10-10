@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import html
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
-from learning_record import STATES, SOURCE_KINDS, NEXT_ACTIONS
+from .learning_record import STATES, SOURCE_KINDS, NEXT_ACTIONS
 
 
 def _text(value):

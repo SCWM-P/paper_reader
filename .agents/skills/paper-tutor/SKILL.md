@@ -31,9 +31,9 @@ description: Explain a difficult paper passage to a research beginner or cross-d
 
 普通讲解直接在会话中完成。用户要求保存或已有归档授权时，在原来的 `assets/reading-record.json` 的 `others` 增加一个带 `learning` 的模块，保留原有字段及用户编辑。下一次先读这条卡点、起点和未解决项，再接续解释。
 
-保存前读 [记录格式](references/learning-record.md)。四个核心字段继续遵循项目约定：AI 草拟 summary 标为降级；`Q & A` 只收实际讨论，未发生时为 `[]`。自拟练习放在 `learning`，不伪装成用户问答。
+保存前读 [记录格式](references/learning-record.md)。四个核心字段继续遵循项目约定：AI 草拟 summary 设置 `completeness.summary.status: degraded`；`Q & A` 只收实际讨论，未发生时为 `[]`。自拟练习放在 `learning`，不伪装成用户问答。
 
-本项目已有的 `../zotero/scripts/html_note.py` 渲染学习模块并保留离线公式；摘要渲染共享同一内容。没有保存授权时不写 Zotero。首次实际文库操作另读 `../zotero/SKILL.md`。
+使用 `paper render` 渲染学习模块并保留离线公式；摘要渲染共享同一内容。没有保存授权时不写 Zotero。首次实际文库操作另读 `../zotero/SKILL.md`。
 
 [Attention 短示例](assets/attention-prerequisites.json) 是人工编写的结构演示，所有概念均为 `explained`、所有自测待回答；它不是实际用户讨论，也不是 AI 教学效果测评。运行方法见记录格式。
 

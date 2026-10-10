@@ -1,6 +1,6 @@
 # 单卡点记录格式（version 1）
 
-在阅读 record 的 `others` 模块添加 `learning` 对象。原有记录不用迁移。一次记录对应一个原文锚点，概念及先修只服务这个锚点。
+在阅读 record 的 `others` 模块添加 `learning` 对象。外层阅读记录遵循当前项目规范。一次记录对应一个原文锚点，概念及先修只服务这个锚点。
 
 | 字段 | 用途 |
 | --- | --- |
@@ -23,12 +23,14 @@
 - `issues` 是校验器重算的展示字段，不手工维护。纠正状态后重新渲染会刷新它；`unresolved` 中的人工记录应按实际讨论更新。页面不会写学习状态到 localStorage，也不会因自测折叠/展开更改记录。
 - 先修诊断在本轮节点/边范围内复用已检查结果，循环与深度问题各保留一个代表路线，缺项最多列三个定位；不枚举所有路径。HTML/摘要最多展示 16 条未解决项，其余人工内容仍保留在 JSON。
 
+示范记录的 `completeness.summary.status` 为 `degraded`；`paper check` 对摘要降级和空 `Q & A` 输出 WARNING，`others.learning` 不参与完整性检查。
+
 无需作答也可把 `next.action` 设为 `return_to_paper`。如用户跳过某概念，将它标为 `skipped`；返回不代表它已经理解。记录需要补课的概念时可以先不写 lesson/check，避免把每个先修都展开成长讲义。
 
 从工作区根目录生成可审阅的 Attention 示范页（不改原样例）：
 
 ```bash
-python -B .agents/skills/zotero/scripts/html_note.py \
+paper render \
   --file .agents/skills/paper-tutor/assets/attention-prerequisites.json \
   --out "papers/EXAMPLE/Attention Is All You Need/prerequisite-demo.html" \
   --asset-mode relative

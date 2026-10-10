@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 
-from zotero_client import ZoteroError, config_dir
+from .zotero_client import ZoteroError, config_dir
 
 
 class _Text(HTMLParser):
