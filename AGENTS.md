@@ -77,7 +77,6 @@ paper_reader/
 - 记录与引用元数据放在 `assets/`。
 - 临时翻译脚本、操作探针、截图和日志放在本论文 `tmp/`。
 - 如有代码复现，作为阅读产物时放在 `assets/code/`。
-- 外部执行环境留在 conda 或用户环境目录。
 - `note.html` 的本地资源使用相对于论文根目录的路径，例如 `assets/figures/figure-1.png`。子目录中的页面按所在位置引用实例内部文件。整份论文目录可移动、复制和独立打开。
 - `assets/reading-record.json` 中的资源路径相对于该 JSON 所在目录，例如 `figures/figure-1.png`、`videos/attention-explained.mp4`；渲染器会换算为输出 HTML 的相对路径。记录中的 `paper.file` 可用 `../attention-is-all-you-need.pdf`。
 - PDF 译文保留在 translation，原文持续保留；记录来源、版本、采集时间与 PDF 物理页序。目录迁移后更新引用并打开页面确认资源加载。
@@ -115,17 +114,17 @@ python -m pip install -e ".[video]"
 
 ## 工作流工具
 
-### 原文卡点伴读
+### 论文教学指导
 
 科研初学者或跨领域读者遇到陌生概念、公式和前置知识缺口时，读
 [Paper Tutor SKILL](.agents/skills/paper-tutor/SKILL.md)。默认从当前卡点直接解释，复用已知起点，
-用有限先修和短算例回到原句；简短自测可跳过，不以答对为继续阅读的条件。
+用有限先修和短算例回到原句；
 保存时在现有记录的 `others` 中使用 `learning` 模块，保留原文锚点、来源类别、实际作答和未解决项。
 “已讲解”“已跳过”“经作答确认”分别记录，用户可以纠正或撤回。
 
 ### Zotero SKILL
 
-先读 [Zotero SKILL Doc](.agents/skills/zotero/SKILL.md)。核心读写、索引和 HTML 渲染使用 Python 标准库；本机 Zotero 10+ 的 Local API 承接文库操作。优先支持当前稳定版，并通过 doctor 探测实际能力。
+先读 [Zotero SKILL](.agents/skills/zotero/SKILL.md)。核心读写、索引和 HTML 渲染使用 Python 标准库；本机 Zotero 10+ 的 Local API 承接文库操作。优先支持当前稳定版，并通过 doctor 探测实际能力。
 
 ```bash
 # 从工作空间根目录检查正在运行的本机 Zotero。
@@ -169,10 +168,10 @@ paper figures "path/to/your/paper.pdf" --out "path/to/your/<paper>/assets/figure
 
 核心内容为 `metadata`、`summary`、`highlights`、`Q & A`，为 **必含项**，若文献实例存在缺失/降级意味着文献没有阅读完，需要**提醒用户**。
 
-- metadata 尽量保留采集管线产出的字段，至少包含 title 和 author；note_author 表示记录者。
-- summary 简短表达核心结论和文献的理解，必须由伴读AI与用户交流后得出，伴读AI仅可草拟内容并标注为**降级**；
-- highlights 说明主要价值和贡献，可由用户/伴读AI形成；
-- Q & A 持续精简记录用户与伴读AI的问答/讨论，讨论和交流往往多轮进行，请考虑在记录时合并相近话题、问题与追问、问题与拓展，尚未讨论的问答填空数组；
+- `metadata` 尽量保留采集管线产出的字段，至少包含 title 和 author；note_author 表示记录者。
+- `summary` 简短表达核心结论和文献的理解，必须由伴读AI与用户交流后得出，伴读AI仅可草拟内容并标注为**降级**；
+- `highlights` 说明主要价值和贡献，可由用户/伴读AI形成；
+- `Q & A` 持续精简记录用户与伴读AI的问答/讨论，讨论和交流往往多轮进行，请考虑在记录时合并相近话题、问题与追问、问题与拓展，尚未讨论的问答填空数组；
 
 完整性由四个必要模块分别检查，`others` 不参与检查：
 

@@ -39,8 +39,13 @@ paper zotero doctor
 paper authorize
 ```
 
-已有授权直接复用。遇到 401 时申请新授权；403 检查 API 设置或文库权限；
-412 重新读取当前版本；连接失败检查应用、API 设置和脚本是否与 Zotero 同机。
+已有授权直接复用。
+
+- `401`，申请新授权；
+- `403`，检查 API 设置或文库权限；
+- `412`，重新读取当前版本；
+
+连接失败检查应用、API 设置和脚本是否与 Zotero 同机。
 密钥由工具保存到运行目录，执行时保持私密。
 
 ## 按用户意图执行
@@ -119,8 +124,8 @@ BibTeX 同样依赖完整元数据；citation key 用于定位引文，最终排
 
 ### 本地文献实例
 
-项目有 `workAGENTS.md` 时读取其伴读约定。通常将每篇论文独立保存在
-`papers/<文章标题>/`，用户分类时可位于更深子目录。基本结构为原始 PDF、
+项目 `AGENTS.md` 包含了伴读约定。
+通常将每篇论文独立保存在 `papers/<文章标题>/`，用户分类时可位于更深子目录。基本结构为原始 PDF、
 `note.html`、`assets/figures/` 与本论文的 `tmp/`；缺失原文或关键插图时说明原因与待补齐项。
 翻译产物按需放 `translation/`，教学视频、绘制源码和字幕放 `assets/videos/`，
 结构化记录放 `assets/reading-record.json`，元数据与 BibTeX 放 `assets/metadata/`。
@@ -140,7 +145,8 @@ KaTeX、字体、模板样式与交互脚本持续内联，阅读页面可离线
 
 阅读 record 使用四个核心字段。metadata 对接采集管线，有哪些字段就保留哪些；
 至少含 title 和 author。summary 简短表达结论与理解，highlights 写主要学术价值，
-Q & A 记录用户与 AI 的实际讨论。others 按本次伴读需要自由拓展。
+Q & A 记录用户与 AI 的实际讨论的凝练整合，不要原封不动照抄。
+others 按本次伴读需要自由拓展。
 
 ```json
 {
@@ -159,15 +165,15 @@ metadata 可直接填 collect 的完整报告或 --item-out 内容，工具保�
 recorded_at、subtitle 和 paper 对象（key/library/title/url/select_uri）。
 highlights 支持文字或贡献数组；Q & A 使用 question/answer 对象数组。尚未讨论时填 []，
 未完成的解答可留空以便接续。AI 自拟练习题标为“AI 补充”，用户讨论保留实际内容和上下文。
-范围、出处和后续问题根据需要放在 others。只接受当前四个核心字段；不从旧字段补齐。
+范围、出处和后续问题根据需要放在 others。
 完整性由四个必要模块分别检查，`others` 不参与检查：
 
 | 模块 | 必要性与检查 |
 | --- | --- |
 | `metadata` | 必要，非空 |
-| `summary` | 必要，非空；标记降级时输出 WARNING |
+| `summary` | 必要，非空；标记降级时输出 **WARNING** |
 | `highlights` | 必要，非空 |
-| `Q & A` | 必要，空数组输出 WARNING；非空通过 |
+| `Q & A` | 必要，空数组输出 **WARNING**；非空通过 |
 | `others` | 非必要，不检查 |
 
 降级使用独立的 `completeness` 状态表，保留模块现有内容格式。例如：
