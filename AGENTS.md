@@ -53,6 +53,7 @@ paper_reader/
 ├── AGENTS.md                         伴读 AI 通用上下文注入口
 ├── pyproject.toml                    Python 依赖与翻译默认参数
 ├── .agents/skills/zotero/            伴读运行工具、模板和第三方许可证
+├── .zotero_agent/                   本工作目录的授权凭据和可重建索引（不入 Git）
 └── papers/                           储存文献实例
        └──EXAMPLE    文献实例的最佳实践样例，请勿删除
             └── Attention Is All You Need/             完整独立的文献实例
@@ -186,5 +187,5 @@ python -B .agents/skills/zotero/scripts/zotero_ops.py html-note PAPER_KEY --file
 ## Git 跟踪规范
 
 - 版本库跟踪 `AGENTS.md`、`pyproject.toml`、运行用 Zotero skill 和 `papers/` 中的阅读产物及必要源码。
-- `.gitignore`维护工作目录的忽略规则，如果不存在请重建。`.gitignore`应该包含自身，包含所有(各级)缓存文件如`__pycache__`, `.vscode`, `.DS_Store`等, 包含 harness 配置目录如 `.codex`, `.claude`, `.dsh`等。
+- `.gitignore`维护工作目录的忽略规则，如果不存在请重建。`.gitignore`应该包含自身，包含所有(各级)缓存文件如`__pycache__`, `.vscode`, `.DS_Store`等, 包含 harness 配置目录如 `.codex`, `.claude`, `.dsh`等，以及工作目录运行数据 `.zotero_agent/`。
 - 新增阅读产物可检查后暂存；提交、推送同步到远端仓库按用户本次授权执行。
