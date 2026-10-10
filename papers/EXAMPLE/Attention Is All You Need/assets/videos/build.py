@@ -1,85 +1,166 @@
-#!/usr/bin/env python3
-"""Render the Manim scene and package MP4, subtitles and chapter metadata.
+"""Offline macOS narration -> Manim chapters -> portable, subtitled MP4.
 
-Select an isolated environment containing requirements.txt; TeX must be on PATH.
-The audio directory can contain WAV narration created on any operating system.
-Windows can generate it with voice.ps1. FFmpeg is used for final packaging.
+Run in the project's paper_reader environment. See README.md for reproduction.
 """
+from __future__ import annotations
 import argparse
+import hashlib
 import html
 import json
+import math
 import os
-import re
+from pathlib import Path
 import shutil
 import subprocess
 import sys
-from pathlib import Path
+import wave
 
 HERE = Path(__file__).resolve().parent
 PAPER = HERE.parents[1]
+WORK = PAPER / 'tmp/video-mac'
+LESSON = json.loads((HERE / 'lesson.json').read_text())
+
+
+def run(args, **kwargs):
+    return subprocess.run([str(x) for x in args], check=True, **kwargs)
+
+
+def duration(path):
+    return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries',
+                 'format=duration', '-of', 'csv=p=0', str(path)], text=True).strip())
+
+
+def voice():
+    audio = WORK / 'audio'
+    audio.mkdir(parents=True, exist_ok=True)
+    manifest = []
+    for ci, chapter in enumerate(LESSON['chapters']):
+        rows = []
+        for bi, beat in enumerate(chapter['beats']):
+            stem = audio / f'{ci:02}-{bi:02}'
+            config = dict(beat, voice=LESSON['voice'])
+            fingerprint = hashlib.sha256(json.dumps(config, ensure_ascii=False).encode()).hexdigest()
+            if not stem.with_suffix('.wav').exists() or not stem.with_suffix('.sha256').exists() or stem.with_suffix('.sha256').read_text() != fingerprint:
+                stem.with_suffix('.txt').write_text(beat['text'])
+                run(['say', '-v', LESSON['voice'], '-r', str(beat['rate']), '-f', stem.with_suffix('.txt'), '-o', stem.with_suffix('.aiff')])
+                run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', stem.with_suffix('.aiff'),
+                     '-ac', '1', '-ar', '48000', '-c:a', 'pcm_s16le', stem.with_suffix('.wav')])
+                stem.with_suffix('.aiff').unlink()
+                stem.with_suffix('.sha256').write_text(fingerprint)
+            with wave.open(str(stem.with_suffix('.wav'))) as sound:
+                seconds = sound.getnframes() / sound.getframerate()
+            rows.append(dict(beat, audio=str(stem.with_suffix('.wav')), duration=seconds))
+        manifest.append(dict(chapter, beats=rows))
+        print(f'Voice {ci+1:02}: {sum(x["duration"] for x in rows):.1f}s', flush=True)
+    (WORK / 'voice.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2))
+    estimate = sum(b['duration'] + b.get('pause', .55) for c in manifest for b in c['beats']) + len(manifest) * 1.4
+    print(f'Estimated duration: {estimate:.1f}s', flush=True)
+    if estimate >= 594:
+        raise ValueError('Narration exceeds the ten-minute budget; revise the script before rendering.')
+
+
+def render(quality, selected):
+    settings = {'preview': ('854,480', '12'), 'final': ('1920,1080', '24')}
+    resolution, fps = settings[quality]
+    for ci in selected:
+        media = WORK / quality / f'{ci:02}'
+        media.mkdir(parents=True, exist_ok=True)
+        env = dict(os.environ, ATTENTION_CHAPTER=str(ci), ATTENTION_WORK=str(WORK), ATTENTION_QUALITY=quality)
+        env['PATH'] = '/Library/TeX/texbin:' + env.get('PATH', '')
+        log = media / 'render.log'
+        with log.open('w') as output:
+            try:
+                run([sys.executable, '-m', 'manim', 'render', HERE / 'scenes.py', 'LessonScene',
+                     '-r', resolution, '--fps', fps, '--media_dir', media, '--progress_bar', 'none',
+                     '--verbosity', 'WARNING', '--disable_caching', '-o', f'chapter-{ci:02}'],
+                    env=env, stdout=output, stderr=subprocess.STDOUT)
+            except subprocess.CalledProcessError:
+                print(log.read_text()[-6000:], flush=True)
+                raise
+        print(f'Render {ci+1:02}/{len(LESSON["chapters"])}: {LESSON["chapters"][ci]["title"]}', flush=True)
 
 
 def stamp(seconds):
-    milliseconds=round(seconds*1000)
-    h,rest=divmod(milliseconds,3600000);m,rest=divmod(rest,60000);s,ms=divmod(rest,1000)
+    value = round(seconds * 1000)
+    h, value = divmod(value, 3600000)
+    m, value = divmod(value, 60000)
+    s, ms = divmod(value, 1000)
     return f'{h:02}:{m:02}:{s:02},{ms:03}'
 
 
-def package(video, out, ffmpeg):
-    out=Path(out).resolve();out.parent.mkdir(parents=True,exist_ok=True)
-    chapters=json.loads((PAPER/'tmp/video/chapters.json').read_text(encoding='utf-8'))
-    metadata=[';FFMETADATA1','title=Attention Is All You Need — 注意力与多头注意力',
-              'comment=Vaswani et al., NIPS 2017; illustrative Q/K/V example; Manim Community.']
-    subtitles=[]
-    number=1
-    for chapter in chapters:
-        metadata += ['[CHAPTER]','TIMEBASE=1/1000',f'START={round(chapter["start"]*1000)}',
-                     f'END={round(chapter["end"]*1000)}','title='+chapter['title']]
-        # Sentence boundaries are proportionally timed to the recorded chapter WAV.
-        # The scene also burns a concise chapter subtitle directly into its frames.
-        sentences=[s.strip() for s in re.findall(r'[^。！？]+[。！？]?',chapter['text']) if s.strip()]
-        duration=chapter['end']-chapter['start']-1
-        total=sum(len(s) for s in sentences)
-        elapsed=chapter['start']
-        for sentence in sentences:
-            end=elapsed+duration*len(sentence)/total
-            subtitles += [str(number),f'{stamp(elapsed)} --> {stamp(end)}',sentence,'']
-            elapsed=end;number+=1
-    srt=out.with_suffix('.srt');srt.write_text('\n'.join(subtitles),encoding='utf-8')
-    (out.parent/'chapters.json').write_text(json.dumps(chapters,ensure_ascii=False,indent=2),encoding='utf-8')
-    meta=PAPER/'tmp/video/chapters.ffmeta';meta.write_text('\n'.join(metadata),encoding='utf-8')
-    subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y','-i',str(video),'-i',str(srt),
-                    '-i',str(meta),'-map','0:v:0','-map','0:a:0','-map','1:0','-map_metadata','2',
-                    '-map_chapters','2','-c:v','copy','-c:a','copy','-c:s','mov_text',
-                    '-metadata:s:s:0','language=zho','-movflags','+faststart',str(out)],check=True)
-    # A local companion player exposes chapter seeking and optional subtitles.
-    vtt='WEBVTT\n\n'+re.sub(r'(\d{2}:\d{2}:\d{2}),(\d{3})',r'\1.\2','\n'.join(subtitles))
-    data=json.dumps(vtt,ensure_ascii=False).replace('<','\\u003c')
-    buttons=''.join(f'<button data-time="{c["start"]:.3f}"><span>{i+1:02d}</span>{html.escape(c["title"])}</button>' for i,c in enumerate(chapters))
-    player='''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Attention Is All You Need · 数学动画</title><style>
-    *{box-sizing:border-box}body{margin:0;background:#0b1020;color:#e3e9f5;font:16px/1.8 system-ui,'Microsoft YaHei',sans-serif}main{max-width:1200px;margin:auto;padding:36px 24px}h1{font-size:30px;margin:8px 0 12px}p{color:#acbbd2}a{color:#68b6ff}video{width:100%;border:1px solid #2e405b;border-radius:14px;background:#080c16}.chapters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}button{font:inherit;text-align:left;color:inherit;background:#152239;border:1px solid #2e405b;padding:12px;border-radius:8px;cursor:pointer}button:hover{border-color:#68b6ff}button span{color:#68b6ff;margin-right:14px}.meta{font-size:13px}details{border-top:1px solid #2e405b;padding-top:16px}summary{cursor:pointer}li{margin:8px 0}@media(max-width:700px){.chapters{grid-template-columns:1fr 1fr}h1{font-size:24px}main{padding:24px 16px}}
-    </style></head><body><main><p class="meta">PAPER EXPLAINER · Vaswani et al. · NIPS 2017</p><h1>从一次点积，到多头注意力</h1><p>中文旁白 · 1080p 数学动画 · 9 章 · 约 5 分钟</p><video id="movie" controls preload="metadata" src="VIDEO_FILE"></video><div class="chapters">CHAPTER_BUTTONS</div><p><a href="../../note.html#visual-lab">打开交互阅读笔记</a> · <a href="attention-explained.mp4" download>下载 MP4</a> · <a href="attention-explained.srt" download>下载字幕</a></p><details><summary>计算示例与制作说明</summary><ul><li>教学输入 X=[[1,0,1,0],[0,1,0,2],[1,1,2,1]]。Head 1 的 Q/K 取前两维，V 取后两维；Head 2 的 Q/K 取后两维，V 取前两维。</li><li>单头示例权重约 [0.401,0.198,0.401]，输出 [1.203,0.797]；另一个头的输出 [0.860,0.716]。HTML 演示可逐项核对完整矩阵。</li><li>采用 Manim Community 绘制矢量动画，Windows 系统中文语音生成旁白；画面保留章节摘要字幕。全文字幕按句长估计时间，可在播放器字幕菜单开启。</li><li>完整论文架构与原图见阅读笔记。此视频的架构图突出数据流；残差、LayerNorm 和位置编码由旁白说明。</li></ul><p>依据：<a href="https://papers.nips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">官方会议 PDF</a>。制作代码与旁白位于本视频目录。</p></details></main><script>
-    const movie=document.getElementById('movie');document.querySelectorAll('[data-time]').forEach(b=>b.addEventListener('click',()=>{movie.currentTime=Number(b.dataset.time);movie.play().catch(error=>{if(error.name!=='AbortError') console.warn('Playback:',error.message);});}));
-    const track=document.createElement('track');track.kind='subtitles';track.label='中文全文';track.srclang='zh';track.src=URL.createObjectURL(new Blob([SUBTITLE_DATA],{type:'text/vtt'}));movie.append(track);
-    </script></body></html>'''
-    player=player.replace('VIDEO_FILE',html.escape(out.name,quote=True)).replace('CHAPTER_BUTTONS',buttons).replace('SUBTITLE_DATA',data)
-    (out.parent/'video.html').write_text(player,encoding='utf-8')
-    print(json.dumps({'video':str(out),'subtitles':str(srt),'chapters':len(chapters)},ensure_ascii=False))
+def package(quality):
+    paths, chapters, subtitles, beats = [], [], [], []
+    offset = 0.0
+    for ci, chapter in enumerate(LESSON['chapters']):
+        files = list((WORK / quality / f'{ci:02}' / 'videos').glob(f'**/chapter-{ci:02}.mp4'))
+        if len(files) != 1:
+            raise ValueError(f'Expected exactly one rendered chapter {ci}: {files}')
+        path = files[0]
+        span = duration(path)
+        timeline = json.loads((WORK / quality / f'timing-{ci:02}.json').read_text())
+        chapters.append({'title': chapter['title'], 'start': offset, 'end': offset + span})
+        for beat in timeline:
+            start, end = offset + beat['start'], offset + beat['end']
+            subtitles += [str(len(beats) + 1), f'{stamp(start)} --> {stamp(end)}', beat['text'], '']
+            beats.append(dict(beat, start=start, end=end, chapter=ci))
+        paths.append(path)
+        offset += span
+    if offset >= 600:
+        raise ValueError(f'Video duration {offset:.1f}s exceeds 10 minutes')
+    concat = WORK / quality / 'concat.txt'
+    concat.write_text(''.join("file '" + str(p).replace("'", "'\\''") + "'\n" for p in paths))
+    srt = HERE / 'attention-from-scratch.srt' if quality == 'final' else WORK / quality / 'preview.srt'
+    srt.write_text('\n'.join(subtitles))
+    metadata = [';FFMETADATA1', 'title=' + LESSON['title'], 'comment=Original educational diagrams; illustrative numerical example; offline macOS synthesis.']
+    for c in chapters:
+        metadata += ['[CHAPTER]', 'TIMEBASE=1/1000', f'START={round(c["start"]*1000)}', f'END={round(c["end"]*1000)}', 'title=' + c['title']]
+    meta = WORK / quality / 'chapters.ffmeta'
+    meta.write_text('\n'.join(metadata))
+    out = HERE / 'attention-from-scratch.mp4' if quality == 'final' else WORK / quality / 'preview.mp4'
+    run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', concat,
+         '-i', srt, '-i', meta, '-map', '0:v:0', '-map', '0:a:0', '-map', '1:0', '-map_metadata', '2', '-map_chapters', '2',
+         '-c:v', 'libx264', '-preset', 'slow', '-crf', '25', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '80k',
+         '-af', 'loudnorm=I=-18:TP=-2:LRA=9', '-c:s', 'mov_text', '-metadata:s:s:0', 'language=zho',
+         '-metadata:s:a:0', 'language=zho', '-movflags', '+faststart', out])
+    report = {'title': LESSON['title'], 'duration': duration(out), 'bytes': out.stat().st_size, 'chapters': chapters, 'beats': beats}
+    (WORK / quality / 'timeline.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+    if quality == 'final':
+        (HERE / 'chapters.json').write_text(json.dumps(chapters, ensure_ascii=False, indent=2))
+        poster_beat=next(b for b in beats if b['chapter']==4 and b['beat']==3)
+        run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str((poster_beat['start']+poster_beat['end'])/2),
+             '-i',out,'-frames:v','1','-vf','scale=1280:-1',HERE/'poster.jpg'])
+        player(out, chapters)
+    print(json.dumps({'video': str(out), 'seconds': report['duration'], 'MiB': report['bytes']/1024**2}, ensure_ascii=False), flush=True)
 
 
-if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--audio',default=str(PAPER/'tmp/video/audio'))
-    p.add_argument('--out',default=str(HERE/'attention-explained.mp4'))
-    p.add_argument('--ffmpeg',default=shutil.which('ffmpeg'))
-    p.add_argument('--existing-video',help='package an already rendered video')
-    a=p.parse_args()
-    if not a.ffmpeg:
-        p.error('FFmpeg must be on PATH or provided with --ffmpeg')
-    video=Path(a.existing_video) if a.existing_video else PAPER/'tmp/video/manim/videos/scenes/1080p30/AttentionExplained.mp4'
-    if not a.existing_video:
-        env=dict(os.environ,ATTENTION_AUDIO=str(Path(a.audio).resolve()))
-        subprocess.run([sys.executable,'-m','manim','render',str(HERE/'scenes.py'),'AttentionExplained',
-                        '-qh','--fps','30','--media_dir',str(PAPER/'tmp/video/manim'),
-                        '--progress_bar','none','--verbosity','WARNING'],cwd=PAPER,env=env,check=True)
-    package(video,a.out,a.ffmpeg)
+def player(out, chapters):
+    buttons = ''.join(f'<button data-time="{c["start"]:.3f}"><span>{i+1:02}</span>{html.escape(c["title"])}</button>' for i,c in enumerate(chapters))
+    page = '''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>让词语交换信息 · 数学动画</title><style>
+*{box-sizing:border-box}body{margin:0;background:#0c1018;color:#e8eaf0;font:16px/1.8 system-ui,"PingFang SC",sans-serif}main{max-width:1120px;margin:48px auto;padding:0 24px}small{letter-spacing:.18em;color:#68d4e8}h1{font-size:38px;line-height:1.3;margin:16px 0}p{color:#a6afc0}video{width:100%;background:#080b11;border-radius:12px}.chapters{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 40px}button{background:#161e2d;border:1px solid #283347;color:#dfe5f1;padding:12px;text-align:left;cursor:pointer;border-radius:6px;font:inherit;font-size:14px}button:hover{border-color:#68d4e8}button span{color:#68d4e8;margin-right:10px}a{color:#68d4e8}details{margin:36px 0;border-top:1px solid #283347;padding-top:20px}summary{cursor:pointer}details video{margin-top:20px}@media(max-width:650px){main{margin:24px auto;padding:0 16px}h1{font-size:28px}.chapters{grid-template-columns:1fr 1fr}}
+</style><main><small>从几何直觉，到可计算的模型</small><h1>让词语交换信息</h1><p>从注意力到 Transformer · 中文旁白与字幕 · 1080p · 不需要预先读过论文</p>
+<video id="movie" controls preload="metadata" poster="poster.jpg" src="attention-from-scratch.mp4"></video><div class="chapters">BUTTONS</div>
+<p><a href="attention-from-scratch.mp4" download>下载新版 MP4</a> · <a href="attention-from-scratch.srt" download>下载字幕</a> · <a href="../../note.html#teaching-video">返回阅读笔记</a></p>
+<details><summary>对照旧版（Windows 制作，约 5 分钟）</summary><video controls preload="none" src="attention-explained.mp4"></video><p>旧版原文件保留，便于比较讲解、节奏与画面。</p></details>
+<p>面向具备基础线性代数、概率论与简单机器学习知识的初学者。二维数字和语言线索均为教学构造，不代表训练后模型的真实内部状态。中文旁白由 macOS 本地语音合成。</p></main>
+<script>const v=document.querySelector('#movie');document.querySelectorAll('[data-time]').forEach(b=>b.onclick=()=>{v.currentTime=+b.dataset.time;v.play().catch(()=>{});});</script></html>'''
+    (HERE / 'video.html').write_text(page.replace('BUTTONS', buttons))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('stage', choices=['voice', 'render', 'package', 'all'])
+    parser.add_argument('--quality', choices=['preview','final'], default='final')
+    parser.add_argument('--chapters', help='zero-based comma-separated chapter indices; rendering only')
+    args = parser.parse_args()
+    WORK.mkdir(parents=True, exist_ok=True)
+    (WORK / '.gitignore').write_text('*\n')
+    if args.stage in ('voice','all'): voice()
+    if args.stage in ('render','all'):
+        selected = [int(x) for x in args.chapters.split(',')] if args.chapters else range(len(LESSON['chapters']))
+        render(args.quality, selected)
+    if args.stage in ('package','all'): package(args.quality)
+
+
+if __name__ == '__main__':
+    main()
