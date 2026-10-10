@@ -62,13 +62,15 @@ def normalize_base(value):
 def config_dir():
     """Create workspace-local runtime storage; overrides resolve from the working directory."""
     location = os.environ.get("ZOTERO_AGENT_HOME")
-    runtime = Path(location).expanduser().resolve() if location else Path.cwd() / ".zotero_agent"
-    runtime.mkdir(parents=True, exist_ok=True, mode=0o700)
-    try:
-        with (runtime / ".gitignore").open("x", encoding="utf-8") as ignored:
-            ignored.write("*\n")
-    except FileExistsError:
-        pass  # Preserve existing runtime ignore rules.
+    runtime = Path(location).expanduser().resolve() if location else Path.cwd() / ".runtime/zotero_agent"
+    directories = [runtime] if location else [runtime.parent, runtime]
+    for directory in directories:
+        directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        try:
+            with (directory / ".gitignore").open("x", encoding="utf-8") as ignored:
+                ignored.write("*\n")
+        except FileExistsError:
+            pass  # Preserve existing runtime ignore rules.
     return runtime
 
 def key_path():

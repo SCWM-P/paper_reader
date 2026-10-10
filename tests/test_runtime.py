@@ -62,7 +62,7 @@ class RuntimeTests(unittest.TestCase):
         for platform in ('darwin', 'win32', 'linux'):
             with self.subTest(platform=platform), working_directory(self.project), patch('paper_reader.scripts.zotero_client.sys.platform', platform):
                 runtime = config_dir()
-                self.assertEqual(runtime, self.project / '.zotero_agent')
+                self.assertEqual(runtime, self.project / '.runtime/zotero_agent')
                 self.assertTrue(runtime.is_dir())
                 self.assertEqual(key_path(), runtime / 'local_api_key.json')
 
@@ -71,7 +71,7 @@ class RuntimeTests(unittest.TestCase):
             first = self.client()
             saved = first.save_key('fake-local-key', True)
             second = self.client()
-            self.assertEqual(saved, self.project / '.zotero_agent/local_api_key.json')
+            self.assertEqual(saved, self.project / '.runtime/zotero_agent/local_api_key.json')
             self.assertEqual(second._key, 'fake-local-key')
             self.assertTrue(second._remember)
 
@@ -101,7 +101,7 @@ class RuntimeTests(unittest.TestCase):
         old_key.write_text(original)
         with working_directory(self.project), patch('paper_reader.scripts.zotero_client.Path.home', return_value=legacy_home):
             self.assertIsNone(self.client()._key)
-            self.assertEqual(config_dir(), self.project / '.zotero_agent')
+            self.assertEqual(config_dir(), self.project / '.runtime/zotero_agent')
         self.assertEqual(old_key.read_text(), original)
 
     def test_explicit_absolute_override_can_share_runtime_between_workspaces(self):
@@ -114,20 +114,20 @@ class RuntimeTests(unittest.TestCase):
                 self.assertEqual(config_dir(), shared)
             with working_directory(other):
                 self.assertEqual(self.client()._key, 'fake-shared-key')
-        self.assertFalse((self.project / '.zotero_agent').exists())
-        self.assertFalse((other / '.zotero_agent').exists())
+        self.assertFalse((self.project / '.runtime').exists())
+        self.assertFalse((other / '.runtime').exists())
 
     def test_relative_override_resolves_from_working_directory(self):
         with working_directory(self.project), patch.dict(os.environ, {'ZOTERO_AGENT_HOME': 'local-runtime'}):
             self.assertEqual(config_dir(), self.project / 'local-runtime')
             self.assertTrue((self.project / 'local-runtime').is_dir())
-            self.assertFalse((self.project / '.zotero_agent').exists())
+            self.assertFalse((self.project / '.runtime').exists())
 
     def test_index_is_persistent_and_partitioned_inside_runtime(self):
         with working_directory(self.project):
             index = LiteratureIndex('test-server')
             try:
-                self.assertEqual(index.path.parent, self.project / '.zotero_agent/indexes')
+                self.assertEqual(index.path.parent, self.project / '.runtime/zotero_agent/indexes')
                 row = index._row({'key': 'NOTE0001', 'version': 1, 'data': {'itemType': 'note', 'note': '<p>归一化权重</p>'}})
                 with index.db:
                     index.db.execute('INSERT INTO objects VALUES (?,?,?,?,?,?,?,?)', row)
@@ -149,14 +149,17 @@ class RuntimeTests(unittest.TestCase):
             self.client().save_key('fake-local-key', True)
             index = LiteratureIndex('test-server')
             index.close()
-            self.assertTrue((self.project / '.zotero_agent/local_api_key.json').is_file())
+            self.assertTrue((self.project / '.runtime/zotero_agent/local_api_key.json').is_file())
+            tutor = self.project / '.runtime/paper_tutor'
+            tutor.mkdir()
+            (tutor / 'concept.md').write_text('Fake teaching record')
         output = subprocess.run(['git', 'ls-files', '--others', '--exclude-standard'], cwd=self.project,
                                 check=True, capture_output=True, text=True).stdout
         self.assertEqual(output, '')
 
     def test_existing_runtime_ignore_rules_are_preserved(self):
-        runtime = self.project / '.zotero_agent'
-        runtime.mkdir()
+        runtime = self.project / '.runtime/zotero_agent'
+        runtime.mkdir(parents=True)
         ignore = runtime / '.gitignore'
         ignore.write_text('*\n# User comment\n')
         with working_directory(self.project):
@@ -167,6 +170,7 @@ class RuntimeTests(unittest.TestCase):
     def test_new_runtime_and_credentials_have_private_permissions(self):
         with working_directory(self.project):
             saved = self.client().save_key('fake-local-key', True)
+            self.assertEqual(stat.S_IMODE((self.project / '.runtime').stat().st_mode), 0o700)
             self.assertEqual(stat.S_IMODE(saved.parent.stat().st_mode), 0o700)
             self.assertEqual(stat.S_IMODE(saved.stat().st_mode), 0o600)
 
@@ -182,7 +186,7 @@ class RuntimeTests(unittest.TestCase):
             result = subprocess.run(command, cwd=self.project, env=os.environ.copy(), check=True,
                                     capture_output=True, text=True)
             self.assertEqual(json.loads(result.stdout), [])
-            self.assertTrue((self.project / '.zotero_agent').is_dir())
+            self.assertTrue((self.project / '.runtime/zotero_agent').is_dir())
 
 
 if __name__ == '__main__':

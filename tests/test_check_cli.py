@@ -112,7 +112,7 @@ class CompletenessTests(unittest.TestCase):
     def test_optional_extensions_and_resource_files_are_not_checked(self):
         source = record()
         source['paper'] = {'file': 'not-present.pdf'}
-        for others in (None, [], 'anything', {'learning': {'invalid': True}}, 123):
+        for others in (None, [], 'anything', {'custom': {'invalid': True}}, 123):
             source['others'] = others
             source['completeness'] = {'others': {'arbitrary': 'not checked'}}
             self.assertEqual(check_record(source)['status'], 'ok')
@@ -164,7 +164,7 @@ class CliTests(unittest.TestCase):
             self.assertEqual(self.invoke(['check', str(path)])[0], 1)
             path.write_text('{invalid')
             self.assertEqual(self.invoke(['check', str(path)])[0], 2)
-            self.assertFalse((directory / '.zotero_agent').exists())
+            self.assertFalse((directory / '.runtime').exists())
 
     def test_subcommand_help_routes_without_zotero_or_optional_dependencies(self):
         for command in ('check', 'zotero', 'authorize', 'render', 'metadata', 'figures'):
@@ -190,13 +190,8 @@ class CliTests(unittest.TestCase):
 
     def test_examples_follow_current_status_conventions(self):
         example = json.loads((ROOT / 'papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json').read_text())
-        demo = json.loads((ROOT / '.agents/skills/paper-tutor/assets/attention-prerequisites.json').read_text())
         self.assertEqual(check_record(example)['status'], 'ok')
         self.assertEqual(example['completeness']['summary']['status'], 'complete')
-        self.assertEqual(demo['completeness']['summary']['status'], 'degraded')
-        report = check_record(demo)
-        self.assertEqual(report['modules']['summary']['status'], 'warning')
-        self.assertEqual(report['modules']['Q & A']['status'], 'warning')
 
 
 if __name__ == '__main__':

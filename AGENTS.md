@@ -53,7 +53,9 @@ paper_reader/
 ├── AGENTS.md                         伴读 AI 通用上下文注入口
 ├── pyproject.toml                    Python 依赖与翻译默认参数
 ├── .agents/skills/zotero/            伴读运行工具、模板和第三方许可证
-├── .zotero_agent/                   本工作目录的授权凭据和可重建索引（不入 Git）
+├── .runtime/                        本地运行数据（整体不入 Git）
+│   ├── zotero_agent/                授权凭据和可重建索引
+│   └── paper_tutor/                 跨论文学习记录
 └── papers/                           储存文献实例
        └──EXAMPLE    文献实例的最佳实践样例，请勿删除
             └── Attention Is All You Need/             完整独立的文献实例
@@ -119,8 +121,9 @@ python -m pip install -e ".[video]"
 科研初学者或跨领域读者遇到陌生概念、公式和前置知识缺口时，读
 [Paper Tutor SKILL](.agents/skills/paper-tutor/SKILL.md)。默认从当前卡点直接解释，复用已知起点，
 用有限先修和短算例回到原句；
-保存时在现有记录的 `others` 中使用 `learning` 模块，保留原文锚点、来源类别、实际作答和未解决项。
-“已讲解”“已跳过”“经作答确认”分别记录，用户可以纠正或撤回。
+跨论文共识概念学习记录由 Paper Tutor 自然更新，入口为 `.runtime/paper_tutor/README.md`，概念级 Markdown 放在其 `concepts/` 下；注明领域与定义范围，区分提问过、讲解过、表现出理解、推测了解和未知。每次实际提问至少能从概念记录或论文 `Q & A` 检索回来，保留原问题、必要释义、来源与时间；无需逐概念请求登记。
+论文专属公式、变量和定义等语境概念留在该论文 `Q & A`；用户可以纠正记录、说明遗忘或跳过自测，不强制考试。
+新会话先读学习入口与相关概念，由伴读 AI 据理解边界决定讲解程度；没有明显相关背景时默认“聪明的本科生”视角，不把缺记录当作已掌握。
 
 ### Zotero SKILL
 
@@ -218,5 +221,5 @@ paper zotero html-note PAPER_KEY --file "papers/EXAMPLE/Attention Is All You Nee
 ## Git 跟踪规范
 
 - 版本库跟踪 `AGENTS.md`、`pyproject.toml`、运行用 Zotero skill 和 `papers/` 中的阅读产物及必要源码。
-- `.gitignore`维护工作目录的忽略规则，如果不存在请重建。`.gitignore`应该包含自身，包含所有(各级)缓存文件如`__pycache__`, `.vscode`, `.DS_Store`等, 包含 harness 配置目录如 `.codex`, `.claude`, `.dsh`等，以及工作目录运行数据 `.zotero_agent/`。
+- `.gitignore`维护工作目录的忽略规则，如果不存在请重建。`.gitignore`应该包含自身，包含所有(各级)缓存文件如`__pycache__`, `.vscode`, `.DS_Store`等, 包含 harness 配置目录如 `.codex`, `.claude`, `.dsh`等，以及工作目录运行数据 `.runtime/`。
 - 新增阅读产物可检查后暂存；提交、推送同步到远端仓库按用户本次授权执行。

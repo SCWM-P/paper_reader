@@ -1,6 +1,5 @@
 """Shared current-format reading content for HTML pages and searchable Zotero notes."""
 from __future__ import annotations
-from .learning_record import normalize_learning
 from .record_check import check_record
 
 
@@ -59,8 +58,5 @@ def normalize_record(record, parent_metadata=None):
     if not isinstance(others, list) or not all(isinstance(entry, dict) for entry in others):
         raise ValueError("others must be optional text, named sections, or a list of section objects for rendering")
     result["others"] = [dict(entry) for entry in others]
-    for entry in result["others"]:
-        if "learning" in entry:
-            entry["learning"] = normalize_learning(entry["learning"])
     result.setdefault("title", str(metadata["title"]) + " · 阅读笔记")
     return result

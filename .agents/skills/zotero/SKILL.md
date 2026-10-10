@@ -27,12 +27,12 @@ paper zotero doctor
 
 首次使用检查 doctor。它自动发现本机 loopback API，默认端口 23119；
 可用 ZOTERO_LOCAL_API 指定地址，ZOTERO_PROFILE_DIR / ZOTERO_DATA_DIR 覆盖路径发现。
-运行数据默认自动建立在当前工作目录的 `.zotero_agent/`，各平台一致：
+运行数据默认自动建立在当前工作目录的 `.runtime/zotero_agent/`，各平台一致：
 - `local_api_key.json` 保存本机授权凭据；`indexes/` 保存可重建检索缓存。
-- 目录内自动建立 `.gitignore`，忽略运行数据；项目根 `.gitignore` 也应包含 `.zotero_agent/`。
+- 目录内及默认的 `.runtime/` 内自动建立 `.gitignore`，保留已有规则；项目根 `.gitignore` 也应忽略整个 `.runtime/`。
 - `ZOTERO_AGENT_HOME` 可显式覆盖位置；相对路径以当前工作目录解析。不同工作目录默认各自独立，跨会话从同一目录启动即可复用。
 附件实际路径通过 API 获取。已有用户级数据需先在本机迁移到所选运行目录；工具不再自动读取用户级缓存。
-移除 skill 后，删除 `.zotero_agent/` 即可清理本地缓存与保存的密钥；撤销 Zotero 端授权需在 Zotero 中完成。
+移除 Zotero skill 后，删除 `.runtime/zotero_agent/` 即可清理本地缓存与保存的密钥；撤销 Zotero 端授权需在 Zotero 中完成。
 
 ```bash
 # 首次写入时申请本地授权；在 Zotero 弹窗选择 Always Allow，方便多步附件保存
@@ -234,10 +234,9 @@ BEHAVIOR_JS 已包含 KaTeX、公式初始化和交互模块；整页模板在�
 
 ### others：按讨论需要拓展
 
-当前原文存在前置知识卡点时，可在模块中加入 `learning` 对象。参见
-[原文卡点伴读](../paper-tutor/SKILL.md) 和 [记录格式](../paper-tutor/references/learning-record.md)。
-校验器保留原文锚点、实际作答与未知状态，按小预算标出未闭合/循环的先修；
-HTML 与原生摘要共享展示，旧记录保持兼容。自测可以跳过，返回原文不会自动确认理解。
+当前原文存在前置知识卡点时，参见 [原文卡点伴读](../paper-tutor/SKILL.md)。
+跨论文共识概念学习记录由 Paper Tutor 管理，入口为 `.runtime/paper_tutor/README.md`。
+论文专属公式、变量及定义等语境概念继续记入该论文的实际 `Q & A`。
 
 others 可省略，推荐使用按阅读顺序排列的模块数组；也支持文字或“名称 → 内容”对象。
 每个模块用 title 命名，可填 id 供目录跳转，content 写文字或条目列表。
@@ -351,5 +350,5 @@ paper zotero update PAPER_KEY --file /path/changes.json --expected-version VERSI
 压缩包包含 zotero/SKILL.md、__init__.py、__main__.py、scripts/ 和 assets/（模板、KaTeX/字体、第三方许可证）。
 解压到宿主能发现的 skills 目录，保持该目录结构；已有 Python 3.10+ 可运行核心工作流。
 PDF 提图按需选择 PyMuPDF 环境，结构化解析工具也按需配置。
-依赖使用本机环境，Zotero 授权与索引保存在伴读工作目录的 `.zotero_agent/`；运行数据不随 Git 同步。
+依赖使用本机环境，Zotero 授权与索引保存在伴读工作目录的 `.runtime/zotero_agent/`；运行数据不随 Git 同步。
 换机后在工作目录运行 doctor、重新授权并从本机文库建立索引。
