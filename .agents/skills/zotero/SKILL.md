@@ -145,7 +145,7 @@ KaTeX、字体、模板样式与交互脚本持续内联，阅读页面可离线
 
 阅读 record 使用四个核心字段。metadata 对接采集管线，有哪些字段就保留哪些；
 至少含 title 和 author。summary 简短表达结论与理解，highlights 写主要学术价值，
-Q & A 记录用户与 AI 的实际讨论的凝练整合，不要原封不动照抄。
+Q & A 的 question 保留实际原问，answer 精简整合实际答复；相关追问通过稳定 ID 关联，不用摘要替换原问。
 others 按本次伴读需要自由拓展。
 
 ```json
@@ -234,9 +234,10 @@ BEHAVIOR_JS 已包含 KaTeX、公式初始化和交互模块；整页模板在�
 
 ### others：按讨论需要拓展
 
-当前原文存在前置知识卡点时，参见 [原文卡点伴读](../paper-tutor/SKILL.md)。
-跨论文共识概念学习记录由 Paper Tutor 管理，入口为 `.runtime/paper_tutor/README.md`。
-论文专属公式、变量及定义等语境概念继续记入该论文的实际 `Q & A`。
+当前原文存在知识卡点、需要系统讲解或跨会话接续时，参见 [llm-wiki](../llm-wiki/SKILL.md)。
+跨论文共识概念与理解证据由 llm-wiki 管理，入口为 `.runtime/llm_wiki/README.md`。
+论文专属公式、变量及定义继续记入该论文的实际 `Q & A`。混合问题只有一个主归属，概念用 record/question_id 引用。
+可选 `id: q_<UUID4>` 生成稳定 HTML 入口 `#qa-q_<UUID4>`；普通无 ID 记录保持兼容。
 
 others 可省略，推荐使用按阅读顺序排列的模块数组；也支持文字或“名称 → 内容”对象。
 每个模块用 title 命名，可填 id 供目录跳转，content 写文字或条目列表。

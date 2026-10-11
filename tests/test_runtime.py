@@ -150,9 +150,9 @@ class RuntimeTests(unittest.TestCase):
             index = LiteratureIndex('test-server')
             index.close()
             self.assertTrue((self.project / '.runtime/zotero_agent/local_api_key.json').is_file())
-            tutor = self.project / '.runtime/paper_tutor'
-            tutor.mkdir()
-            (tutor / 'concept.md').write_text('Fake teaching record')
+            wiki = self.project / '.runtime/llm_wiki'
+            wiki.mkdir()
+            (wiki / 'concept.md').write_text('Fake teaching record')
         output = subprocess.run(['git', 'ls-files', '--others', '--exclude-standard'], cwd=self.project,
                                 check=True, capture_output=True, text=True).stdout
         self.assertEqual(output, '')

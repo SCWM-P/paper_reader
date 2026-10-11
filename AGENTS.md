@@ -1,36 +1,37 @@
-# Paper Reader 伴读工作要求
+# Paper Reader 伴读
 
 ## 工作空间简介
 
 - 本工作空间用于AI伴读的文献阅读、翻译、讨论与归档
-- 用户主要用简体中文交流，论文标题、作者、模型名与关键术语保留原文
-- 工作空间通过托管仓库（通常是github）实现跨设备的文献同步
+- 用户主要用简体中文交流，论文标题、作者、模型名与关键术语保留原文，仅`<think></think>`（及其等价物）内的思考内容允许使用英文
+- 本项目原始仓库链接为 [Github Paper Reader](https://github.com/SCWM-P/paper_reader)，项目支持通过托管代码仓库实现个人文献与知识库的跨设备云同步
 
 ## 初始化
 
 如果是一段新的会话，请依次完成以下初始化：
 
-### 初始化 skills
-本项目的技能位于 `.agents/skills/`。检查 harness 是否能发现该目录；可以则直接加载并阅读相关 `SKILL.md`。否则将需要的技能复制到 harness 支持的配置目录，保留项目内的原始技能；已有配置先合并而不覆盖。例如
-```plaintext
-Codex -> .codex
-Claude Code -> .claude
-DeepSeek Harness -> .dsh
-Hermes -> .hermes
-```
-然后加载新添加的 skills 并阅读`SKILL.md`，并将该 harness 配置目录添加到`.gitignore`中。
+### [1] 初始化 skills
+本项目的技能位于 `.agents/skills/`。
+检查 harness 是否能发现该目录；可以则直接加载并阅读相关 `SKILL.md`。否则将需要的技能复制到 harness 支持的配置目录，保留项目内的原始技能，已有配置先合并而不覆盖，然后加载新添加的 skills 并阅读`SKILL.md`，并将该 harness 配置目录添加到`.gitignore`中。
 完成后打印一条告知 `[INFO] 初始化skills | 完成...`
 
-### 学习 `papers/` 下的最佳实践
+### [2] 学习 `papers/` 下的最佳实践
 定位`papers/EXAMPLE/Attention is all you need/`为伴读文献实例的最佳实践，读 `assets/reading-record.json` 了解伴读文献实例的期望交付物形式与内容
 完成后打印一条告知 `[INFO] 最佳实践学习 | 完成...`
 
-### 检查并配置环境依赖
+### [3] 检查并配置环境依赖
 检查本机虚拟环境工具，检查虚拟环境 `paper_reader` 可用性，依据 `pyproject.toml` 检查 `paper_reader` 的依赖项是否齐全版本正确，若缺失请提醒用户。
 完成后打印一条告知 `[INFO] 环境检查 | 完成...`
 
-### 同步仓库的云端`papers/`路径
-git 配置的远端仓库固定了用户最新的文献实例记录，实现了用户多端阅读进度云端同步。请从中采用合并方式拉取最新 `papers/` 路径下，用户在其他设备处阅读完成的文献实例/正在阅读的实例，不要影响在本地其他暂未上传同步的文献实例。
+### [4] 检查 git 远端仓库和分支
+
+如果用户需要启用借助代码托管仓库的跨设备文献与知识库同步功能，请检查 git 当前的代码仓库指向，**禁止指向**原始仓库 `https://github.com/SCWM-P/paper_reader`。
+请在用户授权下 fork 一份到用户的个人代码仓库，然后指向该个人代码仓库用于同步个人资料，必要时可在用户同意下将仓库可见性设置为  `Private`。
+
+### [5] 同步仓库的云端`papers/`路径
+
+如果 [4] 已就绪，可继续进行以下配置：
+请从中采用合并方式拉取最新 `papers/` 路径下，用户在其他设备处阅读完成的文献实例/正在阅读的实例，不要影响在本地其他暂未上传同步的文献实例。
 完成后打印一条告知 
 
 ```markdown
@@ -46,6 +47,65 @@ paper 2 metadata
 ...
 ```
 
+如果 [4] 的配置不可用，请跳过本初始化，然后打印：
+```markdown
+[WARNING] 文献同步 ｜ 未就绪
+```
+
+### [6] 检查 llm-wiki 完整性并同步 wiki 资料
+
+读取 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。本地学习入口为 `.runtime/llm_wiki/README.md`，概念记录位于 `concepts/`，暂无归属的实际问题保存在 `unassigned.md`。
+
+首次使用且运行目录不存在时，用现有 Python 环境执行：
+
+```bash
+python -B .agents/skills/llm-wiki/scripts/wiki_store.py init
+```
+
+若工具报告旧学习目录待迁移，按 SKILL 的迁移流程保留原件后继续，不建立两套活动档案。技能或 helper 缺失时，列明缺项并跳过，不声称初始化成功。
+
+已有入口时执行基本文件与引用检查：
+
+```bash
+python -B .agents/skills/llm-wiki/scripts/wiki_store.py check
+```
+
+发现错误时保留原记录，报告具体路径。检查通过后按当前论文、领域与问题检索并回读相关记录；索引不代替实际证据。
+
+知识库云端同步尚未配置。`.runtime/` 默认不进入 Git；配置同步对象与远端存储前跳过同步，并打印：
+
+```markdown
+[WARNING] 知识库同步 ｜ 未启用
+```
+
+## 受控语言风格
+
+有经验表明，在专业性强的语境中，采用 ASD-STE100 风格的输出可以提高可读性与准确性，进而提高人机交互的效率。ASD-STE100 是航空航天与国防行业制定的一项受控语言标准，考虑到其要求专为英文语境下优化设计，且包含大量飞行器专业相关的要求，在这里我们主要采纳其语言风格和严谨表述，以 **受控语言风格(Contoled Language Style)** 提供输出，力求做到 70%～80% 的 ASD-STE100 。
+
+### 适用范围
+
+适用于所有面向用户阅读的文字，包括但不限于：
+
+- 用户的直接交流
+- 向用户做概念解释
+- 归档供用户审查的资料
+- 任务结果汇报与进度说明
+- 请用户决定或确认的问题
+- 多项工作的总结，例如任务清单、issue、变更
+- 提交的 PR，commit message
+
+**不适合**的情况：
+
+- 创意输出，风格写作
+- 代码风格与代码注释
+- 有明确来源的文本
+- 日志、命令、报错
+- 面向 LLM 的机器对话，例如与 Sub-Agent 的对话；多 Agent 协作下的 Agent 之间的交流
+
+### 执行细则
+
+请参考[CLS SKILL](.agents/skills/cls/SKILL.md)（Controled Language Style Skill）中的相关说明和参考资料。
+
 ## 项目结构
 
 ```text
@@ -53,9 +113,10 @@ paper_reader/
 ├── AGENTS.md                         伴读 AI 通用上下文注入口
 ├── pyproject.toml                    Python 依赖与翻译默认参数
 ├── .agents/skills/zotero/            伴读运行工具、模板和第三方许可证
+├── .agents/skills/llm-wiki/          知识维护、伴读协议和本地文件 helper
 ├── .runtime/                        本地运行数据（整体不入 Git）
 │   ├── zotero_agent/                授权凭据和可重建索引
-│   └── paper_tutor/                 跨论文学习记录
+│   └── llm_wiki/                    跨论文概念、实际问答和理解证据
 └── papers/                           储存文献实例
        └──EXAMPLE    文献实例的最佳实践样例，请勿删除
             └── Attention Is All You Need/             完整独立的文献实例
@@ -116,14 +177,13 @@ python -m pip install -e ".[video]"
 
 ## 工作流工具
 
-### 论文教学指导
+### 论文伴读与知识维护
 
-科研初学者或跨领域读者遇到陌生概念、公式和前置知识缺口时，读
-[Paper Tutor SKILL](.agents/skills/paper-tutor/SKILL.md)。默认从当前卡点直接解释，复用已知起点，
-用有限先修和短算例回到原句；
-跨论文共识概念学习记录由 Paper Tutor 自然更新，入口为 `.runtime/paper_tutor/README.md`，概念级 Markdown 放在其 `concepts/` 下；注明领域与定义范围，区分提问过、讲解过、表现出理解、推测了解和未知。每次实际提问至少能从概念记录或论文 `Q & A` 检索回来，保留原问题、必要释义、来源与时间；无需逐概念请求登记。
-论文专属公式、变量和定义等语境概念留在该论文 `Q & A`；用户可以纠正记录、说明遗忘或跳过自测，不强制考试。
-新会话先读学习入口与相关概念，由伴读 AI 据理解边界决定讲解程度；没有明显相关背景时默认“聪明的本科生”视角，不把缺记录当作已掌握。
+论文卡点解释、系统讲解、跨论文知识归档与会话接续使用 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。新会话先读 `.runtime/llm_wiki/README.md`，按当前论文、领域和原问题检索，再回读相关主记录与实际证据。AI 根据已知理解范围选择讲解起点；缺记录保持 unknown，不推断用户已经掌握。
+
+共识概念保存在 `concepts/c_<UUID>.md`；论文专属定义保留在该论文 `Q & A`。每次实际学习提问保留稳定 q_ID 和原问，追问按关联 ID 归组。混合问题只有一个主归属，其他记录保存引用。实际表现随问题主记录保存，概念理解判断引用证据；提问过、讲解过和用户自述不等于真实理解表现。
+
+用户已授权在伴读中自然更新本地记录，无需逐概念请求登记。暂无法归属的问题放在 `unassigned.md`；保存后按 ID 回读。用户可以纠正记录、说明遗忘或跳过自测。表达遵循 CLS，文件契约与恢复方法见 llm-wiki 的 references。
 
 ### Zotero SKILL
 
@@ -169,12 +229,14 @@ paper figures "path/to/your/paper.pdf" --out "path/to/your/<paper>/assets/figure
 
 ## 阅读记录与页面
 
-核心内容为 `metadata`、`summary`、`highlights`、`Q & A`，为 **必含项**，若文献实例存在缺失/降级意味着文献没有阅读完，需要**提醒用户**。
+核心内容为 `metadata`、`summary`、`highlights`、`Q & A`，为 **必含项**，若文献实例存在缺失/降级意味着文献没有阅读完，需要**提醒用户** 。
 
 - `metadata` 尽量保留采集管线产出的字段，至少包含 title 和 author；note_author 表示记录者。
 - `summary` 简短表达核心结论和文献的理解，必须由伴读AI与用户交流后得出，伴读AI仅可草拟内容并标注为**降级**；
 - `highlights` 说明主要价值和贡献，可由用户/伴读AI形成；
-- `Q & A` 持续精简记录用户与伴读AI的问答/讨论，讨论和交流往往多轮进行，请考虑在记录时合并相近话题、问题与追问、问题与拓展，尚未讨论的问答填空数组；
+- `Q & A` 保留每条实际原问，answer 精简整合实际答复。相关话题与追问通过稳定 ID 关联，不用摘要替换原问；尚未讨论时填空数组。旧记录无法确认逐字原问时标记 `question_form: legacy_recorded`；
+
+问答可以附加稳定 `id: q_<UUID4>`。HTML 对应 `note.html#qa-q_<UUID4>`，重排问答不改变该入口；未带 ID 的普通旧记录继续支持检查与渲染。
 
 完整性由四个必要模块分别检查，`others` 不参与检查：
 

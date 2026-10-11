@@ -166,9 +166,17 @@ def build_body(record, theme, asset_base=None, output_base=None):
         contributions.append('<article class="highlight-card"><span class="highlight-index">'+f'{i+1:02d}'+'</span><h3>'+html.escape(str(title))+'</h3>'+paragraph(content)+(evidence_content(record,entry.get('evidence',[]),theme,compact=True) if isinstance(entry,dict) else '')+'</article>')
     highlights = '<div class="highlight-grid">'+''.join(contributions)+'</div>' if contributions else '<p class="module-empty">主要贡献待本次阅读补充。</p>'
     qa = []
+    qa_ids = set()
     for i, entry in enumerate(record['Q & A']):
         origin = str(entry.get('origin', '伴读讨论'))
-        qa.append('<details class="qa-card" open><summary><span class="qa-index">Q'+str(i+1)+'</span><span>'+html.escape(entry['question'])+'</span></summary><div class="qa-answer"><span class="qa-origin">'+html.escape(origin)+'</span>'+paragraph(entry.get('answer') or '待下一次讨论继续解答。')+evidence_content(record,entry.get('evidence',[]),theme,compact=True)+'</div></details>')
+        question_id = entry.get('id', '')
+        anchor = ''
+        if (isinstance(question_id, str)
+                and re.fullmatch(r'q_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}', question_id)
+                and question_id not in qa_ids):
+            anchor = ' id="qa-' + question_id + '"'
+            qa_ids.add(question_id)
+        qa.append('<details class="qa-card"' + anchor + ' open><summary><span class="qa-index">Q'+str(i+1)+'</span><span>'+html.escape(entry['question'])+'</span></summary><div class="qa-answer"><span class="qa-origin">'+html.escape(origin)+'</span>'+paragraph(entry.get('answer') or '待下一次讨论继续解答。')+evidence_content(record,entry.get('evidence',[]),theme,compact=True)+'</div></details>')
     questions = '<div class="qa-tools"><label>查找讨论 <input type="search" class="qa-search" placeholder="问题或解答中的关键词"></label><button type="button" class="qa-expand">展开全部</button><button type="button" class="qa-collapse">收起全部</button><span class="qa-count" aria-live="polite"></span></div><div class="qa-list">'+''.join(qa)+'</div>' if qa else '<p class="module-empty">本次交流尚未登记问答；后续讨论可持续追加。</p>'
     blocks=[('metadata','文献元数据',metadata),('summary','阅读结论','<div class="summary-callout">'+paragraph(record['summary'])+'</div>'),('highlights','学术价值与贡献',highlights),('qa','伴读 Q & A',questions)]
     checked = check_record(record)["modules"]
