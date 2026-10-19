@@ -1,0 +1,59 @@
+{
+  "type": "source",
+  "id": "p_a0f643f0-36bc-46c3-85bc-897b5fc4352d",
+  "title": "A Programming Paradigm for Spatiotemporal Composability",
+  "metadata": {
+    "title": "A Programming Paradigm for Spatiotemporal Composability",
+    "author": [
+      "Shi, Yifan",
+      "Zhang, Wei",
+      "Cui, Tianyi"
+    ],
+    "date": "2026/08/26",
+    "publicationTitle": "arXiv preprint",
+    "url": "https://arxiv.org/abs/2608.25512",
+    "arxiv_id": "2608.25512",
+    "version": "v1",
+    "DOI": "10.48550/arXiv.2608.25512",
+    "retrieved_at": "2026-10-19T10:41:15.508499+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2026-08-26T08:22:19+00:00"
+      }
+    ],
+    "pdf_sha256": "390775dbc9debdcf2ed1b076eed013387ca057630be3cb594617b2b742e48cf0",
+    "pdf_pages": 92,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": null
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2608.25512"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文把动态组件组合分成时间与空间两个维度，分别讨论移除组件后的副作用撤销和组件依赖变化。作者提出运行时机制与演算，并以 Cordis 实现相应设计。",
+  "highlights": [
+    "用可撤销 effect 描述组件变更及其逆操作。",
+    "用响应式 coeffect 管理依赖条件变化与激活、停用。",
+    "通过统一上下文约束组件交互；文中新术语按作者定义理解，不能直接登记为已有领域共识。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": []
+    }
+  ]
+}

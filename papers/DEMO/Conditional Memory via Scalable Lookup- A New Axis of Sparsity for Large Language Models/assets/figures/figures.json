@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1 | The Engram Architecture. The module augments the backbone by retrieving static 𝑁-",
+    "page": 3,
+    "bbox": [
+      74.20500183105469,
+      130.12619018554688,
+      520.5836791992188,
+      402.60504150390625
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

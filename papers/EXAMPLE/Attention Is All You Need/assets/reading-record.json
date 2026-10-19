@@ -141,7 +141,12 @@
         }
       ],
       "id": "q_da40835e-20f3-4713-8bd9-47a1ff69bc84",
-      "question_form": "legacy_recorded"
+      "question_form": "legacy_recorded",
+      "question_at": null,
+      "recorded_at": null,
+      "answer_at": null,
+      "time_note": "原记录未保存历史发言、答复和登记时间。",
+      "resolution": "answered"
     },
     {
       "question": "多头注意力怎样计算，为什么使用多个头？",
@@ -156,7 +161,12 @@
         }
       ],
       "id": "q_d78d72f8-42f7-460a-b09a-7807c86c0fe3",
-      "question_form": "legacy_recorded"
+      "question_form": "legacy_recorded",
+      "question_at": null,
+      "recorded_at": null,
+      "answer_at": null,
+      "time_note": "原记录未保存历史发言、答复和登记时间。",
+      "resolution": "answered"
     },
     {
       "question": "它与前人的 RNN、CNN 计算模型有什么区别？",
@@ -171,21 +181,36 @@
         }
       ],
       "id": "q_906875e1-0844-471e-b17d-a8f3e77e39ab",
-      "question_form": "legacy_recorded"
+      "question_form": "legacy_recorded",
+      "question_at": null,
+      "recorded_at": null,
+      "answer_at": null,
+      "time_note": "原记录未保存历史发言、答复和登记时间。",
+      "resolution": "answered"
     },
     {
       "question": "论文中的插图可以直接放入 HTML，如何从 PDF 中提取？",
       "answer": "本次用 PyMuPDF 识别图注及矢量边界，对物理页 3、4 的 Figure 1/2 作区域渲染。查看图像后内嵌进 HTML，保留图号、标签和来源页序。复杂版面可采用 Docling 的图片对象及图注关联管线。",
       "origin": "用户讨论 · 原图阅读需求",
       "id": "q_41bd9fd5-c79f-4e10-b1a0-d1a6ce1ee662",
-      "question_form": "legacy_recorded"
+      "question_form": "legacy_recorded",
+      "question_at": null,
+      "recorded_at": null,
+      "answer_at": null,
+      "time_note": "原记录未保存历史发言、答复和登记时间。",
+      "resolution": "answered"
     },
     {
       "question": "怎样从 Zotero 一键进入 HTML，并在后续会话找到上次结论？",
       "answer": "完整页面作为文献的 stored HTML attachment 保存，原生摘要保留结论、贡献、问答与打开链接。之后通过 recall 检索原生摘要，再回读完整记录；附件在本机保存完成，远端同步随 Zotero 同步状态更新。",
       "origin": "用户讨论 · 伴读与跨会话需求",
       "id": "q_d88b9362-5f7f-4496-86e9-b255434f87c5",
-      "question_form": "legacy_recorded"
+      "question_form": "legacy_recorded",
+      "question_at": null,
+      "recorded_at": null,
+      "answer_at": null,
+      "time_note": "原记录未保存历史发言、答复和登记时间。",
+      "resolution": "answered"
     }
   ],
   "completeness": {
@@ -369,5 +394,6 @@
     "select_uri": "zotero://select/library/items/8L6QDD53",
     "file": "../attention-is-all-you-need.pdf",
     "pdf_key": "47MK4RGA"
-  }
+  },
+  "type": "source"
 }

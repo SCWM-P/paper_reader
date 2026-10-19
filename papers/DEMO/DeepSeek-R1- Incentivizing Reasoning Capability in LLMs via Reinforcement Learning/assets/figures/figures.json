@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figures/figure-1.png",
+    "caption": "Figure 1(a) depicts the performance trajectory of DeepSeek-R1-Zero on the AIME 2024",
+    "page": 4,
+    "bbox": [
+      70.0,
+      70.0,
+      526.0,
+      260.0
+    ],
+    "method": "manual PDF-point crop"
+  }
+]

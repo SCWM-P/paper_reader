@@ -1,0 +1,78 @@
+{
+  "type": "source",
+  "id": "p_ce4c7187-e4dd-40c4-9a83-2054dfd8d969",
+  "title": "Periodic Weak Spots: Phase Sensitivity from Chunked KV-Cache Compression",
+  "metadata": {
+    "title": "Periodic Weak Spots: Phase Sensitivity from Chunked KV-Cache Compression",
+    "author": [
+      "Zhu, Xingyu",
+      "Yi, Pu (Luke)",
+      "Cheng, Ziheng",
+      "Lv, Ang",
+      "Liu, Jing",
+      "Ying, Lexing",
+      "Ma, Yiyuan",
+      "Dong, Xin"
+    ],
+    "date": "2026/09/28",
+    "publicationTitle": "arXiv preprint",
+    "url": "https://arxiv.org/abs/2609.36322",
+    "arxiv_id": "2609.36322",
+    "version": "v1",
+    "DOI": "10.48550/arXiv.2609.36322",
+    "retrieved_at": "2026-10-19T10:41:10.689708+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2026-09-28T21:54:14+00:00"
+      }
+    ],
+    "pdf_sha256": "eb4904567a45586caf0ccfdc9b91c4a3ce087700a2784a2a43665d656bd4b5fa",
+    "pdf_pages": 65,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": null
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2609.36322"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文研究分块 KV-cache 压缩引入的相位敏感性：相同信息仅改变相对压缩窗口的位置，检索表现就会周期变化。作者通过开放模型测量、自训模型干预与理想化分析追踪这一现象。",
+  "highlights": [
+    "提出按压缩步长内的位置分组评估长上下文检索。",
+    "因果干预显示不同注意力分量对不同相位的贡献不对称。",
+    "平均分会掩盖周期性薄弱位置；这是一项有条件的研究发现，不是所有注意力架构的通性。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1 Next-token predictions by DeepSeek-V4-Flash-Base on a code snippet. The prediction flip periodically",
+          "page": 3,
+          "bbox": [
+            67.56999969482422,
+            69.95364379882812,
+            544.4185180664062,
+            244.29660034179688
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

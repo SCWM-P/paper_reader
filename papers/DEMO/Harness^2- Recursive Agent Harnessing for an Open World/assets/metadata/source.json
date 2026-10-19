@@ -1,0 +1,61 @@
+{
+  "arxiv_id": "2610.14224",
+  "version": "v1",
+  "title": "Harness^2: Recursive Agent Harnessing for an Open World",
+  "authors": [
+    "Xu, Ruiyao",
+    "Chen, Yanfei",
+    "CuiZhu, Zhongying",
+    "Mishra, Bhavana Dalvi",
+    "Ming, Yifei",
+    "Yu, Han",
+    "Han, Rujun",
+    "Lee, Chen-Yu",
+    "Pfister, Tomas"
+  ],
+  "citation": {
+    "citation_title": [
+      "Harness^2: Recursive Agent Harnessing for an Open World"
+    ],
+    "citation_author": [
+      "Xu, Ruiyao",
+      "Chen, Yanfei",
+      "CuiZhu, Zhongying",
+      "Mishra, Bhavana Dalvi",
+      "Ming, Yifei",
+      "Yu, Han",
+      "Han, Rujun",
+      "Lee, Chen-Yu",
+      "Pfister, Tomas"
+    ],
+    "citation_date": [
+      "2026/10/09"
+    ],
+    "citation_online_date": [
+      "2026/10/09"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2610.14224"
+    ],
+    "citation_arxiv_id": [
+      "2610.14224"
+    ],
+    "citation_abstract": [
+      "LLM agents' capabilities depend not only on their underlying models but also on their execution harnesses. Recursive self-improvement (RSI) offers a promising approach to automatically evolve these harnesses. However, deploying RSI in open-world settings still faces two critical challenges. First, open-world tasks are typically unseen during the harness design phase and novel at test time, leaving no ground-truth verifiers to reliably guide online harness edits. Second, the RSI process remains highly task-specific and fails to generalize to novel scenarios. We introduce Harness^2, a plug-and-play, recursive agent harnessing framework that addresses these challenges through two connected levels of recursion. Task-level recursion refines the current task's harness using a contrastive Propose-Probe-Compose step that reliably guides edits without ground-truth verifiers, and can be scaled further via parallel or sequential recursion. Harnessing-level recursion then extracts experience from these edits to update a continual improvement harness, enabling the agent to better adapt to future tasks. Across three professional benchmarks and four model-harness configurations, a single step consistently improves GLM-5 and Gemini 3.5 Flash over their base harnesses, yielding gains of up to 11.5 points on WorkBuddy-Bench, 4.5 points on JobBench, and 11.8 percentage points on LAB, with further gains as the task-level recursion budget increases."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2610.14224",
+  "pdf_url": "https://arxiv.org/pdf/2610.14224v1",
+  "retrieved_at": "2026-10-19T10:41:17.583570+00:00",
+  "sha256": "440be1f694f3b0fdfb8e612e9b2288ff0d8ab38641cfd1064fd77052ba360282",
+  "bytes": 8101889,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2026-10-09T18:34:25+00:00"
+    }
+  ],
+  "award": null,
+  "pages": 37,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

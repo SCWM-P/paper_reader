@@ -1,0 +1,76 @@
+{
+  "type": "source",
+  "id": "p_e2a6d51c-0b35-4f14-a6e5-4ed925d4bbbd",
+  "title": "The Recurrent Transformer: Greater Effective Depth and Efficient Decoding",
+  "metadata": {
+    "title": "The Recurrent Transformer: Greater Effective Depth and Efficient Decoding",
+    "author": [
+      "Oncescu, Costin-Andrei",
+      "Morwani, Depen",
+      "Jelassi, Samy",
+      "Meterez, Alexandru",
+      "Kwun, Mujin",
+      "Kakade, Sham"
+    ],
+    "date": "2026/04/23",
+    "publicationTitle": "arXiv preprint",
+    "url": "https://arxiv.org/abs/2604.21215",
+    "arxiv_id": "2604.21215",
+    "version": "v1",
+    "DOI": "10.48550/arXiv.2604.21215",
+    "retrieved_at": "2026-10-19T10:41:12.921223+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2026-04-23T02:12:58+00:00"
+      }
+    ],
+    "pdf_sha256": "6453ae101c002c3ba050b064f009ed81694dabc9d2f237e86007249415917b91",
+    "pdf_pages": 27,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": null
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2604.21215"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：Recurrent Transformer 让每层的持久 KV 来自该层输出，使后续 token 能读取已经完成本层计算的历史表示。论文给出表达能力论证、训练分析与精确分块计算方法。",
+  "highlights": [
+    "保留逐 token 的 KV 记忆，同时增加层内时间方向的有效计算深度。",
+    "通过分块调度减少训练或预填充的高带宽显存流量。",
+    "在文中 C4 预训练规模上评估深度与宽度的取舍，不能外推为所有大模型的确定收益。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: One layer of the Recurrent Transformer mapping input embeddings x1 . . . x4 to output embeddings",
+          "page": 2,
+          "bbox": [
+            55.342254638671875,
+            55.28233337402344,
+            556.4585571289062,
+            265.13720703125
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

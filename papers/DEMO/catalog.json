@@ -1,0 +1,750 @@
+[
+  {
+    "id": "p_56bb3da5-8a5b-4c5a-8778-3846c734a6e4",
+    "arxiv_id": "2503.14858",
+    "title": "1000 Layer Networks for Self-Supervised RL: Scaling Depth Can Enable New Goal-Reaching Capabilities",
+    "record": "papers/DEMO/1000 Layer Networks for Self-Supervised RL- Scaling Depth Can Enable New Goal-Reaching Capabilities/assets/reading-record.json",
+    "version": "v5",
+    "source_url": "https://arxiv.org/abs/2503.14858",
+    "pdf_url": "https://arxiv.org/pdf/2503.14858v5",
+    "sha256": "94ba961e7379a143ceab773c4c5097289875d0d4679dd8e2259a6bef94a512f5",
+    "retrieved_at": "2026-10-19T10:41:38.403820+00:00",
+    "award": {
+      "conference": "NeurIPS 2025",
+      "name": "Best Paper",
+      "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 4928756
+  },
+  {
+    "id": "p_a0f643f0-36bc-46c3-85bc-897b5fc4352d",
+    "arxiv_id": "2608.25512",
+    "title": "A Programming Paradigm for Spatiotemporal Composability",
+    "record": "papers/DEMO/A Programming Paradigm for Spatiotemporal Composability/assets/reading-record.json",
+    "version": "v1",
+    "source_url": "https://arxiv.org/abs/2608.25512",
+    "pdf_url": "https://arxiv.org/pdf/2608.25512v1",
+    "sha256": "390775dbc9debdcf2ed1b076eed013387ca057630be3cb594617b2b742e48cf0",
+    "retrieved_at": "2026-10-19T10:41:15.508499+00:00",
+    "award": null,
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 0,
+    "figure_visual_review": "not_applicable_no_figure_selected",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 2976856
+  },
+  {
+    "id": "p_99467059-0780-43ee-8cac-9772ccb62c91",
+    "arxiv_id": "2510.22954",
+    "title": "Artificial Hivemind: The Open-Ended Homogeneity of Language Models (and Beyond)",
+    "record": "papers/DEMO/Artificial Hivemind- The Open-Ended Homogeneity of Language Models (and Beyond)/assets/reading-record.json",
+    "version": "v2",
+    "source_url": "https://arxiv.org/abs/2510.22954",
+    "pdf_url": "https://arxiv.org/pdf/2510.22954v2",
+    "sha256": "c1ac82916d2f76aa501e96a50466030d432c67eec42fdb8ddc11344f83a152fe",
+    "retrieved_at": "2026-10-19T10:41:43.285688+00:00",
+    "award": {
+      "conference": "NeurIPS 2025",
+      "name": "Best Paper",
+      "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 20493544
+  },
+  {
+    "id": "p_a4246ceb-d2a3-4dab-81d4-59dd5a2c226d",
+    "arxiv_id": "2601.07372",
+    "title": "Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models",
+    "record": "papers/DEMO/Conditional Memory via Scalable Lookup- A New Axis of Sparsity for Large Language Models/assets/reading-record.json",
+    "version": "v2",
+    "source_url": "https://arxiv.org/abs/2601.07372",
+    "pdf_url": "https://arxiv.org/pdf/2601.07372v2",
+    "sha256": "8eab2dd35e4557d4142e5959697836f6cf926d0fbc29016257f1eea5be73df5d",
+    "retrieved_at": "2026-10-19T10:41:14.306870+00:00",
+    "award": null,
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 1510774
+  },
+  {
+    "id": "p_a3e17f1a-ed59-42e1-9cf9-4b57aaadd4b9",
+    "arxiv_id": "2501.12948",
+    "title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+    "record": "papers/DEMO/DeepSeek-R1- Incentivizing Reasoning Capability in LLMs via Reinforcement Learning/assets/reading-record.json",
+    "version": "v2",
+    "source_url": "https://arxiv.org/abs/2501.12948",
+    "pdf_url": "https://arxiv.org/pdf/2501.12948v2",
+    "sha256": "b191b0a365a64b4ab2791d117069ed17a2933d03554a662ced58b37df52018f4",
+    "retrieved_at": "2026-10-19T10:41:04.216594+00:00",
+    "award": null,
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "issue"
+    ],
+    "archive_size_bytes": 5809225
+  },
+  {
+    "id": "p_f5ee6975-d685-45c7-b0a0-1b6368529d2e",
+    "arxiv_id": "2512.08924",
+    "title": "Efficiently Reconstructing Dynamic Scenes One D4RT at a Time",
+    "record": "papers/DEMO/Efficiently Reconstructing Dynamic Scenes One D4RT at a Time/assets/reading-record.json",
+    "version": "v2",
+    "source_url": "https://arxiv.org/abs/2512.08924",
+    "pdf_url": "https://arxiv.org/pdf/2512.08924v2",
+    "sha256": "b8bb0a667a7c4e6d4206585adaca6711e1d900678e8fa0a80061e4c2535bc452",
+    "retrieved_at": "2026-10-19T10:41:22.650760+00:00",
+    "award": {
+      "conference": "CVPR 2026",
+      "name": "Best Paper",
+      "source_url": "https://cvpr.thecvf.com/Conferences/2026/News/Best_Papers"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 15184937
+  },
+  {
+    "id": "p_aecd9ad7-6c41-4118-a1f4-717d66c57abd",
+    "arxiv_id": "2505.06708",
+    "title": "Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free",
+    "record": "papers/DEMO/Gated Attention for Large Language Models- Non-linearity, Sparsity, and Attention-Sink-Free/assets/reading-record.json",
+    "version": "v1",
+    "source_url": "https://arxiv.org/abs/2505.06708",
+    "pdf_url": "https://arxiv.org/pdf/2505.06708v1",
+    "sha256": "949c7ed67dea3ddc6b88854cf72631ed2e1f466ad4c824c8aa1286739bcf2359",
+    "retrieved_at": "2026-10-19T10:41:41.731505+00:00",
+    "award": {
+      "conference": "NeurIPS 2025",
+      "name": "Best Paper",
+      "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 2246071
+  },
+  {
+    "id": "p_e61ff7db-1a2d-4768-bd25-33e811cc7af7",
+    "arxiv_id": "2610.14224",
+    "title": "Harness^2: Recursive Agent Harnessing for an Open World",
+    "record": "papers/DEMO/Harness^2- Recursive Agent Harnessing for an Open World/assets/reading-record.json",
+    "version": "v1",
+    "source_url": "https://arxiv.org/abs/2610.14224",
+    "pdf_url": "https://arxiv.org/pdf/2610.14224v1",
+    "sha256": "440be1f694f3b0fdfb8e612e9b2288ff0d8ab38641cfd1064fd77052ba360282",
+    "retrieved_at": "2026-10-19T10:41:17.583570+00:00",
+    "award": null,
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 8834204
+  },
+  {
+    "id": "p_dc3c49f8-c4b6-4296-9d03-183b80aef63a",
+    "arxiv_id": "2602.01338",
+    "title": "High-accuracy sampling for diffusion models and log-concave distributions",
+    "record": "papers/DEMO/High-accuracy sampling for diffusion models and log-concave distributions/assets/reading-record.json",
+    "version": "v2",
+    "source_url": "https://arxiv.org/abs/2602.01338",
+    "pdf_url": "https://arxiv.org/pdf/2602.01338v2",
+    "sha256": "3262376a641f1305f0734d52e44787307bb4fadd25a50bee4608dabcfab16f82",
+    "retrieved_at": "2026-10-19T10:41:37.023454+00:00",
+    "award": {
+      "conference": "ICML 2026",
+      "name": "Outstanding Paper Award",
+      "source_url": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 0,
+    "figure_visual_review": "not_applicable_no_figure_selected",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 1683758
+  },
+  {
+    "id": "p_8a125c90-6d01-4c24-b2e6-46df664d6348",
+    "arxiv_id": "2510.26692",
+    "title": "Kimi Linear: An Expressive, Efficient Attention Architecture",
+    "record": "papers/DEMO/Kimi Linear- An Expressive, Efficient Attention Architecture/assets/reading-record.json",
+    "version": "v2",
+    "source_url": "https://arxiv.org/abs/2510.26692",
+    "pdf_url": "https://arxiv.org/pdf/2510.26692v2",
+    "sha256": "e2e23a449fc9bb27e34e783d20b2e6cd0f1ac67d58efdc0479c03c54db956a17",
+    "retrieved_at": "2026-10-19T10:41:02.711915+00:00",
+    "award": null,
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 2082211
+  },
+  {
+    "id": "p_c5310aaf-a3a0-4f98-a681-5d05c2013ef9",
+    "arxiv_id": "2505.06120",
+    "title": "LLMs Get Lost In Multi-Turn Conversation",
+    "record": "papers/DEMO/LLMs Get Lost In Multi-Turn Conversation/assets/reading-record.json",
+    "version": "v1",
+    "source_url": "https://arxiv.org/abs/2505.06120",
+    "pdf_url": "https://arxiv.org/pdf/2505.06120v1",
+    "sha256": "d77f8955d696beabde2a6ed85b43d64fb81b2b496e76474d6f97607e5a164cbc",
+    "retrieved_at": "2026-10-19T10:41:32.086235+00:00",
+    "award": {
+      "conference": "ICLR 2026",
+      "name": "Outstanding Paper",
+      "source_url": "https://blog.iclr.cc/2026/04/23/announcing-the-iclr-2026-outstanding-papers/"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 2638491
+  },
+  {
+    "id": "p_ce4c7187-e4dd-40c4-9a83-2054dfd8d969",
+    "arxiv_id": "2609.36322",
+    "title": "Periodic Weak Spots: Phase Sensitivity from Chunked KV-Cache Compression",
+    "record": "papers/DEMO/Periodic Weak Spots- Phase Sensitivity from Chunked KV-Cache Compression/assets/reading-record.json",
+    "version": "v1",
+    "source_url": "https://arxiv.org/abs/2609.36322",
+    "pdf_url": "https://arxiv.org/pdf/2609.36322v1",
+    "sha256": "eb4904567a45586caf0ccfdc9b91c4a3ce087700a2784a2a43665d656bd4b5fa",
+    "retrieved_at": "2026-10-19T10:41:10.689708+00:00",
+    "award": null,
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 3193920
+  },
+  {
+    "id": "p_75eadb2e-dfe9-4e49-8873-341bc2c9d75c",
+    "arxiv_id": "2601.15165",
+    "title": "The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models",
+    "record": "papers/DEMO/The Flexibility Trap- Rethinking the Value of Arbitrary Order in Diffusion Language Models/assets/reading-record.json",
+    "version": "v4",
+    "source_url": "https://arxiv.org/abs/2601.15165",
+    "pdf_url": "https://arxiv.org/pdf/2601.15165v4",
+    "sha256": "9f64ebe1e0a353acf81bf0236ef6bc891b28f7365fed88745fd8936a6fb41cbe",
+    "retrieved_at": "2026-10-19T10:41:34.080801+00:00",
+    "award": {
+      "conference": "ICML 2026",
+      "name": "Outstanding Paper Award",
+      "source_url": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 2,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 3708107
+  },
+  {
+    "id": "p_e2a6d51c-0b35-4f14-a6e5-4ed925d4bbbd",
+    "arxiv_id": "2604.21215",
+    "title": "The Recurrent Transformer: Greater Effective Depth and Efficient Decoding",
+    "record": "papers/DEMO/The Recurrent Transformer- Greater Effective Depth and Efficient Decoding/assets/reading-record.json",
+    "version": "v1",
+    "source_url": "https://arxiv.org/abs/2604.21215",
+    "pdf_url": "https://arxiv.org/pdf/2604.21215v1",
+    "sha256": "6453ae101c002c3ba050b064f009ed81694dabc9d2f237e86007249415917b91",
+    "retrieved_at": "2026-10-19T10:41:12.921223+00:00",
+    "award": null,
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 1650890
+  },
+  {
+    "id": "p_d9b60c8a-431b-4522-ad58-e08887d84a81",
+    "arxiv_id": "1711.11586",
+    "title": "Toward Multimodal Image-to-Image Translation",
+    "record": "papers/DEMO/Toward Multimodal Image-to-Image Translation/assets/reading-record.json",
+    "version": "v4",
+    "source_url": "https://arxiv.org/abs/1711.11586",
+    "pdf_url": "https://arxiv.org/pdf/1711.11586v4",
+    "sha256": "34ba6d5ba956610120f2a37547f070d3cba948ebbdcbdc733b8039678f2cf5dc",
+    "retrieved_at": "2026-10-19T10:41:07.943979+00:00",
+    "award": null,
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 2,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 4361696
+  },
+  {
+    "id": "p_a702fb4c-02e4-4080-aa95-00b114eb6d85",
+    "arxiv_id": "2510.19315",
+    "title": "Transformers are Inherently Succinct",
+    "record": "papers/DEMO/Transformers are Inherently Succinct/assets/reading-record.json",
+    "version": "v3",
+    "source_url": "https://arxiv.org/abs/2510.19315",
+    "pdf_url": "https://arxiv.org/pdf/2510.19315v3",
+    "sha256": "f4731fe6aef2926e8dcc30955ba77252201fed32a3d52389379255206b1d051b",
+    "retrieved_at": "2026-10-19T10:41:30.741620+00:00",
+    "award": {
+      "conference": "ICLR 2026",
+      "name": "Outstanding Paper",
+      "source_url": "https://blog.iclr.cc/2026/04/23/announcing-the-iclr-2026-outstanding-papers/"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 0,
+    "figure_visual_review": "not_applicable_no_figure_selected",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 1303954
+  },
+  {
+    "id": "p_6f75ee5d-a736-4d57-b623-8969b4d17daa",
+    "arxiv_id": "2505.17638",
+    "title": "Why Diffusion Models Don't Memorize: The Role of Implicit Dynamical Regularization in Training",
+    "record": "papers/DEMO/Why Diffusion Models Don't Memorize- The Role of Implicit Dynamical Regularization in Training/assets/reading-record.json",
+    "version": "v2",
+    "source_url": "https://arxiv.org/abs/2505.17638",
+    "pdf_url": "https://arxiv.org/pdf/2505.17638v2",
+    "sha256": "86767a6fa0129b383638a3eb82e1c97e707118290f36ff195b1cdbd69e2b776f",
+    "retrieved_at": "2026-10-19T10:43:09.664574+00:00",
+    "award": {
+      "conference": "NeurIPS 2025",
+      "name": "Best Paper",
+      "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    "status": "archived",
+    "check": {
+      "status": "warning",
+      "modules": {
+        "metadata": {
+          "status": "ok"
+        },
+        "summary": {
+          "status": "warning",
+          "message": "已标记降级"
+        },
+        "highlights": {
+          "status": "ok"
+        },
+        "Q & A": {
+          "status": "warning",
+          "message": "内容为空"
+        }
+      }
+    },
+    "figures": 1,
+    "figure_visual_review": "checked",
+    "summary_status": "degraded",
+    "qa_count": 0,
+    "missing_publication_fields": [
+      "volume",
+      "issue",
+      "pages"
+    ],
+    "archive_size_bytes": 3031908
+  }
+]

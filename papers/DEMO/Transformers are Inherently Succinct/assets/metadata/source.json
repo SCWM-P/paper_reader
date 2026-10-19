@@ -1,0 +1,61 @@
+{
+  "arxiv_id": "2510.19315",
+  "version": "v3",
+  "title": "Transformers are Inherently Succinct",
+  "authors": [
+    "Bergsträßer, Pascal",
+    "Cotterell, Ryan",
+    "Lin, Anthony W."
+  ],
+  "citation": {
+    "citation_title": [
+      "Transformers are Inherently Succinct"
+    ],
+    "citation_author": [
+      "Bergsträßer, Pascal",
+      "Cotterell, Ryan",
+      "Lin, Anthony W."
+    ],
+    "citation_date": [
+      "2025/10/22"
+    ],
+    "citation_online_date": [
+      "2026/05/15"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2510.19315"
+    ],
+    "citation_arxiv_id": [
+      "2510.19315"
+    ],
+    "citation_abstract": [
+      "We study succinctness as a measure of the expressive power of transformers. Succinctness -- how compactly a formalism can describe a language relative to other formalisms -- is a classical notion in logic and automata theory. We prove that fixed-precision transformers are remarkably succinct: they can be exponentially more succinct than both linear temporal logic (LTL) and recurrent neural networks, and, by extension, state-space models, and doubly exponentially more succinct than finite automata. In other words, there exist families of languages describable by polynomial-size transformers whose smallest equivalent LTL formula or recurrent neural network is exponentially large, and whose smallest equivalent automaton is doubly exponentially large. We also establish matching upper bounds, showing that any fixed-precision transformer can be converted to an LTL formula with at most an exponential blow-up -- improving a prior doubly exponential translation. As a consequence of this succinctness, we show that basic verification problems for transformers, such as emptiness and equivalence, are provably intractable: specifically, EXPSPACE-complete."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2510.19315",
+  "pdf_url": "https://arxiv.org/pdf/2510.19315v3",
+  "retrieved_at": "2026-10-19T10:41:30.741620+00:00",
+  "sha256": "f4731fe6aef2926e8dcc30955ba77252201fed32a3d52389379255206b1d051b",
+  "bytes": 610833,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2025-10-22T07:25:54+00:00"
+    },
+    {
+      "version": "v2",
+      "submitted_at": "2025-10-23T08:09:19+00:00"
+    },
+    {
+      "version": "v3",
+      "submitted_at": "2026-05-15T08:20:00+00:00"
+    }
+  ],
+  "award": {
+    "conference": "ICLR 2026",
+    "name": "Outstanding Paper",
+    "source_url": "https://blog.iclr.cc/2026/04/23/announcing-the-iclr-2026-outstanding-papers/"
+  },
+  "pages": 21,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

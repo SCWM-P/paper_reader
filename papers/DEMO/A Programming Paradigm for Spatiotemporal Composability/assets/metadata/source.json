@@ -1,0 +1,49 @@
+{
+  "arxiv_id": "2608.25512",
+  "version": "v1",
+  "title": "A Programming Paradigm for Spatiotemporal Composability",
+  "authors": [
+    "Shi, Yifan",
+    "Zhang, Wei",
+    "Cui, Tianyi"
+  ],
+  "citation": {
+    "citation_title": [
+      "A Programming Paradigm for Spatiotemporal Composability"
+    ],
+    "citation_author": [
+      "Shi, Yifan",
+      "Zhang, Wei",
+      "Cui, Tianyi"
+    ],
+    "citation_date": [
+      "2026/08/26"
+    ],
+    "citation_online_date": [
+      "2026/08/26"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2608.25512"
+    ],
+    "citation_arxiv_id": [
+      "2608.25512"
+    ],
+    "citation_abstract": [
+      "Modern software -- from plugin systems to self-evolving agent harnesses -- increasingly requires dynamic composition, yet its formal foundations remain underdeveloped. We identify two orthogonal dimensions of the problem: temporal composability, the ability to completely revert a component's side effects upon removal, and spatial composability, the ability to declare and reactively manage inter-component dependencies. We address the two dimensions by lifting classical effect and coeffect concepts to runtime mechanisms. In particular, we formalize revertible effects, in which every context transformation carries an inverse that the runtime holds, establishing temporal composability local to one component. We formalize reactive coeffects, in which every context change is classified against a component's coeffect specification to drive its activation and deactivation, establishing spatial composability local to one component. We then unify the effect context and the coeffect context into a single context type and mediate every effect and coeffect through it, yielding a discipline we call the context paradigm; the mediation induces an observational equivalence up to which the effects of distinct components interleave without disturbing one another. Combining these mechanisms into the notion of a component, we give a calculus of dynamic composition whose metatheory carries spatiotemporal composability from a single component to a whole system of interleaved components. We implement these ideas in Cordis, a meta-framework of spatiotemporal composability that provides a core library with effect tracking and coeffect resolution, as well as a declarative component loader with configuration reconciliation and hot module replacement."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2608.25512",
+  "pdf_url": "https://arxiv.org/pdf/2608.25512v1",
+  "retrieved_at": "2026-10-19T10:41:15.508499+00:00",
+  "sha256": "390775dbc9debdcf2ed1b076eed013387ca057630be3cb594617b2b742e48cf0",
+  "bytes": 2284543,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2026-08-26T08:22:19+00:00"
+    }
+  ],
+  "award": null,
+  "pages": 92,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

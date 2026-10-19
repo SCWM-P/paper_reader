@@ -1,0 +1,93 @@
+{
+  "type": "source",
+  "id": "p_f5ee6975-d685-45c7-b0a0-1b6368529d2e",
+  "title": "Efficiently Reconstructing Dynamic Scenes One D4RT at a Time",
+  "metadata": {
+    "title": "Efficiently Reconstructing Dynamic Scenes One D4RT at a Time",
+    "author": [
+      "Zhang, Chuhan",
+      "Moing, Guillaume Le",
+      "Koppula, Skanda",
+      "Rocco, Ignacio",
+      "Momeni, Liliane",
+      "Xie, Junyu",
+      "Sun, Shuyang",
+      "Sukthankar, Rahul",
+      "Barral, Joëlle K.",
+      "Hadsell, Raia",
+      "Ghahramani, Zoubin",
+      "Zisserman, Andrew",
+      "Zhang, Junlin",
+      "Sajjadi, Mehdi S. M."
+    ],
+    "date": "2025/12/09",
+    "publicationTitle": "CVPR 2026",
+    "url": "https://arxiv.org/abs/2512.08924",
+    "arxiv_id": "2512.08924",
+    "version": "v2",
+    "DOI": "10.48550/arXiv.2512.08924",
+    "retrieved_at": "2026-10-19T10:41:22.650760+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2025-12-09T18:57:21+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2025-12-10T14:53:23+00:00"
+      }
+    ],
+    "pdf_sha256": "b8bb0a667a7c4e6d4206585adaca6711e1d900678e8fa0a80061e4c2535bc452",
+    "pdf_pages": 17,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "CVPR 2026",
+      "name": "Best Paper",
+      "source_url": "https://cvpr.thecvf.com/Conferences/2026/News/Best_Papers"
+    },
+    "publication_year": 2026
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2512.08924"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：D4RT 用统一视频编码与独立时空点查询恢复动态场景。单一接口联合服务深度、点对应与相机参数估计，减少逐帧密集解码和多任务解码器的复杂性。",
+  "highlights": [
+    "将按需点查询作为动态四维重建接口。",
+    "统一几何、运动与相机信息的预测。",
+    "在论文列出的重建与跟踪基准上比较精度和计算效率。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1. D4RT is a unified, efficient, feedforward method for",
+          "page": 1,
+          "bbox": [
+            315.0,
+            239.0,
+            555.0,
+            452.0
+          ],
+          "method": "manual PDF-point crop"
+        }
+      ]
+    }
+  ]
+}

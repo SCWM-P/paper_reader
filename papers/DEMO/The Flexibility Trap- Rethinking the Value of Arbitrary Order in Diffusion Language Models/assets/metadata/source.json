@@ -1,0 +1,81 @@
+{
+  "arxiv_id": "2601.15165",
+  "version": "v4",
+  "title": "The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models",
+  "authors": [
+    "Ni, Zanlin",
+    "Wang, Shenzhi",
+    "Yue, Yang",
+    "Yu, Tianyu",
+    "Zhao, Weilin",
+    "Hua, Yeguo",
+    "Chen, Tianyi",
+    "Song, Jun",
+    "Yu, Cheng",
+    "Zheng, Bo",
+    "Huang, Gao"
+  ],
+  "citation": {
+    "citation_title": [
+      "The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models"
+    ],
+    "citation_author": [
+      "Ni, Zanlin",
+      "Wang, Shenzhi",
+      "Yue, Yang",
+      "Yu, Tianyu",
+      "Zhao, Weilin",
+      "Hua, Yeguo",
+      "Chen, Tianyi",
+      "Song, Jun",
+      "Yu, Cheng",
+      "Zheng, Bo",
+      "Huang, Gao"
+    ],
+    "citation_date": [
+      "2026/01/21"
+    ],
+    "citation_online_date": [
+      "2026/06/08"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2601.15165"
+    ],
+    "citation_arxiv_id": [
+      "2601.15165"
+    ],
+    "citation_abstract": [
+      "Diffusion Large Language Models (dLLMs) break the rigid left-to-right constraint of traditional LLMs, enabling token generation in arbitrary orders. Intuitively, this flexibility implies a solution space that strictly supersets the fixed autoregressive trajectory, theoretically unlocking superior reasoning potential. However, in this paper, we find that for general reasoning tasks (e.g., mathematics and coding), arbitrary order generation may in fact limit the reasoning potential of dLLMs. We observe that dLLMs tend to exploit this order flexibility to bypass high-uncertainty tokens that are crucial for exploration, which can lead to a premature collapse of solution coverage. This observation motivates a rethink of RL approaches for dLLMs, where considerable complexities, such as handling combinatorial trajectories and intractable likelihoods, are often devoted to preserving this flexibility. We show that effective reasoning can be elicited by simply forgoing arbitrary order and applying standard Group Relative Policy Optimization (GRPO) instead. Our approach, JustGRPO, is minimalist yet surprisingly effective (e.g., 89.1% accuracy on GSM8K) while fully retaining the parallel decoding ability of dLLMs. Project page: https://nzl-thu.github.io/the-flexibility-trap"
+    ]
+  },
+  "url": "https://arxiv.org/abs/2601.15165",
+  "pdf_url": "https://arxiv.org/pdf/2601.15165v4",
+  "retrieved_at": "2026-10-19T10:41:34.080801+00:00",
+  "sha256": "9f64ebe1e0a353acf81bf0236ef6bc891b28f7365fed88745fd8936a6fb41cbe",
+  "bytes": 2933521,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2026-01-21T16:41:58+00:00"
+    },
+    {
+      "version": "v2",
+      "submitted_at": "2026-01-26T08:29:32+00:00"
+    },
+    {
+      "version": "v3",
+      "submitted_at": "2026-03-19T02:53:39+00:00"
+    },
+    {
+      "version": "v4",
+      "submitted_at": "2026-06-08T15:43:52+00:00"
+    }
+  ],
+  "award": {
+    "conference": "ICML 2026",
+    "name": "Outstanding Paper Award",
+    "source_url": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+  },
+  "pages": 19,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

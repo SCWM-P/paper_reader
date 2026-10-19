@@ -1,0 +1,59 @@
+{
+  "arxiv_id": "2602.01338",
+  "version": "v2",
+  "title": "High-accuracy sampling for diffusion models and log-concave distributions",
+  "authors": [
+    "Chen, Fan",
+    "Chewi, Sinho",
+    "Daskalakis, Constantinos",
+    "Rakhlin, Alexander"
+  ],
+  "citation": {
+    "citation_title": [
+      "High-accuracy sampling for diffusion models and log-concave distributions"
+    ],
+    "citation_author": [
+      "Chen, Fan",
+      "Chewi, Sinho",
+      "Daskalakis, Constantinos",
+      "Rakhlin, Alexander"
+    ],
+    "citation_date": [
+      "2026/02/01"
+    ],
+    "citation_online_date": [
+      "2026/04/27"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2602.01338"
+    ],
+    "citation_arxiv_id": [
+      "2602.01338"
+    ],
+    "citation_abstract": [
+      "We present algorithms for diffusion model sampling which obtain $\\delta$-error in $\\mathrm{polylog}(1/\\delta)$ steps, given access to $\\widetilde O(\\delta)$-accurate score estimates in $L^2$. This is an exponential improvement over all previous results. Specifically, under minimal data assumptions, the complexity is $\\widetilde O(d_\\star \\mathrm{polylog}(1/\\delta))$ where $d_\\star$ is the intrinsic dimension of the data. Further, under a non-uniform $L$-Lipschitz condition, the complexity reduces to $\\widetilde O(L \\mathrm{polylog}(1/\\delta))$. Our approach also yields the first $\\mathrm{polylog}(1/\\delta)$ complexity sampler for general log-concave distributions using only gradient evaluations."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2602.01338",
+  "pdf_url": "https://arxiv.org/pdf/2602.01338v2",
+  "retrieved_at": "2026-10-19T10:41:37.023454+00:00",
+  "sha256": "3262376a641f1305f0734d52e44787307bb4fadd25a50bee4608dabcfab16f82",
+  "bytes": 990985,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2026-02-01T17:05:31+00:00"
+    },
+    {
+      "version": "v2",
+      "submitted_at": "2026-04-27T16:01:17+00:00"
+    }
+  ],
+  "award": {
+    "conference": "ICML 2026",
+    "name": "Outstanding Paper Award",
+    "source_url": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+  },
+  "pages": 43,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1: Left: Investigated positions for applying gating operations.; Middle: Performance comparison (Test PPL",
+    "page": 2,
+    "bbox": [
+      61.621002197265625,
+      41.26580810546875,
+      531.1107177734375,
+      234.43997192382812
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

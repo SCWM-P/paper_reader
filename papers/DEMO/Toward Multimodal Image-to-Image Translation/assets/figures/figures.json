@@ -1,0 +1,28 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figures/figure-1.png",
+    "caption": "Figure 1: Multimodal image-to-image translation using our proposed method: given an input image from",
+    "page": 2,
+    "bbox": [
+      105.0,
+      70.0,
+      507.0,
+      208.0
+    ],
+    "method": "manual PDF-point crop"
+  },
+  {
+    "id": "figure-2",
+    "file": "figures/figure-2.png",
+    "caption": "Figure 2: Overview: (a) Test time usage of all the methods. To produce a sample output, a latent code z is",
+    "page": 3,
+    "bbox": [
+      105.0,
+      65.0,
+      507.0,
+      305.0
+    ],
+    "method": "manual PDF-point crop"
+  }
+]

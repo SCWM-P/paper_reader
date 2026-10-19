@@ -1,0 +1,89 @@
+{
+  "arxiv_id": "2601.07372",
+  "version": "v2",
+  "title": "Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models",
+  "authors": [
+    "Cheng, Xin",
+    "Tian, Rui",
+    "Zeng, Wangding",
+    "Dai, Damai",
+    "Chen, Qinyu",
+    "Wang, Bingxuan",
+    "Xie, Zhenda",
+    "Huang, Kezhao",
+    "Yu, Xingkai",
+    "Deng, Chengqi",
+    "Zhou, Shangyan",
+    "Zhao, Chenggang",
+    "Hao, Zhewen",
+    "Li, Yukun",
+    "Zhang, Han",
+    "Zhang, Zhengyan",
+    "Wei, Yixu",
+    "Xu, M. Y",
+    "Zhang, Huishuai",
+    "Zhao, Dongyan",
+    "Liang, Wenfeng"
+  ],
+  "citation": {
+    "citation_title": [
+      "Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models"
+    ],
+    "citation_author": [
+      "Cheng, Xin",
+      "Tian, Rui",
+      "Zeng, Wangding",
+      "Dai, Damai",
+      "Chen, Qinyu",
+      "Wang, Bingxuan",
+      "Xie, Zhenda",
+      "Huang, Kezhao",
+      "Yu, Xingkai",
+      "Deng, Chengqi",
+      "Zhou, Shangyan",
+      "Zhao, Chenggang",
+      "Hao, Zhewen",
+      "Li, Yukun",
+      "Zhang, Han",
+      "Zhang, Zhengyan",
+      "Wei, Yixu",
+      "Xu, M. Y",
+      "Zhang, Huishuai",
+      "Zhao, Dongyan",
+      "Liang, Wenfeng"
+    ],
+    "citation_date": [
+      "2026/01/12"
+    ],
+    "citation_online_date": [
+      "2026/07/12"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2601.07372"
+    ],
+    "citation_arxiv_id": [
+      "2601.07372"
+    ],
+    "citation_abstract": [
+      "While Mixture-of-Experts (MoE) scales capacity via conditional computation, Transformers lack a native primitive for knowledge lookup, forcing them to inefficiently simulate retrieval through computation. To address this, we introduce conditional memory as a complementary sparsity axis, instantiated via Engram, a module that modernizes classic $N$-gram embedding for O(1) lookup. By formulating the Sparsity Allocation problem, we uncover a U-shaped scaling law that optimizes the trade-off between neural computation (MoE) and static memory (Engram). Guided by this law, we scale Engram to 27B parameters, achieving superior performance over a strictly iso-parameter and iso-FLOPs MoE baseline. Most notably, while the memory module is expected to aid knowledge retrieval (e.g., MMLU +3.4; CMMLU +4.0), we observe even larger gains in general reasoning (e.g., BBH +5.0; ARC-Challenge +3.7) and code/math domains~(HumanEval +3.0; MATH +2.4). Mechanistic analyses reveal that Engram relieves the backbone's early layers from static reconstruction, effectively deepening the network for complex reasoning. Furthermore, by delegating local dependencies to lookups, it frees up attention capacity for global context, substantially boosting long-context retrieval (e.g., Multi-Query NIAH: 84.2 to 97.0). Finally, Engram establishes infrastructure-aware efficiency: its deterministic addressing enables runtime prefetching from host memory, incurring negligible overhead. We envision conditional memory as an indispensable modeling primitive for next-generation sparse models."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2601.07372",
+  "pdf_url": "https://arxiv.org/pdf/2601.07372v2",
+  "retrieved_at": "2026-10-19T10:41:14.306870+00:00",
+  "sha256": "8eab2dd35e4557d4142e5959697836f6cf926d0fbc29016257f1eea5be73df5d",
+  "bytes": 772599,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2026-01-12T09:54:49+00:00"
+    },
+    {
+      "version": "v2",
+      "submitted_at": "2026-07-12T07:41:31+00:00"
+    }
+  ],
+  "award": null,
+  "pages": 35,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

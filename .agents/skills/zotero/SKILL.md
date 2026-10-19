@@ -150,10 +150,11 @@ others 按本次伴读需要自由拓展。
 
 ```json
 {
+  "type": "source",
   "metadata": {"title": "论文标题", "author": ["作者姓名"], "date": "2026", "url": "https://example.org/paper"},
   "summary": "核心结论与自己的理解，尽可能简短。",
   "highlights": [{"title": "主要贡献", "content": "它解决了什么问题，带来了什么学术价值。"}],
-  "Q & A": [{"question": "用户在伴读中提出的问题", "answer": "讨论形成的解答", "origin": "用户讨论"}],
+  "Q & A": [],
   "completeness": {"summary": {"status": "complete"}},
   "others": [{"title": "本次继续阅读", "content": "根据讨论选择的补充内容。"}]
 }
@@ -235,9 +236,9 @@ BEHAVIOR_JS 已包含 KaTeX、公式初始化和交互模块；整页模板在�
 ### others：按讨论需要拓展
 
 当前原文存在知识卡点、需要系统讲解或跨会话接续时，参见 [llm-wiki](../llm-wiki/SKILL.md)。
-跨论文共识概念与理解证据由 llm-wiki 管理，入口为 `.runtime/llm_wiki/README.md`。
+跨论文公共知识使用 `paper wiki list` 浏览、`paper wiki query` 定向读取。目录由项目配置选择；实际问答与理解证据只保存在论文记录。
 论文专属公式、变量及定义继续记入该论文的实际 `Q & A`。混合问题只有一个主归属，概念用 record/question_id 引用。
-可选 `id: q_<UUID4>` 生成稳定 HTML 入口 `#qa-q_<UUID4>`；普通无 ID 记录保持兼容。
+每条实际问答必须有 `id: q_<UUID4>` 和 question_form，生成稳定 HTML 入口 `#qa-q_<UUID4>`。历史措辞无法核实时使用 legacy_recorded，不补造发言时间。
 
 others 可省略，推荐使用按阅读顺序排列的模块数组；也支持文字或“名称 → 内容”对象。
 每个模块用 title 命名，可填 id 供目录跳转，content 写文字或条目列表。

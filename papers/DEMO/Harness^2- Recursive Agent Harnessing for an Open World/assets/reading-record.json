@@ -1,0 +1,79 @@
+{
+  "type": "source",
+  "id": "p_e61ff7db-1a2d-4768-bd25-33e811cc7af7",
+  "title": "Harness^2: Recursive Agent Harnessing for an Open World",
+  "metadata": {
+    "title": "Harness^2: Recursive Agent Harnessing for an Open World",
+    "author": [
+      "Xu, Ruiyao",
+      "Chen, Yanfei",
+      "CuiZhu, Zhongying",
+      "Mishra, Bhavana Dalvi",
+      "Ming, Yifei",
+      "Yu, Han",
+      "Han, Rujun",
+      "Lee, Chen-Yu",
+      "Pfister, Tomas"
+    ],
+    "date": "2026/10/09",
+    "publicationTitle": "arXiv preprint",
+    "url": "https://arxiv.org/abs/2610.14224",
+    "arxiv_id": "2610.14224",
+    "version": "v1",
+    "DOI": "10.48550/arXiv.2610.14224",
+    "retrieved_at": "2026-10-19T10:41:17.583570+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2026-10-09T18:34:25+00:00"
+      }
+    ],
+    "pdf_sha256": "440be1f694f3b0fdfb8e612e9b2288ff0d8ab38641cfd1064fd77052ba360282",
+    "pdf_pages": 37,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": null
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2610.14224"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：Harness² 研究在开放任务中递归改进 agent 的执行 harness。任务层通过提出、探查与组合候选修改适应当前任务；harnessing 层把这些经验用于后续任务。",
+  "highlights": [
+    "区分任务层递归与持续改进层递归。",
+    "在缺少任务真值校验器时使用对比探查指导修改。",
+    "结果来自指定专业任务基准与模型配置，不能视为任意开放任务上的保证。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1 | Overall performance. Left: WorkBuddy-Bench by domain for Gemini 3.5 Flash under",
+          "page": 1,
+          "bbox": [
+            60,
+            445,
+            535,
+            619
+          ],
+          "method": "manual PDF-point crop; visually reviewed"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "arxiv_id": "2503.14858",
+  "version": "v5",
+  "title": "1000 Layer Networks for Self-Supervised RL: Scaling Depth Can Enable New Goal-Reaching Capabilities",
+  "authors": [
+    "Wang, Kevin",
+    "Javali, Ishaan",
+    "Bortkiewicz, Michał",
+    "Trzciński, Tomasz",
+    "Eysenbach, Benjamin"
+  ],
+  "citation": {
+    "citation_title": [
+      "1000 Layer Networks for Self-Supervised RL: Scaling Depth Can Enable New Goal-Reaching Capabilities"
+    ],
+    "citation_author": [
+      "Wang, Kevin",
+      "Javali, Ishaan",
+      "Bortkiewicz, Michał",
+      "Trzciński, Tomasz",
+      "Eysenbach, Benjamin"
+    ],
+    "citation_date": [
+      "2025/03/19"
+    ],
+    "citation_online_date": [
+      "2026/10/05"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2503.14858"
+    ],
+    "citation_arxiv_id": [
+      "2503.14858"
+    ],
+    "citation_abstract": [
+      "Scaling up self-supervised learning has driven breakthroughs in language and vision, yet comparable progress has remained elusive in reinforcement learning (RL). In this paper, we study building blocks for self-supervised RL that unlock substantial improvements in scalability, with network depth serving as a critical factor. Whereas most RL papers in recent years have relied on shallow architectures (around 2 - 5 layers), we demonstrate that increasing the depth up to 1024 layers can significantly boost performance. Our experiments are conducted in an unsupervised goal-conditioned setting, where no demonstrations or rewards are provided, so an agent must explore (from scratch) and learn how to maximize the likelihood of reaching commanded goals. Evaluated on simulated locomotion and manipulation tasks, our approach increases performance on the self-supervised contrastive RL algorithm by $2\\times$ - $50\\times$, outperforming other goal-conditioned baselines. Increasing the model depth not only increases success rates but also qualitatively changes the behaviors learned. The project webpage and code can be found here: https://wang-kevin3290.github.io/scaling-crl/."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2503.14858",
+  "pdf_url": "https://arxiv.org/pdf/2503.14858v5",
+  "retrieved_at": "2026-10-19T10:41:38.403820+00:00",
+  "sha256": "94ba961e7379a143ceab773c4c5097289875d0d4679dd8e2259a6bef94a512f5",
+  "bytes": 4105919,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2025-03-19T03:33:57+00:00"
+    },
+    {
+      "version": "v2",
+      "submitted_at": "2025-03-22T22:24:37+00:00"
+    },
+    {
+      "version": "v3",
+      "submitted_at": "2025-11-23T02:37:33+00:00"
+    },
+    {
+      "version": "v4",
+      "submitted_at": "2026-02-02T00:42:18+00:00"
+    },
+    {
+      "version": "v5",
+      "submitted_at": "2026-10-05T03:07:28+00:00"
+    }
+  ],
+  "award": {
+    "conference": "NeurIPS 2025",
+    "name": "Best Paper",
+    "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+  },
+  "pages": 28,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

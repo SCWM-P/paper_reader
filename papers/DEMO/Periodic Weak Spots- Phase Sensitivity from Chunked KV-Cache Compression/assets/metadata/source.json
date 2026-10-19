@@ -1,0 +1,61 @@
+{
+  "arxiv_id": "2609.36322",
+  "version": "v1",
+  "title": "Periodic Weak Spots: Phase Sensitivity from Chunked KV-Cache Compression",
+  "authors": [
+    "Zhu, Xingyu",
+    "Yi, Pu (Luke)",
+    "Cheng, Ziheng",
+    "Lv, Ang",
+    "Liu, Jing",
+    "Ying, Lexing",
+    "Ma, Yiyuan",
+    "Dong, Xin"
+  ],
+  "citation": {
+    "citation_title": [
+      "Periodic Weak Spots: Phase Sensitivity from Chunked KV-Cache Compression"
+    ],
+    "citation_author": [
+      "Zhu, Xingyu",
+      "Pu",
+      "Yi",
+      "Cheng, Ziheng",
+      "Lv, Ang",
+      "Liu, Jing",
+      "Ying, Lexing",
+      "Ma, Yiyuan",
+      "Dong, Xin"
+    ],
+    "citation_date": [
+      "2026/09/28"
+    ],
+    "citation_online_date": [
+      "2026/09/28"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2609.36322"
+    ],
+    "citation_arxiv_id": [
+      "2609.36322"
+    ],
+    "citation_abstract": [
+      "Chunked KV-cache compression reduces the memory and attention costs of long-context inference by compressing windows of consecutive tokens into fewer cache entries at a fixed stride. Such compression also introduces a new positional coordinate: a token's phase, or its position relative to compression-window boundaries. We uncover a systematic asymmetry in models using such compression: the same information can be easy to retrieve at one phase and difficult at another. We call this periodic variation in retrieval performance phase sensitivity. In large open-weight models with such compression, long-context retrieval accuracy can differ by up to 40 percentage points across phases, revealing periodic weak spots that average benchmark scores can conceal. To investigate this behavior, we pretrain a family of transformers from scratch across multiple KV-compression designs, reproducing phase sensitivity across the variants. Mechanistic analysis using causal interventions in these models reveals phase specialization: different attention components contribute asymmetrically to retrieving information at different source phases. We further analyze idealized retrieval models, showing how gradient flow dynamics may favor sharp phase specialization. Evaluating models with chunked KV-cache compression thus requires measuring across compression phases: high average accuracy can coexist with systematic positional failures."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2609.36322",
+  "pdf_url": "https://arxiv.org/pdf/2609.36322v1",
+  "retrieved_at": "2026-10-19T10:41:10.689708+00:00",
+  "sha256": "eb4904567a45586caf0ccfdc9b91c4a3ce087700a2784a2a43665d656bd4b5fa",
+  "bytes": 2449493,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2026-09-28T21:54:14+00:00"
+    }
+  ],
+  "author_correction": "arXiv citation_author 将 Pu (Luke) Yi 拆成两项；按 PDF 物理第1页合为一位作者。原始 citation 保留。",
+  "award": null,
+  "pages": 65,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

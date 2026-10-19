@@ -1,0 +1,111 @@
+{
+  "type": "source",
+  "id": "p_75eadb2e-dfe9-4e49-8873-341bc2c9d75c",
+  "title": "The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models",
+  "metadata": {
+    "title": "The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models",
+    "author": [
+      "Ni, Zanlin",
+      "Wang, Shenzhi",
+      "Yue, Yang",
+      "Yu, Tianyu",
+      "Zhao, Weilin",
+      "Hua, Yeguo",
+      "Chen, Tianyi",
+      "Song, Jun",
+      "Yu, Cheng",
+      "Zheng, Bo",
+      "Huang, Gao"
+    ],
+    "date": "2026/01/21",
+    "publicationTitle": "ICML 2026",
+    "url": "https://arxiv.org/abs/2601.15165",
+    "arxiv_id": "2601.15165",
+    "version": "v4",
+    "DOI": "10.48550/arXiv.2601.15165",
+    "retrieved_at": "2026-10-19T10:41:34.080801+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2026-01-21T16:41:58+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2026-01-26T08:29:32+00:00"
+      },
+      {
+        "version": "v3",
+        "submitted_at": "2026-03-19T02:53:39+00:00"
+      },
+      {
+        "version": "v4",
+        "submitted_at": "2026-06-08T15:43:52+00:00"
+      }
+    ],
+    "pdf_sha256": "9f64ebe1e0a353acf81bf0236ef6bc891b28f7365fed88745fd8936a6fb41cbe",
+    "pdf_pages": 19,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "ICML 2026",
+      "name": "Outstanding Paper Award",
+      "source_url": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+    },
+    "publication_year": 2026
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2601.15165"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文研究扩散语言模型在推理任务中的生成顺序。作者发现当前任意顺序策略会绕过高不确定性 token，收缩探索空间；JustGRPO 用固定顺序生成 RL rollout，同时保留推理时并行解码。",
+  "highlights": [
+    "把训练轨迹的生成顺序与推理时并行性分开分析。",
+    "以探索多样性解释任意顺序策略的部分失败。",
+    "在论文模型与推理任务中验证简化训练方法，结论不表示任意顺序在所有任务上均无价值。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: Less flexibility unlocks better reasoning potential. Left: We observe a counter-intuitive",
+          "page": 2,
+          "bbox": [
+            45,
+            55,
+            550,
+            193
+          ],
+          "method": "manual PDF-point crop; visually reviewed"
+        },
+        {
+          "id": "figure-2",
+          "file": "figures/figure-2.png",
+          "caption": "Figure 2: Confronting vs. bypassing uncertainty.",
+          "page": 2,
+          "bbox": [
+            282,
+            420,
+            548,
+            546
+          ],
+          "method": "manual PDF-point crop; visually reviewed"
+        }
+      ]
+    }
+  ]
+}

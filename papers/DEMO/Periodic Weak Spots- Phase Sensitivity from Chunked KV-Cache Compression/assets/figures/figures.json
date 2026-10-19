@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1 Next-token predictions by DeepSeek-V4-Flash-Base on a code snippet. The prediction flip periodically",
+    "page": 3,
+    "bbox": [
+      67.56999969482422,
+      69.95364379882812,
+      544.4185180664062,
+      244.29660034179688
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

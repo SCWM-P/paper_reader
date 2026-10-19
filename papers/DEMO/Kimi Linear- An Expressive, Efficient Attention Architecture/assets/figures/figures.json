@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1: (a) Performance vs. acceleration. With strict fair comparisons with 1.4T training tokens, on MMLU-Pro (4k context length,",
+    "page": 1,
+    "bbox": [
+      85.57275390625,
+      454.4268798828125,
+      528.9949340820312,
+      632.2303466796875
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

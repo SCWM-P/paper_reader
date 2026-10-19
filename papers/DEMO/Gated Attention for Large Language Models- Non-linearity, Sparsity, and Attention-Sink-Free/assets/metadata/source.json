@@ -1,0 +1,73 @@
+{
+  "arxiv_id": "2505.06708",
+  "version": "v1",
+  "title": "Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free",
+  "authors": [
+    "Qiu, Zihan",
+    "Wang, Zekun",
+    "Zheng, Bo",
+    "Huang, Zeyu",
+    "Wen, Kaiyue",
+    "Yang, Songlin",
+    "Men, Rui",
+    "Yu, Le",
+    "Huang, Fei",
+    "Huang, Suozhi",
+    "Liu, Dayiheng",
+    "Zhou, Jingren",
+    "Lin, Junyang"
+  ],
+  "citation": {
+    "citation_title": [
+      "Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free"
+    ],
+    "citation_author": [
+      "Qiu, Zihan",
+      "Wang, Zekun",
+      "Zheng, Bo",
+      "Huang, Zeyu",
+      "Wen, Kaiyue",
+      "Yang, Songlin",
+      "Men, Rui",
+      "Yu, Le",
+      "Huang, Fei",
+      "Huang, Suozhi",
+      "Liu, Dayiheng",
+      "Zhou, Jingren",
+      "Lin, Junyang"
+    ],
+    "citation_date": [
+      "2025/05/10"
+    ],
+    "citation_online_date": [
+      "2025/05/10"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2505.06708"
+    ],
+    "citation_arxiv_id": [
+      "2505.06708"
+    ],
+    "citation_abstract": [
+      "Gating mechanisms have been widely utilized, from early models like LSTMs and Highway Networks to recent state space models, linear attention, and also softmax attention. Yet, existing literature rarely examines the specific effects of gating. In this work, we conduct comprehensive experiments to systematically investigate gating-augmented softmax attention variants. Specifically, we perform a comprehensive comparison over 30 variants of 15B Mixture-of-Experts (MoE) models and 1.7B dense models trained on a 3.5 trillion token dataset. Our central finding is that a simple modification-applying a head-specific sigmoid gate after the Scaled Dot-Product Attention (SDPA)-consistently improves performance. This modification also enhances training stability, tolerates larger learning rates, and improves scaling properties. By comparing various gating positions and computational variants, we attribute this effectiveness to two key factors: (1) introducing non-linearity upon the low-rank mapping in the softmax attention, and (2) applying query-dependent sparse gating scores to modulate the SDPA output. Notably, we find this sparse gating mechanism mitigates 'attention sink' and enhances long-context extrapolation performance, and we also release related $\\href{https://github.com/qiuzh20/gated_attention}{codes}$ and $\\href{https://huggingface.co/QwQZh/gated_attention}{models}$ to facilitate future research."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2505.06708",
+  "pdf_url": "https://arxiv.org/pdf/2505.06708v1",
+  "retrieved_at": "2026-10-19T10:41:41.731505+00:00",
+  "sha256": "949c7ed67dea3ddc6b88854cf72631ed2e1f466ad4c824c8aa1286739bcf2359",
+  "bytes": 1503818,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2025-05-10T17:15:49+00:00"
+    }
+  ],
+  "award": {
+    "conference": "NeurIPS 2025",
+    "name": "Best Paper",
+    "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+  },
+  "pages": 17,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

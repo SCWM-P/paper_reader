@@ -1,0 +1,79 @@
+{
+  "arxiv_id": "2512.08924",
+  "version": "v2",
+  "title": "Efficiently Reconstructing Dynamic Scenes One D4RT at a Time",
+  "authors": [
+    "Zhang, Chuhan",
+    "Moing, Guillaume Le",
+    "Koppula, Skanda",
+    "Rocco, Ignacio",
+    "Momeni, Liliane",
+    "Xie, Junyu",
+    "Sun, Shuyang",
+    "Sukthankar, Rahul",
+    "Barral, Joëlle K.",
+    "Hadsell, Raia",
+    "Ghahramani, Zoubin",
+    "Zisserman, Andrew",
+    "Zhang, Junlin",
+    "Sajjadi, Mehdi S. M."
+  ],
+  "citation": {
+    "citation_title": [
+      "Efficiently Reconstructing Dynamic Scenes One D4RT at a Time"
+    ],
+    "citation_author": [
+      "Zhang, Chuhan",
+      "Moing, Guillaume Le",
+      "Koppula, Skanda",
+      "Rocco, Ignacio",
+      "Momeni, Liliane",
+      "Xie, Junyu",
+      "Sun, Shuyang",
+      "Sukthankar, Rahul",
+      "Barral, Joëlle K.",
+      "Hadsell, Raia",
+      "Ghahramani, Zoubin",
+      "Zisserman, Andrew",
+      "Zhang, Junlin",
+      "Sajjadi, Mehdi S. M."
+    ],
+    "citation_date": [
+      "2025/12/09"
+    ],
+    "citation_online_date": [
+      "2025/12/10"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2512.08924"
+    ],
+    "citation_arxiv_id": [
+      "2512.08924"
+    ],
+    "citation_abstract": [
+      "Understanding and reconstructing the complex geometry and motion of dynamic scenes from video remains a formidable challenge in computer vision. This paper introduces D4RT, a simple yet powerful feedforward model designed to efficiently solve this task. D4RT utilizes a unified transformer architecture to jointly infer depth, spatio-temporal correspondence, and full camera parameters from a single video. Its core innovation is a novel querying mechanism that sidesteps the heavy computation of dense, per-frame decoding and the complexity of managing multiple, task-specific decoders. Our decoding interface allows the model to independently and flexibly probe the 3D position of any point in space and time. The result is a lightweight and highly scalable method that enables remarkably efficient training and inference. We demonstrate that our approach sets a new state of the art, outperforming previous methods across a wide spectrum of 4D reconstruction tasks. We refer to the project webpage for animated results: https://d4rt-paper.github.io/."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2512.08924",
+  "pdf_url": "https://arxiv.org/pdf/2512.08924v2",
+  "retrieved_at": "2026-10-19T10:41:22.650760+00:00",
+  "sha256": "b8bb0a667a7c4e6d4206585adaca6711e1d900678e8fa0a80061e4c2535bc452",
+  "bytes": 14291538,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2025-12-09T18:57:21+00:00"
+    },
+    {
+      "version": "v2",
+      "submitted_at": "2025-12-10T14:53:23+00:00"
+    }
+  ],
+  "award": {
+    "conference": "CVPR 2026",
+    "name": "Best Paper",
+    "source_url": "https://cvpr.thecvf.com/Conferences/2026/News/Best_Papers"
+  },
+  "pages": 17,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

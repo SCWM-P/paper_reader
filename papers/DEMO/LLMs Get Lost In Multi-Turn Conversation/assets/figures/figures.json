@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1: In this work, we simulate single- and multi-turn conversations for six generation tasks. The 15 LLMs we test",
+    "page": 1,
+    "bbox": [
+      64.0,
+      366.0901794433594,
+      548.00830078125,
+      655.4759521484375
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 MODULES = ("metadata", "summary", "highlights", "Q & A")
@@ -31,6 +32,21 @@ def check_record(record):
     modules = {}
     for name in MODULES:
         errors, warnings = [], []
+        if name == "metadata" and record.get("type") != "source":
+            errors.append("阅读记录必须包含 type: source")
+        if name == "Q & A" and isinstance(record.get(name), list):
+            ids = []
+            for item in record[name]:
+                if not isinstance(item, dict) or not re.fullmatch(r"q_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}", str(item.get("id", ""))):
+                    errors.append("每条实际问答必须有 q_UUID4")
+                    break
+                ids.append(item["id"])
+                if item.get("question_form") not in ("exact", "legacy_recorded"):
+                    errors.append("每条实际问答必须标明 question_form")
+                if not isinstance(item.get("question"), str) or not item["question"].strip() or not isinstance(item.get("answer"), str):
+                    errors.append("每条实际问答必须有原问和字符串答复")
+            if len(ids) != len(set(ids)):
+                errors.append("问答 ID 重复")
         if name not in record:
             errors.append("缺少必要模块")
         else:

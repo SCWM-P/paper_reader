@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1: One layer of the Recurrent Transformer mapping input embeddings x1 . . . x4 to output embeddings",
+    "page": 2,
+    "bbox": [
+      55.342254638671875,
+      55.28233337402344,
+      556.4585571289062,
+      265.13720703125
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

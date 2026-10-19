@@ -1,0 +1,72 @@
+{
+  "type": "source",
+  "id": "p_a702fb4c-02e4-4080-aa95-00b114eb6d85",
+  "title": "Transformers are Inherently Succinct",
+  "metadata": {
+    "title": "Transformers are Inherently Succinct",
+    "author": [
+      "Bergsträßer, Pascal",
+      "Cotterell, Ryan",
+      "Lin, Anthony W."
+    ],
+    "date": "2025/10/22",
+    "publicationTitle": "ICLR 2026",
+    "url": "https://arxiv.org/abs/2510.19315",
+    "arxiv_id": "2510.19315",
+    "version": "v3",
+    "DOI": "10.48550/arXiv.2510.19315",
+    "retrieved_at": "2026-10-19T10:41:30.741620+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2025-10-22T07:25:54+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2025-10-23T08:09:19+00:00"
+      },
+      {
+        "version": "v3",
+        "submitted_at": "2026-05-15T08:20:00+00:00"
+      }
+    ],
+    "pdf_sha256": "f4731fe6aef2926e8dcc30955ba77252201fed32a3d52389379255206b1d051b",
+    "pdf_pages": 21,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "ICLR 2026",
+      "name": "Outstanding Paper",
+      "source_url": "https://blog.iclr.cc/2026/04/23/announcing-the-iclr-2026-outstanding-papers/"
+    },
+    "publication_year": 2026
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2510.19315"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文以表示简洁性比较 Transformer、线性时序逻辑、循环网络与有限自动机。核心问题是表示同一形式语言需要多大描述，而不是只比较可识别语言集合。",
+  "highlights": [
+    "在指定精度与模型假设下给出表示大小的上下界。",
+    "研究由简洁表示带来的验证复杂性。",
+    "理论模型、精度假设与确定性计算顺序均影响结论，不把形式证明直接等同于实用 LLM 的全面能力。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": []
+    }
+  ]
+}

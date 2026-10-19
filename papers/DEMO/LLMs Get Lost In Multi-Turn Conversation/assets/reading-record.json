@@ -1,0 +1,79 @@
+{
+  "type": "source",
+  "id": "p_c5310aaf-a3a0-4f98-a681-5d05c2013ef9",
+  "title": "LLMs Get Lost In Multi-Turn Conversation",
+  "metadata": {
+    "title": "LLMs Get Lost In Multi-Turn Conversation",
+    "author": [
+      "Laban, Philippe",
+      "Hayashi, Hiroaki",
+      "Zhou, Yingbo",
+      "Neville, Jennifer"
+    ],
+    "date": "2025/05/09",
+    "publicationTitle": "ICLR 2026",
+    "url": "https://arxiv.org/abs/2505.06120",
+    "arxiv_id": "2505.06120",
+    "version": "v1",
+    "DOI": "10.48550/arXiv.2505.06120",
+    "retrieved_at": "2026-10-19T10:41:32.086235+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2025-05-09T15:21:44+00:00"
+      }
+    ],
+    "pdf_sha256": "d77f8955d696beabde2a6ed85b43d64fb81b2b496e76474d6f97607e5a164cbc",
+    "pdf_pages": 36,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "ICLR 2026",
+      "name": "Outstanding Paper",
+      "source_url": "https://blog.iclr.cc/2026/04/23/announcing-the-iclr-2026-outstanding-papers/"
+    },
+    "publication_year": 2026
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2505.06120"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文把完整指令拆为多轮交互，在多种生成任务中比较单轮与多轮表现。作者发现早期错误假设与过早生成解答会影响后续过程，并区分能力下降与可靠性下降。",
+  "highlights": [
+    "构建可扩展的欠明确指令多轮评估方法。",
+    "通过大量模拟对话分析错误形成与恢复。",
+    "模拟评估不等于本工作区用户的真实对话或理解历史。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: In this work, we simulate single- and multi-turn conversations for six generation tasks. The 15 LLMs we test",
+          "page": 1,
+          "bbox": [
+            64.0,
+            366.0901794433594,
+            548.00830078125,
+            655.4759521484375
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

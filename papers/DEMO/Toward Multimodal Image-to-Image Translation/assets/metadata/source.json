@@ -1,0 +1,69 @@
+{
+  "arxiv_id": "1711.11586",
+  "version": "v4",
+  "title": "Toward Multimodal Image-to-Image Translation",
+  "authors": [
+    "Zhu, Jun-Yan",
+    "Zhang, Richard",
+    "Pathak, Deepak",
+    "Darrell, Trevor",
+    "Efros, Alexei A.",
+    "Wang, Oliver",
+    "Shechtman, Eli"
+  ],
+  "citation": {
+    "citation_title": [
+      "Toward Multimodal Image-to-Image Translation"
+    ],
+    "citation_author": [
+      "Zhu, Jun-Yan",
+      "Zhang, Richard",
+      "Pathak, Deepak",
+      "Darrell, Trevor",
+      "Efros, Alexei A.",
+      "Wang, Oliver",
+      "Shechtman, Eli"
+    ],
+    "citation_date": [
+      "2017/11/30"
+    ],
+    "citation_online_date": [
+      "2018/10/24"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/1711.11586"
+    ],
+    "citation_arxiv_id": [
+      "1711.11586"
+    ],
+    "citation_abstract": [
+      "Many image-to-image translation problems are ambiguous, as a single input image may correspond to multiple possible outputs. In this work, we aim to model a \\emph{distribution} of possible outputs in a conditional generative modeling setting. The ambiguity of the mapping is distilled in a low-dimensional latent vector, which can be randomly sampled at test time. A generator learns to map the given input, combined with this latent code, to the output. We explicitly encourage the connection between output and the latent code to be invertible. This helps prevent a many-to-one mapping from the latent code to the output during training, also known as the problem of mode collapse, and produces more diverse results. We explore several variants of this approach by employing different training objectives, network architectures, and methods of injecting the latent code. Our proposed method encourages bijective consistency between the latent encoding and output modes. We present a systematic comparison of our method and other variants on both perceptual realism and diversity."
+    ]
+  },
+  "url": "https://arxiv.org/abs/1711.11586",
+  "pdf_url": "https://arxiv.org/pdf/1711.11586v4",
+  "retrieved_at": "2026-10-19T10:41:07.943979+00:00",
+  "sha256": "34ba6d5ba956610120f2a37547f070d3cba948ebbdcbdc733b8039678f2cf5dc",
+  "bytes": 3337757,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2017-11-30T18:59:01+00:00"
+    },
+    {
+      "version": "v2",
+      "submitted_at": "2018-02-01T02:56:04+00:00"
+    },
+    {
+      "version": "v3",
+      "submitted_at": "2018-05-02T23:37:28+00:00"
+    },
+    {
+      "version": "v4",
+      "submitted_at": "2018-10-24T00:29:43+00:00"
+    }
+  ],
+  "award": null,
+  "pages": 12,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

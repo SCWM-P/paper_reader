@@ -1,93 +1,56 @@
-# llm-wiki 记录契约 v1
+# 记录契约
 
-本契约约束伴读 AI 填写的内容。helper 只做文件定位、基本结构与引用检查，不判断科学定义或用户理解为真。
+Python 服务、CLI、GUI 和模板使用同一契约。主记录是文件；索引与图谱可重建。
 
-## 记录与定位
+## 存储边界
 
-概念和待归属问题使用 UTF-8 Markdown。唯一机器数据区如下；区外是用户自由笔记，字段更新和索引重建必须保留原文。
+普通工作区默认使用 `.runtime/llm_wiki/`。在 pyproject.toml 的 `tool.paper-reader.wiki.root` 设为 `wiki` 后，公共知识使用可跟踪的 `wiki/`。demo 使用这一设置。锁、服务登记、token 与缓存仍只在 `.runtime/`。
 
-````markdown
-<!-- llm-wiki:data:v1 -->
-```json
-{"schema_version": 1, "questions": [], "reader_evidence": [], "revisions": []}
-```
-<!-- /llm-wiki:data -->
-````
-
-上例是空 unassigned 数据，不是已发生的学习。概念完整字段见 [静态模板](../assets/concept-record-template.md)。不支持的 schema_version 不自动改写；未知附加字段随原记录保留。
-
-- 概念 ID：`c_UUID4`，与 `concepts/c_UUID4.md` 文件名一致。
-- 每次实际问题 ID：`q_UUID4`。名称、数组位置、HTML 的 Q1/Q2 不作为身份。
-- 实际表现 ID：`e_UUID4`。修订用 `r_UUID4`，保存操作用 `op_UUID4`。
-- 学习记录引用：`store:concepts/c_UUID4.md` 或 `store:unassigned.md`，相对本次 `--store` 解析。
-- 论文记录引用：`papers/<分类或论文>/assets/reading-record.json`，相对 workspace 解析。
-- 不在数据引用中保存 `.runtime/llm_wiki` 或迁移 candidate 的物理路径；不允许绝对路径、`..`、其他前缀或符号链接。
-- HTML 问答入口：论文 `note.html#qa-q_UUID4`。它是展示链接；持久记录引用仍使用 record 与 question_id。
-
-## 唯一事实源
-
-| 内容 | 主记录 | 其他记录 |
+| 类型 | 主记录位置 | 用途 |
 | --- | --- | --- |
-| 论文采集元数据 | 论文 metadata 及已有 metadata 资产 | 只保留来源标识、记录路径与锚点 |
-| 共识定义、领域、别名、关系 | 一个概念文件 | 引用 c_ID |
-| 论文专属定义与问题 | 该论文 Q & A | 概念 question_refs |
-| 共识实际问题 | 一个主归属概念的 questions | 其他概念 question_refs |
-| 暂无归属的实际问题 | unassigned.questions | 转存后保留 moved_to |
-| 用户实际表现正文 | 实际问题所属记录的 reader_evidence；论文侧位于该问答内 | current 仅引用 evidence_id |
-| 当前理解判断 | 概念 reader.current 或论文语境 reader_current | 索引为可重建摘要 |
+| concept | concepts/*.md | 跨语境公共概念 |
+| entity | entities/*.md | 有身份的模型、工具、数据集或组织 |
+| query | queries/*.md | 有来源的研究议题；不是实际用户问题 |
+| comparison | comparisons/*.md | 有依据的比较 |
+| synthesis | synthesis/*.md | 有依据的综合 |
+| overview | overview.md | 知识概览 |
+| source | papers/**/assets/reading-record.json | 论文唯一主记录，经适配供 GUI 展示 |
 
-README 的 `<!-- llm-wiki:index:start -->` 与 `<!-- llm-wiki:index:end -->` 之间是派生索引。区外说明和备注保留；原问、证据和定义不以索引为唯一来源。缺索引时直接 find/get 源记录。
+README.md 是入口说明，index.md 是派生索引；两者不作为知识节点。扫描排除 ref_repository、隐藏目录、tmp、node_modules 与符号链接。
 
-## 概念字段
+## YAML 与身份
 
-| 字段 | 内容 |
-| --- | --- |
-| schema_version、id | 1；稳定 c_UUID4 |
-| name、aliases | 规范名、别名数组；同名不代表同义 |
-| domain、definition、scope | 领域、定义、适用边界；未知内容留空并说明 |
-| consensus | status 为 verified/unverified；source_refs 引用本记录 sources 的 source_id |
-| sources | source_id、kind、record 或 url、locator、version_note、verification |
-| relations | type 为 requires/uses/contrasts_with，另存 target_id、scope、source_refs |
-| questions、question_refs | 自己拥有的实际问答；他处引用为 `{record, question_id}` |
-| reader_evidence | 本概念拥有的问题对应的实际表现 |
-| reader.current | state、scope、evidence_refs、reason、updated_at |
-| revisions | revision_id、at、reason、previous、replacement、source_refs |
-| record_status、redirect_to | active + null；或 merged + 目标 c_ID，保留旧 ID 入口 |
-| created_at、updated_at | 实际记录时间；历史未知用 null 并注明原因 |
+知识 Markdown 必须以 YAML frontmatter 开始。只读取当前格式，不保留旧格式入口。正文允许表格、公式、代码、Mermaid 和双链。
 
-source.kind 区分 paper、background、teaching、inference、user。locator 记录已知的章节、式号、图号或 PDF 物理页；version_note 记录版本或缺项。来源路径可解析不代表来源真实，外部页面核验由伴读 AI 完成。
+公共必含字段：`id`、`type`、`title`、`tags`、`related`、`created`、`updated`。tags 与 related 是字符串数组。时间是实际记录时间字符串；历史未知为 null。标题修改不改变身份或文件名。
 
-## 每条实际问题
+concept 使用 c_UUID4；其他知识页面使用 p_UUID4。文件名可以是稳定 ID 或稳定 slug，不随标题重命名。论文的历史 ID 原样保留。
 
-| 字段 | 内容 |
-| --- | --- |
-| id、question | 一次发言的 q_UUID4；逐字原问题，保留换行、引号和符号 |
-| question_form | exact；旧记录无法证明逐字时为 legacy_recorded |
-| question_at、time_note | 已知发言时间；未知为 null 并说明原因，不以 mtime 推断 |
-| recorded_at | 实际登记时间；未知历史登记时间可为 null 并说明 |
-| answer、answer_at、resolution | answer 是字符串；未答为 `""`、null、unanswered；答后为 partial/answered |
-| keywords、related_question_ids、topic_id | 可选检索与归组，不代替原问 |
-| source_refs、concept_refs | 已知来源锚点与概念 ID；缺项注明待核实 |
-| intended_record | 论文记录尚未建立时，暂存预期论文逻辑路径 |
+`[[稳定ID]]`、`[[文件名]]`、`[[目录/文件名|显示标题]]` 通过同一解析器定位记录。重复文件名导致歧义时必须改用稳定 ID。related 也使用该解析器。完整逻辑路径如 `store:concepts/attention.md` 或 `papers/DEMO/.../assets/reading-record.json` 可以直接引用。代码块中的双链不构成关系。
 
-论文问答保留原有 question、answer、origin、evidence。以上字段均为可选附加字段；普通旧记录无需补全才可 check/render。首次建立长期引用时补 ID。仅追加 ID 的历史 EXAMPLE 保持 `legacy_recorded`，不伪造历史时间。
+## 扩展字段与来源
 
-## 理解证据与修订
+- domain：领域；scope：定义或结论的适用范围。
+- definition：概念定义；aliases：别名数组。
+- sources：来源对象数组。每项含本记录唯一 source_id，以及 record 或 url；locator 指明章节、公式、图号或 PDF 物理页。
+- source_refs：只引用本记录的 source_id。
+- consensus：concept 必含，status 为 verified 或 unverified；verified 必须有 source_refs。结构检查只确认依据存在，不能替代公共共识的内容审查。
+- relations：对象数组，每项含 type（requires / uses / contrasts_with）、target_id、scope、source_refs。关系必须有适用范围和来源依据。
+- question_refs：可选，只引用论文的 record 与 q_UUID4，不复制实际问题。
+- entity 表示具名对象，不因发表于论文而被标为公共共识。
 
-每条 reader_evidence 包含 evidence_id、kind、observed_at、recorded_at、scope、actual、question_ref。`actual` 是真实表现或原自述；`question_ref` 指向同一主归属的实际问题。
+上游字段 type/title/tags/related/created/updated 保持原义。本项目增补稳定身份、领域、范围、来源定位与关系依据。旧 name 更新为 title；旧时间字段更新为 created/updated；关联项使用稳定引用。论文作者、年份、出版信息从论文 JSON 读取，不另存 source 摘要。
 
-kind 为 self_report、demonstration、inference、forgotten、correction。current.state 为 unknown、uncertain、demonstrated_in_scope、forgotten。`demonstrated_in_scope` 必须由对应范围的实际 demonstration 支持；自述、AI 讲解或推测不能代替它。evidence_refs 使用 `{record, evidence_id}`，可以跨记录引用表现，但不得复制 actual 正文。
+## 实际问答与理解依据
 
-只限论文语境的表现不自动推广为共识理解。用户遗忘或纠正时新增实际证据，调整 current，保留旧证据。定义或理解修订写 previous、replacement、reason 和依据；新来源不自动覆盖旧定义或用户状态。
+实际问答只保存在论文 JSON 的 `Q & A`。每问含稳定 q_UUID4、逐字 question、answer、question_form（exact / legacy_recorded）。resolution 为 unanswered / partial / answered。新问未答时 answer 为空字符串；未知历史时间保持 null，不补造。
 
-## 转存与合并
+reader_evidence 随所属论文问题保存，含 e_UUID4、kind、actual、scope、question_ref。kind 为 self_report、demonstration、inference、forgotten 或 correction。question_ref 必须回指同一论文中存在的问题。reader_current 的判断必须引用实际 evidence_refs；demonstrated_in_scope 需要同范围 demonstration。原问、稳定身份和既有证据必须保留。知识页面不保存个人问答或理解状态。
 
-unassigned 转存保留 q_ID 和关联 e_ID。目标保存并回读后，原条目改为：
+论文继续沿用四个必要模块：metadata、summary、highlights、Q & A。AI 整理的摘要标 degraded，未讨论论文的 Q & A 为 []。EXAMPLE 每次随最新协议验收，保留全部历史内容、元数据与资源。
 
-```json
-{"id": "q_<原UUID4>", "moved_to": {"record": "store:concepts/c_<目标UUID4>.md", "question_id": "q_<原UUID4>", "evidence_ids": []}}
-```
+## 保存
 
-这是形状示意，占位符必须替换。原条目不再保存 question、answer 或已转存的实际表现；旧问题与证据引用经 moved_to 解析。两步间有重复正文时，先完成转存，再重建索引。
+先读取 SHA256，再提交候选内容和基准。新记录基准为 missing。保存使用跨进程锁、核对基准、原子替换；冲突返回明确错误。外部不遵守锁的编辑器不具备事务保证。
 
-概念合并时，旧概念设 merged/redirect_to，历史问题与证据仍留原文件；目标仅引用它们。禁止重定向环。两份原问不能同时被当作主记录。
+响应分别报告 source（主记录）、index、html。HTML 或索引失败不撤销已成功的主记录，也不伪报主记录失败。记录身份不可改；论文编辑只更新实际 Q & A。内容编辑不建立备份、回滚副本或并行协议。

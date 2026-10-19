@@ -11,7 +11,7 @@
 如果是一段新的会话，请依次完成以下初始化：
 
 ### [1] 初始化 skills
-本项目的技能位于 `.agents/skills/`。
+本项目的技能位于`.agents/skills/`。
 检查 harness 是否能发现该目录；可以则直接加载并阅读相关 `SKILL.md`。否则将需要的技能复制到 harness 支持的配置目录，保留项目内的原始技能，已有配置先合并而不覆盖，然后加载新添加的 skills 并阅读`SKILL.md`，并将该 harness 配置目录添加到`.gitignore`中。
 完成后打印一条告知 `[INFO] 初始化skills | 完成...`
 
@@ -26,7 +26,7 @@
 ### [4] 检查 git 远端仓库和分支
 
 如果用户需要启用借助代码托管仓库的跨设备文献与知识库同步功能，请检查 git 当前的代码仓库指向，**禁止指向**原始仓库 `https://github.com/SCWM-P/paper_reader`。
-请在用户授权下 fork 一份到用户的个人代码仓库，然后指向该个人代码仓库用于同步个人资料，必要时可在用户同意下将仓库可见性设置为  `Private`。
+请在用户授权下 fork 一份到用户的个人代码仓库，然后指向该个人代码仓库用于同步个人资料，必要时可在用户同意下将仓库可见性设置为`Private`。
 
 ### [5] 同步仓库的云端`papers/`路径
 
@@ -54,26 +54,26 @@ paper 2 metadata
 
 ### [6] 检查 llm-wiki 完整性并同步 wiki 资料
 
-读取 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。本地学习入口为 `.runtime/llm_wiki/README.md`，概念记录位于 `concepts/`，暂无归属的实际问题保存在 `unassigned.md`。
+如果 [4] 已就绪，可继续进行以下配置：
+读取 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。知识目录由 pyproject.toml 选择：普通工作区默认 `.runtime/llm_wiki/`，demo 使用可跟踪的 `wiki/`。先执行 `paper wiki list` 浏览概念与实体，再用 query 定向读取。实际问答及理解证据只保存在论文 Q & A。
 
 首次使用且运行目录不存在时，用现有 Python 环境执行：
 
 ```bash
-python -B .agents/skills/llm-wiki/scripts/wiki_store.py init
+paper wiki init
 ```
 
-若工具报告旧学习目录待迁移，按 SKILL 的迁移流程保留原件后继续，不建立两套活动档案。技能或 helper 缺失时，列明缺项并跳过，不声称初始化成功。
+记录统一使用当前无版本号契约，不保留并行格式。技能或 Python 包缺失时，列明缺项并跳过，不声称初始化成功。
 
 已有入口时执行基本文件与引用检查：
 
 ```bash
-python -B .agents/skills/llm-wiki/scripts/wiki_store.py check
+paper wiki check
 ```
 
-发现错误时保留原记录，报告具体路径。检查通过后按当前论文、领域与问题检索并回读相关记录；索引不代替实际证据。
+发现错误时保留原记录，报告具体路径。检查通过后按当前论文、领域与问题检索并回读相关记录。
 
-知识库云端同步尚未配置。`.runtime/` 默认不进入 Git；配置同步对象与远端存储前跳过同步，并打印：
-
+如果 [4] 的配置不可用，请跳过本初始化，然后打印：
 ```markdown
 [WARNING] 知识库同步 ｜ 未启用
 ```
@@ -113,10 +113,12 @@ paper_reader/
 ├── AGENTS.md                         伴读 AI 通用上下文注入口
 ├── pyproject.toml                    Python 依赖与翻译默认参数
 ├── .agents/skills/zotero/            伴读运行工具、模板和第三方许可证
-├── .agents/skills/llm-wiki/          知识维护、伴读协议和本地文件 helper
+├── .agents/skills/llm-wiki/          知识维护协议、Python 核心与浏览器 GUI
+├── frontend/                       React/TypeScript 前端源码与构建配置
+├── wiki/                           demo 公共知识（由项目配置选择，可入 Git）
 ├── .runtime/                        本地运行数据（整体不入 Git）
 │   ├── zotero_agent/                授权凭据和可重建索引
-│   └── llm_wiki/                    跨论文概念、实际问答和理解证据
+│   └── llm_wiki/                    锁与服务登记；普通配置也在此保存知识库
 └── papers/                           储存文献实例
        └──EXAMPLE    文献实例的最佳实践样例，请勿删除
             └── Attention Is All You Need/             完整独立的文献实例
@@ -157,12 +159,25 @@ paper_reader/
 conda create -n paper_reader python=3.11
 # 每次工作先激活，再按 pyproject.toml 安装运行依赖。
 conda activate paper_reader
-python -m pip install -e .
+python -m pip install -e ".[gui,pdf,translation]"
 # 安装后可直接使用统一入口；保持在工作空间根目录运行。
 paper --help
 paper check "papers/EXAMPLE/Attention Is All You Need"
 pdf2zh --help
 ```
+
+基础安装 `python -m pip install -e .` 仅安装核心 CLI。`gui`、`pdf`、`translation`、`video` 按需启用。
+
+浏览器知识工作台：
+
+```bash
+paper wiki init
+paper wiki serve --port 8765  # 直接访问 http://127.0.0.1:8765/
+paper wiki status
+paper wiki stop  # 或在启动终端按 Ctrl+C
+```
+
+服务默认只监听 127.0.0.1。打开终端输出的完整链接。GUI 和 CLI 共享保存服务；知识记录使用无版本号的当前契约，不建立历史副本。
 
 ### 教学视频拓展
 视频源码需要时执行：
@@ -179,11 +194,11 @@ python -m pip install -e ".[video]"
 
 ### 论文伴读与知识维护
 
-论文卡点解释、系统讲解、跨论文知识归档与会话接续使用 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。新会话先读 `.runtime/llm_wiki/README.md`，按当前论文、领域和原问题检索，再回读相关主记录与实际证据。AI 根据已知理解范围选择讲解起点；缺记录保持 unknown，不推断用户已经掌握。
+论文卡点解释、系统讲解、跨论文知识库构建使用 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。新会话用 `paper wiki list` 浏览，再用 `paper wiki query` 按当前论文、领域和原问题查询，回读主记录与实际证据。AI 根据真实理解证据选择讲解起点；知识条目数量不代表用户掌握程度。
 
-共识概念保存在 `concepts/c_<UUID>.md`；论文专属定义保留在该论文 `Q & A`。每次实际学习提问保留稳定 q_ID 和原问，追问按关联 ID 归组。混合问题只有一个主归属，其他记录保存引用。实际表现随问题主记录保存，概念理解判断引用证据；提问过、讲解过和用户自述不等于真实理解表现。
+公共共识概念保存在 `concepts/c_<UUID>.md`，例如高斯分布、注意力机制、多组学、麦克斯韦方程组。定义必须可跨语境复用；比较和综合页面也遵守此边界。所有实际提问、答复、论文专属定义和理解证据保留在该论文 `Q & A`。每次提问保留稳定 q_ID 和原问，追问按 ID 关联。概念只能引用论文问答，不承接个人讨论。理解判断及其依据保存在论文问答；提问过、讲解过和用户自述不等于真实理解表现。
 
-用户已授权在伴读中自然更新本地记录，无需逐概念请求登记。暂无法归属的问题放在 `unassigned.md`；保存后按 ID 回读。用户可以纠正记录、说明遗忘或跳过自测。表达遵循 CLS，文件契约与恢复方法见 llm-wiki 的 references。
+在伴读中自然更新本地记录，无需逐概念请求登记。缺少论文主记录时说明尚未归档，不建立暂存问题库；保存后按 ID 回读。用户可以纠正记录、说明遗忘或跳过自测。表达遵循 CLS，文件契约与保存方法见 llm-wiki 的 references。
 
 ### Zotero SKILL
 
@@ -236,7 +251,7 @@ paper figures "path/to/your/paper.pdf" --out "path/to/your/<paper>/assets/figure
 - `highlights` 说明主要价值和贡献，可由用户/伴读AI形成；
 - `Q & A` 保留每条实际原问，answer 精简整合实际答复。相关话题与追问通过稳定 ID 关联，不用摘要替换原问；尚未讨论时填空数组。旧记录无法确认逐字原问时标记 `question_form: legacy_recorded`；
 
-问答可以附加稳定 `id: q_<UUID4>`。HTML 对应 `note.html#qa-q_<UUID4>`，重排问答不改变该入口；未带 ID 的普通旧记录继续支持检查与渲染。
+阅读记录必须包含 `type: source`。每条实际问答必须有稳定 `id: q_<UUID4>` 和 question_form。HTML 对应 `note.html#qa-q_<UUID4>`，重排问答不改变该入口。
 
 完整性由四个必要模块分别检查，`others` 不参与检查：
 
@@ -255,9 +270,9 @@ paper figures "path/to/your/paper.pdf" --out "path/to/your/<paper>/assets/figure
 ```
 
 状态表中每个模块仅有 `status`，值为 `complete` 或 `degraded`；模块名与记录一致，包括 `Q & A`。
-省略状态时按内容检查；状态不能覆盖缺失或空内容。任何必要模块显式标记 `degraded` 都会输出 WARNING。
+省略状态时按内容检查。任何必要模块显式标记 `degraded` 都会输出 WARNING。
 缺少必要模块或必要内容为空输出 ERROR；`Q & A` 字段存在但为空时只输出 WARNING。
-检查结果由各模块汇总，优先级为 ERROR、WARNING、OK；不依据正文中的“降级”等词猜测状态。
+检查结果由各模块汇总，优先级为 ERROR、WARNING、OK。
 
 ```bash
 paper check "papers/EXAMPLE/Attention Is All You Need"
@@ -265,23 +280,24 @@ paper check "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json
 ```
 
 报告只列四个模块。退出码 0 表示无错误（可有 WARNING），1 表示必要模块错误，2 表示文件、JSON 或命令错误。
-WARNING 会在阅读页面和 Zotero 摘要中提示，不阻止导出。`check` 不检查 PDF、图片或 `others` 中的扩展内容。
-只维护当前规范：SKILL 或约定改变时同步更新 EXAMPLE 的记录及页面，其他实例由伴读 AI 按最新规范整理。
+WARNING 会在阅读页面和 Zotero 摘要中提示。`check` 不检查 PDF、图片或 `others` 中的扩展内容。
 
-JSON 的 `others` 根据交流扩展代码、视频、原图、交互图、证据和阅读计划。区分原文结论与自己的推论，写明阅读范围和证据位置。默认 modern 模板提供元数据卡片、贡献卡片、问答检索与折叠、KaTeX 公式、图像放大和交互模块；也支持替换 HTML/CSS 与 AI 编写的新模块。数学字体使用随模板分发的 KaTeX 衬线字体；保持字形度量、上下标与根号定位，独立公式放大显示，多行公式适当增加行间距，长公式在手机端横向滚动。
+JSON 的 `others` 根据交流扩展代码、视频、原图、交互图、证据和阅读计划。区分原文结论与自己的推论，写明阅读范围和证据位置。默认 modern 模板提供元数据卡片、贡献卡片、问答检索与折叠、KaTeX 公式、图像放大和交互模块；也支持替换 HTML/CSS 与 AI 编写的新模块。
 
 ```bash
 # 以EXAMPLE最佳实践为例
-# 导出论文主入口；图片和视频按实例内部相对路径加载。
+# 导出论文主入口；图片和 视频按实例内部相对路径加载。
 paper render --file "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json" --out "papers/EXAMPLE/Attention Is All You Need/note.html" --asset-mode relative --force
 # 用户要求登记到正常 Zotero 条目时，生成资源内嵌版并保存附件与原生摘要。
 paper zotero html-note PAPER_KEY --file "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json" --out "papers/EXAMPLE/Attention Is All You Need/tmp/zotero-note.html" --apply
 ```
 
-两种页面共享记录与模板。本地入口引用本篇资产；Zotero 附件内嵌公式字体、图片和视频，原生摘要提供一键打开链接并支持跨会话 recall。更大视频按用户选择保留观看入口。保存后用真实页面检查公式、原图、问答、交互和视频；移动论文目录后资源继续加载。
+保存后用真实页面检查公式、原图、问答、交互和视频。
 
 ## Git 跟踪规范
 
 - 版本库跟踪 `AGENTS.md`、`pyproject.toml`、运行用 Zotero skill 和 `papers/` 中的阅读产物及必要源码。
 - `.gitignore`维护工作目录的忽略规则，如果不存在请重建。`.gitignore`应该包含自身，包含所有(各级)缓存文件如`__pycache__`, `.vscode`, `.DS_Store`等, 包含 harness 配置目录如 `.codex`, `.claude`, `.dsh`等，以及工作目录运行数据 `.runtime/`。
 - 新增阅读产物可检查后暂存；提交、推送同步到远端仓库按用户本次授权执行。
+- 协议、模板或读写器变更时，必须按最新 schema 更新 EXAMPLE 的记录与页面，并在提交前完成正式命令和真实页面验收。
+- 文件资产只保留当前格式，不添加独立版本号或兼容副本；项目版本未经授权不得递增。开发参考目录 ref_repository 不进入 Git 跟踪或提交。

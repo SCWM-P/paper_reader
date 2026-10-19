@@ -1,0 +1,102 @@
+{
+  "type": "source",
+  "id": "p_d9b60c8a-431b-4522-ad58-e08887d84a81",
+  "title": "Toward Multimodal Image-to-Image Translation",
+  "metadata": {
+    "title": "Toward Multimodal Image-to-Image Translation",
+    "author": [
+      "Zhu, Jun-Yan",
+      "Zhang, Richard",
+      "Pathak, Deepak",
+      "Darrell, Trevor",
+      "Efros, Alexei A.",
+      "Wang, Oliver",
+      "Shechtman, Eli"
+    ],
+    "date": "2017/11/30",
+    "publicationTitle": "NIPS 2017",
+    "url": "https://arxiv.org/abs/1711.11586",
+    "arxiv_id": "1711.11586",
+    "version": "v4",
+    "DOI": "10.48550/arXiv.1711.11586",
+    "retrieved_at": "2026-10-19T10:41:07.943979+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2017-11-30T18:59:01+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2018-02-01T02:56:04+00:00"
+      },
+      {
+        "version": "v3",
+        "submitted_at": "2018-05-02T23:37:28+00:00"
+      },
+      {
+        "version": "v4",
+        "submitted_at": "2018-10-24T00:29:43+00:00"
+      }
+    ],
+    "pdf_sha256": "34ba6d5ba956610120f2a37547f070d3cba948ebbdcbdc733b8039678f2cf5dc",
+    "pdf_pages": 12,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": null
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/1711.11586"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：BicycleGAN 建模同一输入对应多个合理输出的条件图像分布。它将图像重建与潜变量重建结合，使生成器更难忽略随机潜变量，从而兼顾感知真实性与输出多样性。",
+  "highlights": [
+    "对比 cVAE-GAN、cLR-GAN 与两者结合的训练目标。",
+    "显式建立潜空间与输出之间的双向约束。",
+    "在配对图像翻译任务中评估真实性与多样性，不能直接推定非配对任务同样有效。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: Multimodal image-to-image translation using our proposed method: given an input image from",
+          "page": 2,
+          "bbox": [
+            105.0,
+            70.0,
+            507.0,
+            208.0
+          ],
+          "method": "manual PDF-point crop"
+        },
+        {
+          "id": "figure-2",
+          "file": "figures/figure-2.png",
+          "caption": "Figure 2: Overview: (a) Test time usage of all the methods. To produce a sample output, a latent code z is",
+          "page": 3,
+          "bbox": [
+            105.0,
+            65.0,
+            507.0,
+            305.0
+          ],
+          "method": "manual PDF-point crop"
+        }
+      ]
+    }
+  ]
+}

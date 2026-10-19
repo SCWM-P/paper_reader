@@ -1,0 +1,89 @@
+{
+  "type": "source",
+  "id": "p_99467059-0780-43ee-8cac-9772ccb62c91",
+  "title": "Artificial Hivemind: The Open-Ended Homogeneity of Language Models (and Beyond)",
+  "metadata": {
+    "title": "Artificial Hivemind: The Open-Ended Homogeneity of Language Models (and Beyond)",
+    "author": [
+      "Jiang, Liwei",
+      "Chai, Yuanjun",
+      "Li, Margaret",
+      "Liu, Mickel",
+      "Fok, Raymond",
+      "Dziri, Nouha",
+      "Tsvetkov, Yulia",
+      "Sap, Maarten",
+      "Albalak, Alon",
+      "Choi, Yejin"
+    ],
+    "date": "2025/10/27",
+    "publicationTitle": "NeurIPS 2025",
+    "url": "https://arxiv.org/abs/2510.22954",
+    "arxiv_id": "2510.22954",
+    "version": "v2",
+    "DOI": "10.48550/arXiv.2510.22954",
+    "retrieved_at": "2026-10-19T10:41:43.285688+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2025-10-27T03:16:21+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2026-10-06T17:33:55+00:00"
+      }
+    ],
+    "pdf_sha256": "c1ac82916d2f76aa501e96a50466030d432c67eec42fdb8ddc11344f83a152fe",
+    "pdf_pages": 70,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "NeurIPS 2025",
+      "name": "Best Paper",
+      "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    "publication_year": 2025
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2510.22954"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文使用 Infinity-Chat 研究语言模型对开放式问题的输出多样性。结果区分同一模型重复生成的相似性与不同模型之间的同质化，并结合人类偏好标注分析评价偏差。",
+  "highlights": [
+    "提供真实开放式问题的数据集与任务分类。",
+    "分别测量模型内重复和模型间同质化。",
+    "关注个体偏好差异；数据集中的用户问题不会导入本工作区作为个人问答。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: Responses to the query “Write a metaphor about time” clustered by applying PCA to",
+          "page": 2,
+          "bbox": [
+            188.6656951904297,
+            47.29359436035156,
+            511.14581298828125,
+            294.8604431152344
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

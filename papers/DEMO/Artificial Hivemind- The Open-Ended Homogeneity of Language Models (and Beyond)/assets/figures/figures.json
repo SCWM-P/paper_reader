@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1: Responses to the query “Write a metaphor about time” clustered by applying PCA to",
+    "page": 2,
+    "bbox": [
+      188.6656951904297,
+      47.29359436035156,
+      511.14581298828125,
+      294.8604431152344
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

@@ -1,0 +1,134 @@
+{
+  "type": "source",
+  "id": "p_8a125c90-6d01-4c24-b2e6-46df664d6348",
+  "title": "Kimi Linear: An Expressive, Efficient Attention Architecture",
+  "metadata": {
+    "title": "Kimi Linear: An Expressive, Efficient Attention Architecture",
+    "author": [
+      "Kimi Team",
+      "Zhang, Yu",
+      "Lin, Zongyu",
+      "Yao, Xingcheng",
+      "Hu, Jiaxi",
+      "Meng, Fanqing",
+      "Liu, Chengyin",
+      "Men, Xin",
+      "Yang, Songlin",
+      "Li, Zhiyuan",
+      "Li, Wentao",
+      "Lu, Enzhe",
+      "Liu, Weizhou",
+      "Chen, Yanru",
+      "Xu, Weixin",
+      "Yu, Longhui",
+      "Wang, Yejie",
+      "Fan, Yu",
+      "Zhong, Longguang",
+      "Yuan, Enming",
+      "Zhang, Dehao",
+      "Zhang, Yizhi",
+      "Liu, T. Y.",
+      "Wang, Haiming",
+      "Fang, Shengjun",
+      "He, Weiran",
+      "Liu, Shaowei",
+      "Li, Yiwei",
+      "Su, Jianlin",
+      "Qiu, Jiezhong",
+      "Pang, Bo",
+      "Yan, Junjie",
+      "Jiang, Zhejun",
+      "Huang, Weixiao",
+      "Yin, Bohong",
+      "You, Jiacheng",
+      "Wei, Chu",
+      "Wang, Zhengtao",
+      "Hong, Chao",
+      "Chen, Yutian",
+      "Chen, Guanduo",
+      "Wang, Yucheng",
+      "Zheng, Huabin",
+      "Wang, Feng",
+      "Liu, Yibo",
+      "Dong, Mengnan",
+      "Zhang, Zheng",
+      "Pan, Siyuan",
+      "Wu, Wenhao",
+      "Wu, Yuhao",
+      "Guan, Longyu",
+      "Tao, Jiawen",
+      "Fu, Guohong",
+      "Xu, Xinran",
+      "Wang, Yuzhi",
+      "Lai, Guokun",
+      "Wu, Yuxin",
+      "Zhou, Xinyu",
+      "Yang, Zhilin",
+      "Du, Yulun"
+    ],
+    "date": "2025/10/30",
+    "publicationTitle": "arXiv preprint",
+    "url": "https://arxiv.org/abs/2510.26692",
+    "arxiv_id": "2510.26692",
+    "version": "v2",
+    "DOI": "10.48550/arXiv.2510.26692",
+    "retrieved_at": "2026-10-19T10:41:02.711915+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2025-10-30T16:59:43+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2025-11-01T12:05:18+00:00"
+      }
+    ],
+    "pdf_sha256": "e2e23a449fc9bb27e34e783d20b2e6cd0f1ac67d58efdc0479c03c54db956a17",
+    "pdf_pages": 28,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": null
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2510.26692"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：Kimi Linear 将 Kimi Delta Attention 与 Multi-Head Latent Attention 按层组合。作者在统一训练设置下报告质量与解码效率收益；这些结果适用于文中的模型规模、任务与硬件设置。",
+  "highlights": [
+    "KDA 用更细粒度门控更新有限状态记忆。",
+    "分块算法利用特定的对角加低秩转移结构，减少计算与缓存开销。",
+    "混合结构保留部分全注意力层；线性注意力不等于无限、无损的历史存储。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: (a) Performance vs. acceleration. With strict fair comparisons with 1.4T training tokens, on MMLU-Pro (4k context length,",
+          "page": 1,
+          "bbox": [
+            85.57275390625,
+            454.4268798828125,
+            528.9949340820312,
+            632.2303466796875
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

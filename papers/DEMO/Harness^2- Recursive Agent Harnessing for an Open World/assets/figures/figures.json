@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figures/figure-1.png",
+    "caption": "Figure 1 | Overall performance. Left: WorkBuddy-Bench by domain for Gemini 3.5 Flash under",
+    "page": 1,
+    "bbox": [
+      60,
+      445,
+      535,
+      619
+    ],
+    "method": "manual PDF-point crop; visually reviewed"
+  }
+]

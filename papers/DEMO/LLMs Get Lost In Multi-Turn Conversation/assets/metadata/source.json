@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2505.06120",
+  "version": "v1",
+  "title": "LLMs Get Lost In Multi-Turn Conversation",
+  "authors": [
+    "Laban, Philippe",
+    "Hayashi, Hiroaki",
+    "Zhou, Yingbo",
+    "Neville, Jennifer"
+  ],
+  "citation": {
+    "citation_title": [
+      "LLMs Get Lost In Multi-Turn Conversation"
+    ],
+    "citation_author": [
+      "Laban, Philippe",
+      "Hayashi, Hiroaki",
+      "Zhou, Yingbo",
+      "Neville, Jennifer"
+    ],
+    "citation_date": [
+      "2025/05/09"
+    ],
+    "citation_online_date": [
+      "2025/05/09"
+    ],
+    "citation_pdf_url": [
+      "https://arxiv.org/pdf/2505.06120"
+    ],
+    "citation_arxiv_id": [
+      "2505.06120"
+    ],
+    "citation_abstract": [
+      "Large Language Models (LLMs) are conversational interfaces. As such, LLMs have the potential to assist their users not only when they can fully specify the task at hand, but also to help them define, explore, and refine what they need through multi-turn conversational exchange. Although analysis of LLM conversation logs has confirmed that underspecification occurs frequently in user instructions, LLM evaluation has predominantly focused on the single-turn, fully-specified instruction setting. In this work, we perform large-scale simulation experiments to compare LLM performance in single- and multi-turn settings. Our experiments confirm that all the top open- and closed-weight LLMs we test exhibit significantly lower performance in multi-turn conversations than single-turn, with an average drop of 39% across six generation tasks. Analysis of 200,000+ simulated conversations decomposes the performance degradation into two components: a minor loss in aptitude and a significant increase in unreliability. We find that LLMs often make assumptions in early turns and prematurely attempt to generate final solutions, on which they overly rely. In simpler terms, we discover that *when LLMs take a wrong turn in a conversation, they get lost and do not recover*."
+    ]
+  },
+  "url": "https://arxiv.org/abs/2505.06120",
+  "pdf_url": "https://arxiv.org/pdf/2505.06120v1",
+  "retrieved_at": "2026-10-19T10:41:32.086235+00:00",
+  "sha256": "d77f8955d696beabde2a6ed85b43d64fb81b2b496e76474d6f97607e5a164cbc",
+  "bytes": 1865278,
+  "version_history": [
+    {
+      "version": "v1",
+      "submitted_at": "2025-05-09T15:21:44+00:00"
+    }
+  ],
+  "award": {
+    "conference": "ICLR 2026",
+    "name": "Outstanding Paper",
+    "source_url": "https://blog.iclr.cc/2026/04/23/announcing-the-iclr-2026-outstanding-papers/"
+  },
+  "pages": 36,
+  "pdf_open_check": "PyMuPDF opened every page and extracted text"
+}

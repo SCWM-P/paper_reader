@@ -1,0 +1,95 @@
+{
+  "type": "source",
+  "id": "p_a4246ceb-d2a3-4dab-81d4-59dd5a2c226d",
+  "title": "Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models",
+  "metadata": {
+    "title": "Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models",
+    "author": [
+      "Cheng, Xin",
+      "Tian, Rui",
+      "Zeng, Wangding",
+      "Dai, Damai",
+      "Chen, Qinyu",
+      "Wang, Bingxuan",
+      "Xie, Zhenda",
+      "Huang, Kezhao",
+      "Yu, Xingkai",
+      "Deng, Chengqi",
+      "Zhou, Shangyan",
+      "Zhao, Chenggang",
+      "Hao, Zhewen",
+      "Li, Yukun",
+      "Zhang, Han",
+      "Zhang, Zhengyan",
+      "Wei, Yixu",
+      "Xu, M. Y",
+      "Zhang, Huishuai",
+      "Zhao, Dongyan",
+      "Liang, Wenfeng"
+    ],
+    "date": "2026/01/12",
+    "publicationTitle": "arXiv preprint",
+    "url": "https://arxiv.org/abs/2601.07372",
+    "arxiv_id": "2601.07372",
+    "version": "v2",
+    "DOI": "10.48550/arXiv.2601.07372",
+    "retrieved_at": "2026-10-19T10:41:14.306870+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2026-01-12T09:54:49+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2026-07-12T07:41:31+00:00"
+      }
+    ],
+    "pdf_sha256": "8eab2dd35e4557d4142e5959697836f6cf926d0fbc29016257f1eea5be73df5d",
+    "pdf_pages": 35,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": null
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2601.07372"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：Engram 以局部 N-gram 为键查询参数表，探索条件记忆与 MoE 条件计算的组合。作者研究两者之间的容量分配，并报告知识、推理与长上下文任务上的结果。",
+  "highlights": [
+    "通过压缩分词、多头哈希与上下文门控实现可扩展查询。",
+    "在参数与计算预算匹配的设置中比较 MoE 与组合模型。",
+    "确定性寻址支持预取；查询参数表不同于检索外部文档。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1 | The Engram Architecture. The module augments the backbone by retrieving static 𝑁-",
+          "page": 3,
+          "bbox": [
+            74.20500183105469,
+            130.12619018554688,
+            520.5836791992188,
+            402.60504150390625
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

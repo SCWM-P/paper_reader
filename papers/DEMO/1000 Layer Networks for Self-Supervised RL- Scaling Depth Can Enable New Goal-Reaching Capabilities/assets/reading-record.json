@@ -1,0 +1,96 @@
+{
+  "type": "source",
+  "id": "p_56bb3da5-8a5b-4c5a-8778-3846c734a6e4",
+  "title": "1000 Layer Networks for Self-Supervised RL: Scaling Depth Can Enable New Goal-Reaching Capabilities",
+  "metadata": {
+    "title": "1000 Layer Networks for Self-Supervised RL: Scaling Depth Can Enable New Goal-Reaching Capabilities",
+    "author": [
+      "Wang, Kevin",
+      "Javali, Ishaan",
+      "Bortkiewicz, Michał",
+      "Trzciński, Tomasz",
+      "Eysenbach, Benjamin"
+    ],
+    "date": "2025/03/19",
+    "publicationTitle": "NeurIPS 2025",
+    "url": "https://arxiv.org/abs/2503.14858",
+    "arxiv_id": "2503.14858",
+    "version": "v5",
+    "DOI": "10.48550/arXiv.2503.14858",
+    "retrieved_at": "2026-10-19T10:41:38.403820+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2025-03-19T03:33:57+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2025-03-22T22:24:37+00:00"
+      },
+      {
+        "version": "v3",
+        "submitted_at": "2025-11-23T02:37:33+00:00"
+      },
+      {
+        "version": "v4",
+        "submitted_at": "2026-02-02T00:42:18+00:00"
+      },
+      {
+        "version": "v5",
+        "submitted_at": "2026-10-05T03:07:28+00:00"
+      }
+    ],
+    "pdf_sha256": "94ba961e7379a143ceab773c4c5097289875d0d4679dd8e2259a6bef94a512f5",
+    "pdf_pages": 28,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "NeurIPS 2025",
+      "name": "Best Paper",
+      "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    "publication_year": 2025
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2503.14858"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文在无外部奖励的目标条件自监督 RL 中研究网络深度。作者发现加深网络可改善多个运动、导航与操作任务，并在部分深度处出现行为变化。",
+  "highlights": [
+    "研究深网络作为自监督对比 RL 的构件。",
+    "测量深度扩展与目标到达表现之间的关系。",
+    "结果限定于文中的训练配置与模拟任务，不代表增加深度总能改善所有 RL 系统。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: Scaling network depth yields performance gains across a suite of locomotion, navigation, and",
+          "page": 2,
+          "bbox": [
+            100.0,
+            61.584136962890625,
+            512.0015869140625,
+            308.99029541015625
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

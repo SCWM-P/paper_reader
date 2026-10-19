@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1: Qualitative summary of our contributions. (Left) Illustration of the training dynamics",
+    "page": 2,
+    "bbox": [
+      102.57817077636719,
+      61.162933349609375,
+      509.29461669921875,
+      269.3712463378906
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]

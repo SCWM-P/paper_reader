@@ -1,0 +1,69 @@
+{
+  "type": "source",
+  "id": "p_dc3c49f8-c4b6-4296-9d03-183b80aef63a",
+  "title": "High-accuracy sampling for diffusion models and log-concave distributions",
+  "metadata": {
+    "title": "High-accuracy sampling for diffusion models and log-concave distributions",
+    "author": [
+      "Chen, Fan",
+      "Chewi, Sinho",
+      "Daskalakis, Constantinos",
+      "Rakhlin, Alexander"
+    ],
+    "date": "2026/02/01",
+    "publicationTitle": "ICML 2026",
+    "url": "https://arxiv.org/abs/2602.01338",
+    "arxiv_id": "2602.01338",
+    "version": "v2",
+    "DOI": "10.48550/arXiv.2602.01338",
+    "retrieved_at": "2026-10-19T10:41:37.023454+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2026-02-01T17:05:31+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2026-04-27T16:01:17+00:00"
+      }
+    ],
+    "pdf_sha256": "3262376a641f1305f0734d52e44787307bb4fadd25a50bee4608dabcfab16f82",
+    "pdf_pages": 43,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "ICML 2026",
+      "name": "Outstanding Paper Award",
+      "source_url": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+    },
+    "publication_year": 2026
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2602.01338"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文研究仅访问 score 或对数密度梯度时的高精度采样复杂度。作者通过 first-order rejection sampling 构造方法，使目标误差的依赖达到多对数级；结论依赖分布与 score 误差假设。",
+  "highlights": [
+    "给出不直接查询密度值的拒绝采样构造。",
+    "分别分析扩散模型与对数凹分布的采样保证。",
+    "理论查询复杂度不等于已有生成系统的端到端实测加速。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": []
+    }
+  ]
+}

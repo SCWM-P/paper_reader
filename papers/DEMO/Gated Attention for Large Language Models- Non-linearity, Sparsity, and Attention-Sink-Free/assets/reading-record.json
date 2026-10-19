@@ -1,0 +1,88 @@
+{
+  "type": "source",
+  "id": "p_aecd9ad7-6c41-4118-a1f4-717d66c57abd",
+  "title": "Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free",
+  "metadata": {
+    "title": "Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free",
+    "author": [
+      "Qiu, Zihan",
+      "Wang, Zekun",
+      "Zheng, Bo",
+      "Huang, Zeyu",
+      "Wen, Kaiyue",
+      "Yang, Songlin",
+      "Men, Rui",
+      "Yu, Le",
+      "Huang, Fei",
+      "Huang, Suozhi",
+      "Liu, Dayiheng",
+      "Zhou, Jingren",
+      "Lin, Junyang"
+    ],
+    "date": "2025/05/10",
+    "publicationTitle": "NeurIPS 2025",
+    "url": "https://arxiv.org/abs/2505.06708",
+    "arxiv_id": "2505.06708",
+    "version": "v1",
+    "DOI": "10.48550/arXiv.2505.06708",
+    "retrieved_at": "2026-10-19T10:41:41.731505+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2025-05-10T17:15:49+00:00"
+      }
+    ],
+    "pdf_sha256": "949c7ed67dea3ddc6b88854cf72631ed2e1f466ad4c824c8aa1286739bcf2359",
+    "pdf_pages": 17,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "NeurIPS 2025",
+      "name": "Best Paper",
+      "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    "publication_year": 2025
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2505.06708"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文系统比较 softmax 注意力中的门控位置与形式。作者发现 SDPA 之后的逐头 sigmoid 门控在其训练设置下改善性能、训练稳定性与长上下文外推。",
+  "highlights": [
+    "把作用拆为非线性映射与查询相关稀疏门控。",
+    "测量门控对 attention sink 的影响。",
+    "保留完整注意力计算；输出门控本身不等同于线性注意力或 KV 压缩。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: Left: Investigated positions for applying gating operations.; Middle: Performance comparison (Test PPL",
+          "page": 2,
+          "bbox": [
+            61.621002197265625,
+            41.26580810546875,
+            531.1107177734375,
+            234.43997192382812
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

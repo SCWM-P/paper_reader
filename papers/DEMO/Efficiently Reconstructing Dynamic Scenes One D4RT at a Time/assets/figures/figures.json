@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figures/figure-1.png",
+    "caption": "Figure 1. D4RT is a unified, efficient, feedforward method for",
+    "page": 1,
+    "bbox": [
+      315.0,
+      239.0,
+      555.0,
+      452.0
+    ],
+    "method": "manual PDF-point crop"
+  }
+]

@@ -1,0 +1,83 @@
+{
+  "type": "source",
+  "id": "p_6f75ee5d-a736-4d57-b623-8969b4d17daa",
+  "title": "Why Diffusion Models Don't Memorize: The Role of Implicit Dynamical Regularization in Training",
+  "metadata": {
+    "title": "Why Diffusion Models Don't Memorize: The Role of Implicit Dynamical Regularization in Training",
+    "author": [
+      "Bonnaire, Tony",
+      "Urfin, Raphaël",
+      "Biroli, Giulio",
+      "Mézard, Marc"
+    ],
+    "date": "2025/05/23",
+    "publicationTitle": "NeurIPS 2025",
+    "url": "https://arxiv.org/abs/2505.17638",
+    "arxiv_id": "2505.17638",
+    "version": "v2",
+    "DOI": "10.48550/arXiv.2505.17638",
+    "retrieved_at": "2026-10-19T10:43:09.664574+00:00",
+    "version_history": [
+      {
+        "version": "v1",
+        "submitted_at": "2025-05-23T08:58:47+00:00"
+      },
+      {
+        "version": "v2",
+        "submitted_at": "2025-10-28T13:54:07+00:00"
+      }
+    ],
+    "pdf_sha256": "86767a6fa0129b383638a3eb82e1c97e707118290f36ff195b1cdbd69e2b776f",
+    "pdf_pages": 40,
+    "note_author": "AI 整理；尚未与用户讨论",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "award": {
+      "conference": "NeurIPS 2025",
+      "name": "Best Paper",
+      "source_url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    "publication_year": 2025
+  },
+  "paper": {
+    "file": "../paper.pdf",
+    "url": "https://arxiv.org/abs/2505.17638"
+  },
+  "summary": "AI 整理（降级；尚未讨论）：论文研究扩散模型训练中泛化先于记忆出现的时间窗口。实验与简化理论模型显示，记忆出现时间随数据规模增长，而有效生成可以更早形成。",
+  "highlights": [
+    "区分形成高质量生成与出现训练样本记忆的两个时间尺度。",
+    "通过 U-Net 实验与随机特征模型分析训练动力学。",
+    "隐式正则化不保证永久不记忆；继续训练和数据规模都会改变结果。"
+  ],
+  "Q & A": [],
+  "completeness": {
+    "summary": {
+      "status": "degraded"
+    }
+  },
+  "others": [
+    {
+      "title": "阅读范围与依据",
+      "content": "依据最新公开 PDF 的摘要、引言与方法概要整理。尚未逐项复核实验，也未形成用户阅读结论。来源与版本见元数据。"
+    },
+    {
+      "title": "原文插图",
+      "figures": [
+        {
+          "id": "figure-1",
+          "file": "figures/figure-1.png",
+          "caption": "Figure 1: Qualitative summary of our contributions. (Left) Illustration of the training dynamics",
+          "page": 2,
+          "bbox": [
+            102.57817077636719,
+            61.162933349609375,
+            509.29461669921875,
+            269.3712463378906
+          ],
+          "method": "caption + vector/image bounds; visually review crop"
+        }
+      ]
+    }
+  ]
+}

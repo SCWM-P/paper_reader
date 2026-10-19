@@ -1,0 +1,15 @@
+[
+  {
+    "id": "figure-1",
+    "file": "figure-1.png",
+    "caption": "Figure 1: Scaling network depth yields performance gains across a suite of locomotion, navigation, and",
+    "page": 2,
+    "bbox": [
+      100.0,
+      61.584136962890625,
+      512.0015869140625,
+      308.99029541015625
+    ],
+    "method": "caption + vector/image bounds; visually review crop"
+  }
+]
