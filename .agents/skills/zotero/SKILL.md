@@ -127,7 +127,8 @@ BibTeX 同样依赖完整元数据；citation key 用于定位引文，最终排
 项目 `AGENTS.md` 包含了伴读约定。
 通常将每篇论文独立保存在 `papers/<文章标题>/`，用户分类时可位于更深子目录。基本结构为原始 PDF、
 `note.html`、`assets/figures/` 与本论文的 `tmp/`；缺失原文或关键插图时说明原因与待补齐项。
-翻译产物按需放 `translation/`，教学视频、绘制源码和字幕放 `assets/videos/`，
+翻译产物按需放 `translation/`。视频成片、字幕、封面、章节数据与播放页放 `assets/videos/`，
+视频制作源码与讲稿配置放 `assets/code/video/`，其他阅读复现代码放 `assets/code/`。
 结构化记录放 `assets/reading-record.json`，元数据与 BibTeX 放 `assets/metadata/`。
 额外 `others/` 目录在告知用户并取得同意后留存。各论文资产向实例内部索引，环境依赖由外部提供。
 
