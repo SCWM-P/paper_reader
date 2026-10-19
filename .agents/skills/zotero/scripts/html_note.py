@@ -9,7 +9,8 @@ import os
 import re
 from pathlib import Path
 from urllib.parse import quote
-from reading_record import normalize_record, author_names
+from .reading_record import normalize_record, author_names
+from .record_check import check_record
 
 ASSETS = Path(__file__).resolve().parents[1] / "assets"
 THEMES = {"modern": "现代伴读", "tufte": "Tufte 旁注", "latex": "LaTeX 学术", "github": "GitHub 简洁"}
@@ -167,9 +168,15 @@ def build_body(record, theme, asset_base=None, output_base=None):
     qa = []
     for i, entry in enumerate(record['Q & A']):
         origin = str(entry.get('origin', '伴读讨论'))
-        qa.append('<details class="qa-card" open><summary><span class="qa-index">Q'+str(i+1)+'</span><span>'+html.escape(entry['question'])+'</span></summary><div class="qa-answer"><span class="qa-origin">'+html.escape(origin)+'</span>'+paragraph(entry.get('answer') or '待下一次讨论继续解答。')+evidence_content(record,entry.get('evidence',[]),theme,compact=True)+'</div></details>')
+        question_id = entry['id']
+        anchor = ' id="qa-' + question_id + '"'
+        qa.append('<details class="qa-card"' + anchor + ' open><summary><span class="qa-index">Q'+str(i+1)+'</span><span>'+html.escape(entry['question'])+'</span></summary><div class="qa-answer"><span class="qa-origin">'+html.escape(origin)+'</span>'+paragraph(entry.get('answer') or '待下一次讨论继续解答。')+evidence_content(record,entry.get('evidence',[]),theme,compact=True)+'</div></details>')
     questions = '<div class="qa-tools"><label>查找讨论 <input type="search" class="qa-search" placeholder="问题或解答中的关键词"></label><button type="button" class="qa-expand">展开全部</button><button type="button" class="qa-collapse">收起全部</button><span class="qa-count" aria-live="polite"></span></div><div class="qa-list">'+''.join(qa)+'</div>' if qa else '<p class="module-empty">本次交流尚未登记问答；后续讨论可持续追加。</p>'
     blocks=[('metadata','文献元数据',metadata),('summary','阅读结论','<div class="summary-callout">'+paragraph(record['summary'])+'</div>'),('highlights','学术价值与贡献',highlights),('qa','伴读 Q & A',questions)]
+    checked = check_record(record)["modules"]
+    blocks = [(key, title, ('<p class="module-warning">WARNING · ' + html.escape(checked["Q & A" if key == "qa" else key]["message"]) + '</p>'
+                            if checked["Q & A" if key == "qa" else key]["status"] == "warning" else '') + content)
+              for key, title, content in blocks]
     extensions=[];anchors=[];used={'metadata','summary','highlights','qa','others'}
     for i, entry in enumerate(record.get('others', [])):
         key = str(entry.get('id',f'extension-{i+1}'))
@@ -217,6 +224,7 @@ def render(record, theme="modern", template_file=None, css_file=None, body_file=
     if theme not in THEMES:
         raise ValueError("Unknown theme")
     record = normalize_record(record)
+    record['paper'] = dict(record.get('paper', {}))
     if output_base is not None and record.get('paper', {}).get('file'):
         record['paper']['pdf_url'] = asset_uri(Path(asset_base or '.') / record['paper']['file'], 'application/pdf', output_base)
     body, toc = build_body(record, theme, asset_base, output_base)
@@ -287,8 +295,8 @@ def render(record, theme="modern", template_file=None, css_file=None, body_file=
     return re.sub(r"\{\{([A-Z_]+)\}\}", lambda match: values[match[1]], template)
 
 
-def main():
-    p = argparse.ArgumentParser(description=__doc__)
+def main(argv=None, *, prog=None):
+    p = argparse.ArgumentParser(prog=prog, description=__doc__)
     p.add_argument("--file", required=True, help="structured reading-note JSON")
     p.add_argument("--out", required=True, help="standalone .html file")
     p.add_argument("--theme", choices=THEMES, default="modern")
@@ -297,7 +305,7 @@ def main():
     p.add_argument("--css-file", help="append authored CSS")
     p.add_argument("--body-file", help="explicit authored HTML fragment (not a Markdown converter)")
     p.add_argument("--force", action="store_true", help="replace an existing local export")
-    a = p.parse_args()
+    a = p.parse_args(argv)
     try:
         out = Path(a.out).expanduser().resolve()
         if out.suffix.casefold() != ".html":

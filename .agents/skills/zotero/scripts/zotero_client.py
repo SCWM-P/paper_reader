@@ -60,16 +60,18 @@ def normalize_base(value):
 
 
 def config_dir():
-    if os.environ.get("ZOTERO_AGENT_HOME"):
-        return Path(os.environ["ZOTERO_AGENT_HOME"]).expanduser()
-    if sys.platform == "win32":
-        base = Path(os.environ.get("APPDATA") or Path.home() / "AppData/Roaming")
-    elif sys.platform == "darwin":
-        base = Path.home() / "Library/Application Support"
-    else:
-        base = Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config")
-    return base / "zotero-agent"
-
+    """Create workspace-local runtime storage; overrides resolve from the working directory."""
+    location = os.environ.get("ZOTERO_AGENT_HOME")
+    runtime = Path(location).expanduser().resolve() if location else Path.cwd() / ".runtime/zotero_agent"
+    directories = [runtime] if location else [runtime.parent, runtime]
+    for directory in directories:
+        directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        try:
+            with (directory / ".gitignore").open("x", encoding="utf-8") as ignored:
+                ignored.write("*\n")
+        except FileExistsError:
+            pass  # Preserve existing runtime ignore rules.
+    return runtime
 
 def key_path():
     return config_dir() / "local_api_key.json"

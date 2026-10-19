@@ -6,8 +6,9 @@ import re
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from zotero_client import ZoteroError, equivalent_field
-from reading_record import normalize_record, author_names
+from .zotero_client import ZoteroError, equivalent_field
+from .reading_record import normalize_record, author_names
+from .record_check import check_record
 
 
 def normalize_doi(value):
@@ -81,11 +82,16 @@ def reading_note_html(z, parent_key, record):
     if item["data"]["itemType"] in ("attachment", "note", "annotation"):
         raise ValueError("Choose the bibliographic parent for reading notes")
     esc = lambda x: html.escape(str(x), quote=True)
+    checked = check_record(record)["modules"]
+    def heading(module, title):
+        row = checked[module]
+        notice = '<p class="module-warning">WARNING · ' + html.escape(row['message']) + '</p>' if row['status'] == 'warning' else ''
+        return '<h2>' + title + '</h2>' + notice
     body = [f'<h1>{esc(record.get("title", "AI Reading Summary"))}</h1>',
             f'<p>文献：<a href="{esc(z.select_uri(parent_key))}">{esc(item["data"].get("title", parent_key))}</a></p>',
-            '<h2>文献元数据</h2><p>'+esc(record['metadata']['title'])+'</p><p>'+esc('; '.join(author_names(record['metadata'])))+'</p>',
+            heading('metadata', '文献元数据')+'<p>'+esc(record['metadata']['title'])+'</p><p>'+esc('; '.join(author_names(record['metadata'])))+'</p>',
             f'<p>记录时间：{esc(record.get("recorded_at", "待补充"))}；记录者：{esc(record.get("note_author", record.get("author", "AI 伴读")))}</p>',
-            f'<h2>阅读结论</h2><p>{esc(record["summary"])}</p>']
+            heading('summary', '阅读结论')+f'<p>{esc(record["summary"])}</p>']
     for key in ('date','publicationTitle','proceedingsTitle','conferenceName','volume','issue','pages','publisher','DOI','url'):
         if record['metadata'].get(key): body.insert(4,'<p>'+esc(key)+': '+esc(record['metadata'][key])+'</p>')
     if record.get("html_attachment_key"):
@@ -95,11 +101,11 @@ def reading_note_html(z, parent_key, record):
             raise ValueError("Choose this paper's HTML reading attachment")
         scope = "library" if z.library == "users/0" else z.library
         body.insert(2, f'<p><a href="zotero://open/{scope}/items/{esc(key)}">打开 HTML 阅读笔记</a></p>')
-    body.append('<h2>学术价值与贡献</h2>')
+    body.append(heading('highlights', '学术价值与贡献'))
     for entry in record['highlights']:
         if isinstance(entry,str): body.append('<p>'+esc(entry)+'</p>')
         else: body.append('<h3>'+esc(entry.get('title','主要贡献'))+'</h3><p>'+esc(entry.get('content',''))+'</p>')
-    body.append('<h2>伴读 Q &amp; A</h2>')
+    body.append(heading('Q & A', '伴读 Q &amp; A'))
     for entry in record['Q & A']:
         body.append('<h3>'+esc(entry['question'])+'</h3><p>'+esc(entry.get('answer') or '待继续讨论')+'</p>')
     evidence=[]
@@ -211,7 +217,7 @@ def attach_pdf(z, parent, file_path, apply=False):
 def save_html_note(z, parent, record, out, theme="modern", slot="reading-summary",
                    expected_version=None, apply=False, template_file=None, css_file=None, body_file=None, asset_base=None):
     """Export a reading page and keep its stored attachment and native summary together."""
-    from html_note import render
+    from .html_note import render
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", slot):
         raise ValueError("Use lowercase letters, digits and hyphens for slot")
     paper = z.item(parent)["data"]

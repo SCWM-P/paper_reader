@@ -34,3 +34,5 @@ body.focus .page-shell{grid-template-columns:minmax(0,1fr);max-width:920px}body.
 .note .math-block .katex-display{margin:.8em 0;width:max-content;min-width:100%}
 .note .math-block .katex-display>.katex{font-size:1.15em;text-align:center}
 @media(max-width:700px){.note .math-block{font-size:17px;padding:16px 2px}.note .equation-card{padding:18px 16px}}
+
+.module-warning { padding: .65rem .9rem; border-inline-start: 3px solid #b7791f; background: rgba(183,121,31,.10); border-radius: .35rem; font-size: .92rem; }

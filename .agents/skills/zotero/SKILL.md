@@ -8,39 +8,45 @@ description: Use Zotero for literature reading and archiving on Windows, macOS, 
 用 Zotero 保存文献、引用元数据与阅读记录，通过本机索引快速接续历史阅读。
 支持正在运行的 Zotero 10+ 本地 API；文库读写、索引与 HTML 渲染使用 Python 3.10+ 标准库。
 PDF 插图提取按需使用独立环境中的 PyMuPDF。
-本目录保留 SKILL.md、scripts/ 和运行所需的 assets/。
+本目录包含 SKILL.md、Python 入口、scripts/ 和运行所需的 assets/。
 
 ## 入口与连接
 
-使用宿主或项目已有的 Python 环境，在 Zotero 所在电脑执行。脚本位于本 skill 的 scripts/，
-下列 python 表示已选解释器；macOS/Linux 通常用 python3。路径含空格时加引号。
-
-```powershell
-# Windows PowerShell：定位实际 skill 路径并检查本地连接
-$sk = (Resolve-Path '.agents/skills/zotero/scripts').Path
-python "$sk/zotero_ops.py" doctor
-```
+使用宿主或项目已有的 Python 环境，在 Zotero 所在电脑的伴读工作目录执行；本项目从
+`paper_reader/` 根目录启动。安装一次后使用统一入口 `paper`：
 
 ```bash
-# macOS/Linux：替换为实际 skill 路径，使用已有 Python 3.10+ 环境
-sk="/path/to/zotero/scripts"
-python3 "$sk/zotero_ops.py" doctor
+python -m pip install -e .
+paper --help
+paper zotero doctor
 ```
+
+各平台使用相同命令。若单独复制本 skill，可在工作目录执行
+`python "/path/to/skills/zotero" COMMAND ...`，使用相同的 check、zotero、authorize、render、metadata、figures 子命令。
+保持工作目录不变；路径含空格时加引号。`paper COMMAND --help` 查看该工具参数。
 
 首次使用检查 doctor。它自动发现本机 loopback API，默认端口 23119；
 可用 ZOTERO_LOCAL_API 指定地址，ZOTERO_PROFILE_DIR / ZOTERO_DATA_DIR 覆盖路径发现。
-用户配置位于 Windows %APPDATA%/zotero-agent、macOS ~/Library/Application Support/zotero-agent、
-Linux ${XDG_CONFIG_HOME:-~/.config}/zotero-agent；ZOTERO_AGENT_HOME 可覆盖。
-凭据和可重建索引存这里；附件实际路径通过 API 获取。
+运行数据默认自动建立在当前工作目录的 `.runtime/zotero_agent/`，各平台一致：
+- `local_api_key.json` 保存本机授权凭据；`indexes/` 保存可重建检索缓存。
+- 目录内及默认的 `.runtime/` 内自动建立 `.gitignore`，保留已有规则；项目根 `.gitignore` 也应忽略整个 `.runtime/`。
+- `ZOTERO_AGENT_HOME` 可显式覆盖位置；相对路径以当前工作目录解析。不同工作目录默认各自独立，跨会话从同一目录启动即可复用。
+附件实际路径通过 API 获取。已有用户级数据需先在本机迁移到所选运行目录；工具不再自动读取用户级缓存。
+移除 Zotero skill 后，删除 `.runtime/zotero_agent/` 即可清理本地缓存与保存的密钥；撤销 Zotero 端授权需在 Zotero 中完成。
 
 ```bash
 # 首次写入时申请本地授权；在 Zotero 弹窗选择 Always Allow，方便多步附件保存
-python zotero_authorize.py
+paper authorize
 ```
 
-已有授权直接复用。遇到 401 时申请新授权；403 检查 API 设置或文库权限；
-412 重新读取当前版本；连接失败检查应用、API 设置和脚本是否与 Zotero 同机。
-密钥由工具保存到用户配置目录，执行时保持私密。
+已有授权直接复用。
+
+- `401`，申请新授权；
+- `403`，检查 API 设置或文库权限；
+- `412`，重新读取当前版本；
+
+连接失败检查应用、API 设置和脚本是否与 Zotero 同机。
+密钥由工具保存到运行目录，执行时保持私密。
 
 ## 按用户意图执行
 
@@ -52,19 +58,19 @@ python zotero_authorize.py
 | 保存阅读笔记 | 组织阅读 record → reading-note，需要 HTML 时用 html-note |
 | 整理文库 | 读取当前分类 → collection / organize / tag |
 
-以下示例在 scripts/ 中运行；也可使用脚本绝对路径。
+以下命令保持在伴读工作目录运行。
 默认个人库 users/0。群组先运行 groups，再在子命令前指定 --library groups/ID。
 --help 可查看全部参数。
 
 ```bash
 # 找到目标条目，查看作者、版本、附件与已有笔记
-python zotero_ops.py items --top --q 'Attention Is All You Need'
-python zotero_ops.py show PAPER_KEY
+paper zotero items --top --q 'Attention Is All You Need'
+paper zotero show PAPER_KEY
 # 读取已有 PDF 的全文；多份 PDF 根据 show 的结果选择附件 key
-python zotero_ops.py fulltext PDF_KEY --all
-python zotero_ops.py path PDF_KEY
+paper zotero fulltext PDF_KEY --all
+paper zotero path PDF_KEY
 # 查询历史结论；自动刷新元数据、摘要、笔记和标注索引
-python zotero_ops.py recall 'multi-head attention' --limit 5
+paper zotero recall 'multi-head attention' --limit 5
 ```
 
 缓存全文适合定位，公式、图表和页码回到 PDF 核对。写明实际阅读章节、版本与证据位置。
@@ -79,13 +85,13 @@ recall QUERY --offline --server-id ID，报告缓存时间。换电脑后从同�
 
 ```bash
 # 根据 DOI、arXiv 标识符或网页地址自动采集，保存报告与可导入元数据
-python zotero_metadata.py collect 'arXiv:1706.03762' --out /path/metadata.json --item-out /path/item.json
+paper metadata collect 'arXiv:1706.03762' --out /path/metadata.json --item-out /path/item.json
 # 已配置官方 translation-server 时复用 Zotero translators
-python zotero_metadata.py collect 'https://publisher.example/paper' --translator 'http://127.0.0.1:1969' --item-out /path/item.json
+paper metadata collect 'https://publisher.example/paper' --translator 'http://127.0.0.1:1969' --item-out /path/item.json
 # 完成来源核对后去重并保存
-python zotero_ops.py import --file /path/item.json --apply
+paper zotero import --file /path/item.json --apply
 # 按需保存本机 PDF 为文献的 stored attachment
-python zotero_ops.py attach PAPER_KEY --file /path/paper.pdf --apply
+paper zotero attach PAPER_KEY --file /path/paper.pdf --apply
 ```
 
 基础采集支持 Crossref DOI、arXiv Atom、网页 citation_*/Dublin Core；可选官方
@@ -118,8 +124,8 @@ BibTeX 同样依赖完整元数据；citation key 用于定位引文，最终排
 
 ### 本地文献实例
 
-项目有 `workAGENTS.md` 时读取其伴读约定。通常将每篇论文独立保存在
-`papers/<文章标题>/`，用户分类时可位于更深子目录。基本结构为原始 PDF、
+项目 `AGENTS.md` 包含了伴读约定。
+通常将每篇论文独立保存在 `papers/<文章标题>/`，用户分类时可位于更深子目录。基本结构为原始 PDF、
 `note.html`、`assets/figures/` 与本论文的 `tmp/`；缺失原文或关键插图时说明原因与待补齐项。
 翻译产物按需放 `translation/`，教学视频、绘制源码和字幕放 `assets/videos/`，
 结构化记录放 `assets/reading-record.json`，元数据与 BibTeX 放 `assets/metadata/`。
@@ -127,7 +133,7 @@ BibTeX 同样依赖完整元数据；citation key 用于定位引文，最终排
 
 ```bash
 # 论文主入口使用相对资源路径，移动整个实例目录后可继续阅读。
-python html_note.py --file 'papers/Attention Is All You Need/assets/reading-record.json' --out 'papers/Attention Is All You Need/note.html' --asset-mode relative --force
+paper render --file 'papers/Attention Is All You Need/assets/reading-record.json' --out 'papers/Attention Is All You Need/note.html' --asset-mode relative --force
 ```
 
 输入资源路径相对于 record 所在目录；输出自动换算为相对于 HTML 所在论文根目录的路径。
@@ -139,14 +145,17 @@ KaTeX、字体、模板样式与交互脚本持续内联，阅读页面可离线
 
 阅读 record 使用四个核心字段。metadata 对接采集管线，有哪些字段就保留哪些；
 至少含 title 和 author。summary 简短表达结论与理解，highlights 写主要学术价值，
-Q & A 记录用户与 AI 的实际讨论。others 按本次伴读需要自由拓展。
+Q & A 的 question 保留实际原问，answer 精简整合实际答复；相关追问通过稳定 ID 关联，不用摘要替换原问。
+others 按本次伴读需要自由拓展。
 
 ```json
 {
+  "type": "source",
   "metadata": {"title": "论文标题", "author": ["作者姓名"], "date": "2026", "url": "https://example.org/paper"},
   "summary": "核心结论与自己的理解，尽可能简短。",
   "highlights": [{"title": "主要贡献", "content": "它解决了什么问题，带来了什么学术价值。"}],
-  "Q & A": [{"question": "用户在伴读中提出的问题", "answer": "讨论形成的解答", "origin": "用户讨论"}],
+  "Q & A": [],
+  "completeness": {"summary": {"status": "complete"}},
   "others": [{"title": "本次继续阅读", "content": "根据讨论选择的补充内容。"}]
 }
 ```
@@ -157,17 +166,46 @@ metadata 可直接填 collect 的完整报告或 --item-out 内容，工具保�
 recorded_at、subtitle 和 paper 对象（key/library/title/url/select_uri）。
 highlights 支持文字或贡献数组；Q & A 使用 question/answer 对象数组。尚未讨论时填 []，
 未完成的解答可留空以便接续。AI 自拟练习题标为“AI 补充”，用户讨论保留实际内容和上下文。
-旧记录的 read_scope/evidence/limitations/questions/next_steps 可继续读取；新记录按四个核心模块组织，
 范围、出处和后续问题根据需要放在 others。
+完整性由四个必要模块分别检查，`others` 不参与检查：
+
+| 模块 | 必要性与检查 |
+| --- | --- |
+| `metadata` | 必要，非空 |
+| `summary` | 必要，非空；标记降级时输出 **WARNING** |
+| `highlights` | 必要，非空 |
+| `Q & A` | 必要，空数组输出 **WARNING**；非空通过 |
+| `others` | 非必要，不检查 |
+
+降级使用独立的 `completeness` 状态表，保留模块现有内容格式。例如：
+
+```json
+"completeness": {"summary": {"status": "degraded"}}
+```
+
+状态表中每个模块仅有 `status`，值为 `complete` 或 `degraded`；模块名与记录一致，包括 `Q & A`。
+省略状态时按内容检查；状态不能覆盖缺失或空内容。任何必要模块显式标记 `degraded` 都会输出 WARNING。
+缺少必要模块或必要内容为空输出 ERROR；`Q & A` 字段存在但为空时只输出 WARNING。
+检查结果由各模块汇总，优先级为 ERROR、WARNING、OK；不依据正文中的“降级”等词猜测状态。
+
+```bash
+paper check "papers/EXAMPLE/Attention Is All You Need"
+paper check "papers/EXAMPLE/Attention Is All You Need/assets/reading-record.json" --json
+```
+
+报告只列四个模块。退出码 0 表示无错误（可有 WARNING），1 表示必要模块错误，2 表示文件、JSON 或命令错误。
+WARNING 会在阅读页面和 Zotero 摘要中提示，不阻止导出。`check` 不检查 PDF、图片或 `others` 中的扩展内容。
+只维护当前规范：SKILL 或约定改变时同步更新 EXAMPLE 的记录及页面，其他实例由伴读 AI 按最新规范整理。
+
 区分作者结论、原文证据与自己的推论；用自然、书面的正向陈述表达。直接写阅读范围、内容和用途，省去多余的否定与转折。
 
 ```bash
 # 保存可检索的原生子笔记
-python zotero_ops.py reading-note PAPER_KEY --file /path/reading.json --apply
+paper zotero reading-note PAPER_KEY --file /path/reading.json --apply
 # 导出单文件 HTML；默认 modern，另有 tufte / latex / github
-python html_note.py --file /path/reading.json --out /path/reading.html --theme modern
+paper render --file /path/reading.json --out /path/reading.html --theme modern
 # 导出并登记 HTML 附件及带打开链接的原生摘要
-python zotero_ops.py html-note PAPER_KEY --file /path/reading.json --out /path/reading.html --apply
+paper zotero html-note PAPER_KEY --file /path/reading.json --out /path/reading.html --apply
 ```
 
 默认 reading-summary 表示每篇文献的主笔记位置，可用 --slot 划分 methods 等阶段。
@@ -183,7 +221,7 @@ CSS 与许可证随 assets/ 分发，输出使用系统字体并内联资源，�
 
 ```bash
 # 替换样式、正文片段或完整骨架；按需求提供对应参数
-python html_note.py --file /path/reading.json --out /path/reading.html --css-file /path/style.css --body-file /path/body.html --template-file /path/template.html
+paper render --file /path/reading.json --out /path/reading.html --css-file /path/style.css --body-file /path/body.html --template-file /path/template.html
 ```
 
 html-note 同样支持这些替换参数。正文文件用 HTML fragment；整页模板至少含 {{TITLE}}、{{BODY_HTML}}。
@@ -196,6 +234,11 @@ BEHAVIOR_JS 已包含 KaTeX、公式初始化和交互模块；整页模板在�
 更大的专题知识库可选 [Quarto](https://quarto.org/docs/output-formats/html-basics) 或 [MyST](https://mystmd.org/guide)。
 
 ### others：按讨论需要拓展
+
+当前原文存在知识卡点、需要系统讲解或跨会话接续时，参见 [llm-wiki](../llm-wiki/SKILL.md)。
+跨论文公共知识使用 `paper wiki list` 浏览、`paper wiki query` 定向读取。目录由项目配置选择；实际问答与理解证据只保存在论文记录。
+论文专属公式、变量及定义继续记入该论文的实际 `Q & A`。混合问题只有一个主归属，概念用 record/question_id 引用。
+每条实际问答必须有 `id: q_<UUID4>` 和 question_form，生成稳定 HTML 入口 `#qa-q_<UUID4>`。历史措辞无法核实时使用 legacy_recorded，不补造发言时间。
 
 others 可省略，推荐使用按阅读顺序排列的模块数组；也支持文字或“名称 → 内容”对象。
 每个模块用 title 命名，可填 id 供目录跳转，content 写文字或条目列表。
@@ -257,9 +300,9 @@ figure 保留图号、原始页序、替代文本和解读；点击放大，PDF 
 
 ```bash
 # 在已有 PyMuPDF 环境中执行；按图注和矢量/图片边界定位，输出 PNG 与 figures.json
-python pdf_figures.py /path/paper.pdf --out /path/reading/figures --pages 3 4
+paper figures /path/paper.pdf --out /path/reading/figures --pages 3 4
 # 裁剪需要修正时指定物理页序和 PDF 点坐标；也适用于扫描页的人工定位
-python pdf_figures.py /path/paper.pdf --out /path/reading/figures --pages 3 --crop 'figure-1:3:180,60,430,405'
+paper figures /path/paper.pdf --out /path/reading/figures --pages 3 --crop 'figure-1:3:180,60,430,405'
 ```
 
 先查看输出图像，检查标签、箭头、图例、分图和边界。图注启发式适合布局清楚的电子 PDF；
@@ -286,12 +329,12 @@ transformer 模块提供可点击的编码器/解码器计算流。界面明确�
 
 ```bash
 # 查看集合，按 key 选择目标；追加成员与标签
-python zotero_ops.py items --collections
-python zotero_ops.py organize PAPER_KEY --collection COLLECTION_KEY --tag attention --apply
+paper zotero items --collections
+paper zotero organize PAPER_KEY --collection COLLECTION_KEY --tag attention --apply
 # 创建或复用同父级同名集合
-python zotero_ops.py collection '本周阅读' --apply
+paper zotero collection '本周阅读' --apply
 # 小范围元数据修改，changes.json 只包含需更新字段
-python zotero_ops.py update PAPER_KEY --file /path/changes.json --expected-version VERSION --apply
+paper zotero update PAPER_KEY --file /path/changes.json --expected-version VERSION --apply
 ```
 
 用户要求保存/整理即可完成对应写入；普通检索保持只读。--apply 表示执行已授权的保存。
@@ -306,7 +349,8 @@ python zotero_ops.py update PAPER_KEY --file /path/changes.json --expected-versi
 
 ## 分发与使用环境
 
-压缩包包含 zotero/SKILL.md、scripts/ 和 assets/（模板、KaTeX/字体、第三方许可证）。
+压缩包包含 zotero/SKILL.md、__init__.py、__main__.py、scripts/ 和 assets/（模板、KaTeX/字体、第三方许可证）。
 解压到宿主能发现的 skills 目录，保持该目录结构；已有 Python 3.10+ 可运行核心工作流。
 PDF 提图按需选择 PyMuPDF 环境，结构化解析工具也按需配置。
-依赖、Zotero 授权与索引使用当地环境及用户配置目录；换机后运行 doctor 并重新发现本机文库。
+依赖使用本机环境，Zotero 授权与索引保存在伴读工作目录的 `.runtime/zotero_agent/`；运行数据不随 Git 同步。
+换机后在工作目录运行 doctor、重新授权并从本机文库建立索引。
