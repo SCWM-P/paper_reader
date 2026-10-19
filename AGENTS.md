@@ -129,7 +129,8 @@ paper_reader/
                 │   ├── reading-record.json  可持续编辑的结构化阅读记录
                 │   ├── metadata/            采集元数据与出版方 BibTeX
                 │   ├── figures/             原文插图、图号、页序和裁剪信息
-                │   └── videos/              按需保存视频、绘制源码、旁白和字幕
+                │   ├── code/                阅读复现代码；video/ 保存视频制作源码与讲稿配置
+                │   └── videos/              视频成片、字幕、封面、章节数据与播放页
                 ├── translation/             按需保存译文和双语 PDF
                 └── tmp/                     本论文的探针、日志和处理过程文件
 ```
@@ -142,9 +143,9 @@ paper_reader/
 - 如需要额外留存资料，创建和留存前告知用户并取得同意。笔记 JSON 的 `others` 是讨论扩展字段，可按伴读需要使用。
 - 记录与引用元数据放在 `assets/`。
 - 临时翻译脚本、操作探针、截图和日志放在本论文 `tmp/`。
-- 如有代码复现，作为阅读产物时放在 `assets/code/`。
+- 阅读复现代码放在 `assets/code/`；视频制作源码与讲稿配置放在 `assets/code/video/`。视频成片、字幕、封面、章节数据与播放页放在 `assets/videos/`。
 - `note.html` 的本地资源使用相对于论文根目录的路径，例如 `assets/figures/figure-1.png`。子目录中的页面按所在位置引用实例内部文件。整份论文目录可移动、复制和独立打开。
-- `assets/reading-record.json` 中的资源路径相对于该 JSON 所在目录，例如 `figures/figure-1.png`、`videos/attention-explained.mp4`；渲染器会换算为输出 HTML 的相对路径。记录中的 `paper.file` 可用 `../attention-is-all-you-need.pdf`。
+- `assets/reading-record.json` 中的资源路径相对于该 JSON 所在目录，例如 `figures/figure-1.png`、`videos/attention-from-scratch.mp4`；渲染器会换算为输出 HTML 的相对路径。记录中的 `paper.file` 可用 `../attention-is-all-you-need.pdf`。
 - PDF 译文保留在 translation，原文持续保留；记录来源、版本、采集时间与 PDF 物理页序。目录迁移后更新引用并打开页面确认资源加载。
 - 推荐的单个文献实例文件夹大小不超过 30MB，如果有超过请经过用户授权。
 
