@@ -16,10 +16,14 @@ def extract(pdf, out, pages=None, crops=None, dpi=180):
     except ImportError:
         raise SystemExit("Select an environment with PyMuPDF; install it in an isolated environment if needed.")
     out = Path(out)
-    out.mkdir(parents=True, exist_ok=True)
     results = []
     with fitz.open(pdf) as doc:
-        for number in pages or range(1, len(doc) + 1):
+        selected = list(pages) if pages is not None else list(range(1, len(doc) + 1))
+        for number in selected + [coords[0] for coords in (crops or {}).values()]:
+            if type(number) is not int or not 1 <= number <= len(doc):
+                raise ValueError(f'Page must be between 1 and {len(doc)}: {number}')
+        out.mkdir(parents=True, exist_ok=True)
+        for number in selected:
             page = doc[number - 1]
             lines = []
             for block in page.get_text("dict")["blocks"]:
@@ -84,7 +88,11 @@ def main(argv=None, *, prog=None):
         crops[identifier] = [int(page), *map(float, coords.split(","))]
         if not re.fullmatch(r"figure-\d+", identifier) or len(crops[identifier]) != 5:
             p.error("Crop format: figure-1:3:x0,y0,x1,y1")
-    print(json.dumps(extract(a.pdf, a.out, a.pages, crops, a.dpi), ensure_ascii=False, indent=2))
+    try:
+        result = extract(a.pdf, a.out, a.pages, crops, a.dpi)
+    except ValueError as error:
+        p.error(str(error))
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
     return 0
 

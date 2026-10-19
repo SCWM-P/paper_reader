@@ -4,7 +4,7 @@ Python 服务、CLI、GUI 和模板使用同一契约。主记录是文件；索
 
 ## 存储边界
 
-普通工作区默认使用 `.runtime/llm_wiki/`。在 pyproject.toml 的 `tool.paper-reader.wiki.root` 设为 `wiki` 后，公共知识使用可跟踪的 `wiki/`。demo 使用这一设置。锁、服务登记、token 与缓存仍只在 `.runtime/`。
+公共知识统一使用本技能下可跟踪的 `wiki/`。pyproject.toml 的 `tool.paper-reader.wiki.root` 为 `.agents/skills/llm-wiki/wiki`，未配置时也采用此路径。下表中的知识路径相对于该目录。锁、服务登记、token 与缓存仍只在 `.runtime/`。
 
 | 类型 | 主记录位置 | 用途 |
 | --- | --- | --- |
@@ -31,8 +31,8 @@ concept 使用 c_UUID4；其他知识页面使用 p_UUID4。文件名可以是�
 ## 扩展字段与来源
 
 - domain：领域；scope：定义或结论的适用范围。
-- definition：概念定义；aliases：别名数组。
-- sources：来源对象数组。每项含本记录唯一 source_id，以及 record 或 url；locator 指明章节、公式、图号或 PDF 物理页。
+- definition：概念定义的唯一主字段，GUI 与 CLI 直接显示该字段。concept 的 definition、scope、domain 均须包含非空白内容；正文不重复保存定义或范围。aliases 为别名数组。
+- sources：来源对象数组。每项含本记录唯一非空 source_id，以及非空可解析 record 或有效 HTTP(S) url。可选字段没有内容时省略，不保存空字符串。locator 指明章节、公式、图号或 PDF 物理页。URL 格式检查不等于远程页面可访问性或学术内容核验。
 - source_refs：只引用本记录的 source_id。
 - consensus：concept 必含，status 为 verified 或 unverified；verified 必须有 source_refs。结构检查只确认依据存在，不能替代公共共识的内容审查。
 - relations：对象数组，每项含 type（requires / uses / contrasts_with）、target_id、scope、source_refs。关系必须有适用范围和来源依据。
@@ -45,7 +45,9 @@ concept 使用 c_UUID4；其他知识页面使用 p_UUID4。文件名可以是�
 
 实际问答只保存在论文 JSON 的 `Q & A`。每问含稳定 q_UUID4、逐字 question、answer、question_form（exact / legacy_recorded）。resolution 为 unanswered / partial / answered。新问未答时 answer 为空字符串；未知历史时间保持 null，不补造。
 
-reader_evidence 随所属论文问题保存，含 e_UUID4、kind、actual、scope、question_ref。kind 为 self_report、demonstration、inference、forgotten 或 correction。question_ref 必须回指同一论文中存在的问题。reader_current 的判断必须引用实际 evidence_refs；demonstrated_in_scope 需要同范围 demonstration。原问、稳定身份和既有证据必须保留。知识页面不保存个人问答或理解状态。
+reader_evidence 随所属论文问题保存，含 e_UUID4、kind、actual、scope、question_ref。actual 与 scope 必须非空。kind 为 self_report、demonstration、inference、forgotten 或 correction。question_ref 必须回指同一论文中存在的问题；问答内的证据必须归属当前问题。
+
+reader_current 只放在所属问答中，必须包含 state、非空 scope 和 evidence_refs 数组。state 为 unknown、uncertain、demonstrated_in_scope 或 forgotten。unknown 可以使用空 evidence_refs，其他状态必须引用实际证据。引用项含当前论文的 record 与 e_UUID4 格式的 evidence_id，证据必须归属当前问题且 scope 一致。demonstrated_in_scope 还必须包含 demonstration 类型依据。原问、稳定身份和既有证据必须保留。知识页面不保存个人问答或理解状态。
 
 论文继续沿用四个必要模块：metadata、summary、highlights、Q & A。AI 整理的摘要标 degraded，未讨论论文的 Q & A 为 []。EXAMPLE 每次随最新协议验收，保留全部历史内容、元数据与资源。
 

@@ -55,7 +55,7 @@ paper 2 metadata
 ### [6] 检查 llm-wiki 完整性并同步 wiki 资料
 
 如果 [4] 已就绪，可继续进行以下配置：
-读取 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。知识目录由 pyproject.toml 选择：普通工作区默认 `.runtime/llm_wiki/`，demo 使用可跟踪的 `wiki/`。先执行 `paper wiki list` 浏览概念与实体，再用 query 定向读取。实际问答及理解证据只保存在论文 Q & A。
+读取 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。知识目录统一为 `.agents/skills/llm-wiki/wiki/`，由 pyproject.toml 声明并纳入 Git。先执行 `paper wiki list` 浏览概念与实体，再用 query 定向读取。实际问答及理解证据只保存在论文 Q & A。
 
 首次使用且运行目录不存在时，用现有 Python 环境执行：
 
@@ -114,11 +114,12 @@ paper_reader/
 ├── pyproject.toml                    Python 依赖与翻译默认参数
 ├── .agents/skills/zotero/            伴读运行工具、模板和第三方许可证
 ├── .agents/skills/llm-wiki/          知识维护协议、Python 核心与浏览器 GUI
-├── frontend/                       React/TypeScript 前端源码与构建配置
-├── wiki/                           demo 公共知识（由项目配置选择，可入 Git）
+│   ├── scripts/                    Python 核心包与 static/ 构建资源
+│   ├── frontend/                   React/TypeScript 前端源码与构建配置
+│   └── wiki/                       公共知识与派生索引
 ├── .runtime/                        本地运行数据（整体不入 Git）
 │   ├── zotero_agent/                授权凭据和可重建索引
-│   └── llm_wiki/                    锁与服务登记；普通配置也在此保存知识库
+│   └── llm_wiki/                    锁、服务登记与本地运行信息
 └── papers/                           储存文献实例
        └──EXAMPLE    文献实例的最佳实践样例，请勿删除
             └── Attention Is All You Need/             完整独立的文献实例
@@ -196,7 +197,7 @@ python -m pip install -e ".[video]"
 
 论文卡点解释、系统讲解、跨论文知识库构建使用 [llm-wiki SKILL](.agents/skills/llm-wiki/SKILL.md)。新会话用 `paper wiki list` 浏览，再用 `paper wiki query` 按当前论文、领域和原问题查询，回读主记录与实际证据。AI 根据真实理解证据选择讲解起点；知识条目数量不代表用户掌握程度。
 
-公共共识概念保存在 `concepts/c_<UUID>.md`，例如高斯分布、注意力机制、多组学、麦克斯韦方程组。定义必须可跨语境复用；比较和综合页面也遵守此边界。所有实际提问、答复、论文专属定义和理解证据保留在该论文 `Q & A`。每次提问保留稳定 q_ID 和原问，追问按 ID 关联。概念只能引用论文问答，不承接个人讨论。理解判断及其依据保存在论文问答；提问过、讲解过和用户自述不等于真实理解表现。
+公共共识概念保存在 `concepts/<稳定文件名>.md`，文件名使用固定 slug 或 c_UUID4，记录 id 必须为 c_UUID4。标题修改不改变文件名或身份。概念定义只存于 frontmatter 的 definition；正文补充说明，不重复保存定义。定义必须可跨语境复用；比较和综合页面也遵守此边界。所有实际提问、答复、论文专属定义和理解证据保留在该论文 `Q & A`。每次提问保留稳定 q_ID 和原问，追问按 ID 关联。概念只能引用论文问答，不承接个人讨论。理解判断及其依据保存在论文问答；提问过、讲解过和用户自述不等于真实理解表现。
 
 在伴读中自然更新本地记录，无需逐概念请求登记。缺少论文主记录时说明尚未归档，不建立暂存问题库；保存后按 ID 回读。用户可以纠正记录、说明遗忘或跳过自测。表达遵循 CLS，文件契约与保存方法见 llm-wiki 的 references。
 

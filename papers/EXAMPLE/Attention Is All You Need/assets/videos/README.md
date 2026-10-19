@@ -6,10 +6,9 @@
 
 ## 播放
 
-- `video.html`：新版章节导航与旧版对照。
-- `attention-from-scratch.mp4`：新版，8 分 34 秒，1080p/24fps，约 11.2 MiB；中文合成旁白、画面字幕、可切换字幕轨与章节信息。
+- `video.html`：视频章节导航。
+- `attention-from-scratch.mp4`：8 分 34 秒，1080p/24fps，约 11.2 MiB；中文合成旁白、画面字幕、可切换字幕轨与章节信息。
 - `attention-from-scratch.srt`：按独立语音段的真实起止时间生成的字幕。
-- `attention-explained.mp4`：原 Windows 成片，保留原始文件作为对照。
 
 ## 在 Mac 上重做
 
@@ -18,22 +17,22 @@
 ```bash
 conda activate paper_reader
 python -m pip install -e '.[video]'
-python 'papers/EXAMPLE/Attention Is All You Need/assets/videos/build.py' all
+python 'papers/EXAMPLE/Attention Is All You Need/assets/code/video/build.py' all
 ```
 
 `build.py` 使用本机 `say`，不连接语音服务。每一段旁白单独合成、测量，再与相应动画同步；复杂的计算段使用较低语速并增加停顿。
-`lesson.json` 保存文本、分段语速和停顿。`scenes.py` 保存 Manim 0.21.0 动画，`ATTENTION_FONT` 可覆盖字体。
+`../code/video/lesson.json` 保存文本、分段语速和停顿。`../code/video/scenes.py` 保存 Manim 0.21.0 动画，`ATTENTION_FONT` 可覆盖字体。
 音频、TeX/SVG 缓存、分段视频及日志写入本篇论文的 `tmp/video-mac/`，不进入 Git。
 
 分步重做、预览或修改某一章：
 
 ```bash
-python 'papers/EXAMPLE/Attention Is All You Need/assets/videos/build.py' voice
-python 'papers/EXAMPLE/Attention Is All You Need/assets/videos/build.py' render --quality preview
-python 'papers/EXAMPLE/Attention Is All You Need/assets/videos/build.py' package --quality preview
+python 'papers/EXAMPLE/Attention Is All You Need/assets/code/video/build.py' voice
+python 'papers/EXAMPLE/Attention Is All You Need/assets/code/video/build.py' render --quality preview
+python 'papers/EXAMPLE/Attention Is All You Need/assets/code/video/build.py' package --quality preview
 # 从 0 开始编号；例如，只重做点积和加权汇总两章。
-python 'papers/EXAMPLE/Attention Is All You Need/assets/videos/build.py' render --chapters 2,4
-python 'papers/EXAMPLE/Attention Is All You Need/assets/videos/build.py' package
+python 'papers/EXAMPLE/Attention Is All You Need/assets/code/video/build.py' render --chapters 2,4
+python 'papers/EXAMPLE/Attention Is All You Need/assets/code/video/build.py' package
 ```
 
 完整正式渲染必须覆盖全部 12 章。修改旁白后先执行 `voice`，然后重做对应画面并重新打包。
@@ -52,7 +51,7 @@ python 'papers/EXAMPLE/Attention Is All You Need/assets/videos/build.py' package
 
 ## 制作检查
 
-运行 `python 'papers/EXAMPLE/Attention Is All You Need/assets/videos/verify.py'` 检查数值、视频流、字幕、章节、音量统计和十分钟限制。
+发布前核对数值、视频流、字幕、章节、音量统计和十分钟限制。自检脚本属于本地开发资产，不随文献实例分发。
 画面审阅应覆盖每一段字幕的中间与结束状态，特别检查公式截断、标签重叠、遮罩方向及旁白是否先于必要画面。
 最终语音仍是系统合成语音，不能等同于真人演播；教学节奏与声音偏好可继续按实际观看反馈调整。
 

@@ -1,0 +1,24 @@
+include AGENTS.md
+include .agents/skills/llm-wiki/SKILL.md
+recursive-include .agents/skills/llm-wiki/references *.md
+recursive-include .agents/skills/llm-wiki/assets *.md
+recursive-include .agents/skills/llm-wiki/frontend/src *.ts *.tsx *.css
+recursive-include .agents/skills/llm-wiki/frontend/public *.txt
+include .agents/skills/llm-wiki/frontend/package.json
+include .agents/skills/llm-wiki/frontend/package-lock.json
+include .agents/skills/llm-wiki/frontend/tsconfig.json
+include .agents/skills/llm-wiki/frontend/vite.config.ts
+include .agents/skills/llm-wiki/frontend/index.html
+include .agents/skills/llm-wiki/frontend/LICENSE
+include .agents/skills/llm-wiki/frontend/THIRD_PARTY_NOTICES.md
+prune .agents/skills/llm-wiki/frontend/node_modules
+prune .agents/skills/llm-wiki/wiki
+prune ref_repository
+prune test
+prune .runtime
+prune papers
+exclude DEMO.md
+exclude LLM-WIKI-IMPLEMENTATION-PLAN.md
+exclude docs/demo-acceptance.md
+exclude docs/independent-review.md
+global-exclude __pycache__ *.py[cod] .DS_Store

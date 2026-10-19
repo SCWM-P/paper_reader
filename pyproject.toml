@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "paper-reader-workspace"
-version = "0.1.0"
+version = "0.1.1"
 description = "Literature reading, PDF translation and portable paper archives"
 requires-python = ">=3.11,<3.13"
 dependencies = ["PyYAML>=6,<7", "rich>=13,<15"]
@@ -28,7 +28,7 @@ packages = ["paper_reader", "paper_reader.scripts", "paper_reader_wiki"]
 
 [tool.setuptools.package-dir]
 paper_reader = ".agents/skills/zotero"
-paper_reader_wiki = ".agents/skills/llm-wiki/paper_reader_wiki"
+paper_reader_wiki = ".agents/skills/llm-wiki/scripts"
 
 [tool.setuptools.package-data]
 paper_reader_wiki = ["static/*", "static/assets/*", "static/assets/fonts/*"]
@@ -53,4 +53,4 @@ note = "note.html"
 record = "assets/reading-record.json"
 
 [tool.paper-reader.wiki]
-root = "wiki"
+root = ".agents/skills/llm-wiki/wiki"
