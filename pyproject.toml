@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "paper-reader-workspace"
 version = "0.1.1"
 description = "Literature reading, PDF translation and portable paper archives"
+readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = ["PyYAML>=6,<7", "rich>=13,<15"]
 
